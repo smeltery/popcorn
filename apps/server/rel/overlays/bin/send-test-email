@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+
+cd -P -- "$(dirname -- "$0")"
+exec ./popcorn rpc "IO.inspect(Popcorn.Emails.send_email(:test, \"$1\"))"

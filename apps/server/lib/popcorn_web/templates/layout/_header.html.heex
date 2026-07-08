@@ -1,0 +1,105 @@
+<header>
+  <nav>
+    <div class="container">
+      <div class="header-row">
+        <a class="brand" href={~p"/"}>
+          <img src={Routes.static_path(@conn, "/images/logo-red.svg")} />
+        </a>
+        
+<!-- Accessible mobile navigation toggle button -->
+        <button
+          type="button"
+          class="nav-toggle"
+          aria-label="Toggle navigation"
+          aria-controls="header-menu"
+          aria-expanded="false"
+        >
+          <span class="hamburger-icon"></span>
+        </button>
+      </div>
+
+      <div id="header-menu" class="nav-sections">
+        <ul class="primary-links">
+          <li class="nav-item">
+            <a class="nav-link" href="https://docs.popcorn.local/getting-started/">
+              Get started
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href={~p"/explore"}>Explore</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="https://docs.popcorn.local/">Docs</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="https://discourse.popcorn.local/">Forum</a>
+          </li>
+        </ul>
+
+        <div class="search-form">
+          <form action={~p"/search"} method="GET">
+            <input
+              class="mr-2 q"
+              id="search_q"
+              type="search"
+              name="q"
+              value={@conn.params["q"]}
+              placeholder="Search recordings..."
+              aria-label="Search recordings"
+            />
+          </form>
+        </div>
+
+        <ul class="session-info">
+          <li :if={@current_user} class="nav-item">
+            <details class="dropdown">
+              <summary class="nav-link">
+                <img class="avatar" src={avatar_url(@current_user)} />{@current_user.username ||
+                  @current_user.email}
+              </summary>
+
+              <div class="dropdown-menu">
+                <a href={~p"/~#{@current_user}"} class="dropdown-item">Profile</a>
+                <a href={~p"/~#{@current_user}/recordings"} class="dropdown-item">Recordings</a>
+
+                <%= if @current_user.streaming_enabled do %>
+                  <a href={~p"/user/streams"} class="dropdown-item">Streams</a>
+                <% end %>
+
+                <div class="dropdown-divider"></div>
+
+                <a href={~p"/user/edit"} class="dropdown-item">Settings</a>
+
+                <a
+                  :if={@current_user.is_admin && admin_panel_enabled?()}
+                  href="/admin"
+                  class="dropdown-item"
+                >
+                  Admin panel
+                </a>
+
+                <div class="dropdown-divider"></div>
+
+                <.link href={~p"/session"} class="dropdown-item logout" method="delete">
+                  Log out
+                </.link>
+              </div>
+            </details>
+          </li>
+
+          <li :if={!@current_user} class="nav-item">
+            <a href={~p"/login/new"} class="nav-link" id="log-in">
+              Log in
+              <%= if sign_up_enabled?() do %>
+                / Sign up
+              <% end %>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,14 @@
+{
+  "repository": {},
+  "description": " ",
+  "license": "MIT",
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "popcorn-player": "file:../../../packages/player",
+    "phoenix": "1.7.21",
+    "phoenix_html": "3.3.4",
+    "phoenix_live_view": "1.0.18"
+  }
+}

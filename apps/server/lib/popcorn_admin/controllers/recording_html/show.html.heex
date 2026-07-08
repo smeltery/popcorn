@@ -1,0 +1,322 @@
+<.page title={@popcast.title || "Recording ##{@popcast.id}"}>
+  <:status :if={@popcast.archived_at}>
+    <.tag variant={:muted}>archived</.tag>
+  </:status>
+  <:actions>
+    <.button href={~p"/admin/recordings/#{@popcast.id}/edit"}>Edit</.button>
+    <.action_menu>
+      <div class="action-menu-label">visibility</div>
+      <.form
+        :for={vis <- [:public, :unlisted, :private]}
+        for={%{}}
+        action={~p"/admin/recordings/#{@popcast.id}/visibility"}
+        method="post"
+      >
+        <input type="hidden" name="visibility" value={vis} />
+        <button type="submit" disabled={@popcast.visibility == vis}>
+          {if @popcast.visibility == vis, do: "✓ "}{vis}
+        </button>
+      </.form>
+      <hr />
+      <.form for={%{}} action={~p"/admin/recordings/#{@popcast.id}/featured"} method="post">
+        <input
+          type="hidden"
+          name="featured"
+          value={if @popcast.featured, do: "false", else: "true"}
+        />
+        <button type="submit">{if @popcast.featured, do: "Unfeature", else: "Feature"}</button>
+      </.form>
+      <.form
+        :if={is_nil(@popcast.archived_at)}
+        for={%{}}
+        action={~p"/admin/recordings/#{@popcast.id}/archive"}
+        method="post"
+        data-confirm="Archive this recording now?"
+      >
+        <button type="submit">Archive</button>
+      </.form>
+      <.form
+        :if={@popcast.archived_at}
+        for={%{}}
+        action={~p"/admin/recordings/#{@popcast.id}/unarchive"}
+        method="post"
+      >
+        <button type="submit">Unarchive</button>
+      </.form>
+      <hr />
+      <.form
+        for={%{}}
+        method="delete"
+        action={~p"/admin/recordings/#{@popcast.id}"}
+        data-confirm={"Delete recording ##{@popcast.id}?"}
+      >
+        <button type="submit" class="danger">Delete</button>
+      </.form>
+    </.action_menu>
+  </:actions>
+
+  <div class="grid-2">
+    <div class="card-stack">
+      <section class="card">
+        <h3>Overview</h3>
+        <table class="kv">
+          <tbody>
+            <tr>
+              <th>id</th>
+              <td><code>{@popcast.id}</code></td>
+            </tr>
+            <tr>
+              <th>URL</th>
+              <td><.public_link entity={@popcast} /></td>
+            </tr>
+            <tr>
+              <th>user</th>
+              <td><.user_link user={@popcast.user} /></td>
+            </tr>
+            <tr>
+              <th>title</th>
+              <td class="truncate" title={@popcast.title}>
+                {@popcast.title}<.none :if={!@popcast.title} />
+              </td>
+            </tr>
+            <tr>
+              <th>visibility</th>
+              <td>
+                <.tag variant={visibility_variant(@popcast.visibility)}>
+                  {@popcast.visibility}
+                </.tag>
+              </td>
+            </tr>
+            <tr>
+              <th>source</th>
+              <td>
+                <.link
+                  :if={@popcast.stream_id}
+                  href={~p"/admin/streams/#{@popcast.stream_id}"}
+                >
+                  stream {@popcast.stream_id}
+                </.link>
+                <span :if={!@popcast.stream_id} class="muted">upload</span>
+              </td>
+            </tr>
+            <tr>
+              <th>secret token</th>
+              <td><code>{@popcast.secret_token}</code></td>
+            </tr>
+            <tr>
+              <th>created</th>
+              <td><.time_ago time={@popcast.inserted_at} /></td>
+            </tr>
+            <tr>
+              <th>updated</th>
+              <td><.time_ago time={@popcast.updated_at} /></td>
+            </tr>
+            <tr :if={@popcast.archived_at}>
+              <th>archived</th>
+              <td><.time_ago time={@popcast.archived_at} /></td>
+            </tr>
+            <tr>
+              <th>views</th>
+              <td>{(@popcast.stats && @popcast.stats.total_views) || 0}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h3 class="card-head">
+          File
+          <.link
+            href={~p"/admin/recordings/#{@popcast.id}/file"}
+            download={download_filename(@popcast)}
+            class="card-head-action"
+          >
+            Download
+          </.link>
+        </h3>
+        <table class="kv">
+          <tbody>
+            <tr>
+              <th>format</th>
+              <td>popcast v{@popcast.version}</td>
+            </tr>
+            <tr>
+              <th>size</th>
+              <td>
+                <.bytes_summary
+                  compressed={@popcast.compressed_size}
+                  uncompressed={@popcast.uncompressed_size}
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <div class="card-stack">
+      <section class="card">
+        <h3>Settings</h3>
+        <table class="kv">
+          <tbody>
+            <tr>
+              <th>terminal theme</th>
+              <td class="truncate" title={theme_setting_label(@popcast)}>
+                <%= if colors = theme_setting_colors(@popcast) do %>
+                  <.palette_strip colors={colors} />
+                  <span class="muted">
+                    <.sep />{theme_setting_label(@popcast)}
+                  </span>
+                <% else %>
+                  {theme_setting_label(@popcast)}
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <th>terminal font</th>
+              <td>
+                <.term_font
+                  family={@popcast.term_font_family}
+                  line_height={@popcast.term_line_height}
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>terminal cols × rows override</th>
+              <td>
+                <.term_size
+                  :if={@popcast.term_cols_override || @popcast.term_rows_override}
+                  cols={@popcast.term_cols_override || @popcast.term_cols}
+                  rows={@popcast.term_rows_override || @popcast.term_rows}
+                />
+                <.none :if={!(@popcast.term_cols_override || @popcast.term_rows_override)} />
+              </td>
+            </tr>
+            <tr>
+              <th>featured</th>
+              <td>{if @popcast.featured, do: "yes", else: "no"}</td>
+            </tr>
+            <tr>
+              <th>speed</th>
+              <td>
+                {@popcast.speed && "#{@popcast.speed}×"}<.none :if={!@popcast.speed} />
+              </td>
+            </tr>
+            <tr>
+              <th>idle limit</th>
+              <td>
+                {@popcast.idle_time_limit && "#{@popcast.idle_time_limit}s"}<.none :if={
+                  !@popcast.idle_time_limit
+                } />
+              </td>
+            </tr>
+            <tr>
+              <th>audio</th>
+              <td class="truncate" title={@popcast.audio_url}>
+                <.link
+                  :if={@popcast.audio_url}
+                  href={@popcast.audio_url}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {@popcast.audio_url}
+                </.link>
+                <.none :if={!@popcast.audio_url} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <h3>Metadata</h3>
+        <table class="kv">
+          <tbody>
+            <tr>
+              <th>recorded</th>
+              <td>
+                <.time_ago :if={@popcast.recorded_at} time={@popcast.recorded_at} />
+                <.none :if={!@popcast.recorded_at} />
+              </td>
+            </tr>
+            <tr>
+              <th>duration</th>
+              <td>
+                {format_duration(@popcast.duration)}<.none :if={!@popcast.duration} />
+              </td>
+            </tr>
+            <tr>
+              <th>command</th>
+              <td class="truncate" title={@popcast.command}>
+                <code :if={@popcast.command}>{@popcast.command}</code>
+                <.none :if={!@popcast.command} />
+              </td>
+            </tr>
+            <tr>
+              <th>shell</th>
+              <td class="truncate" title={@popcast.shell}>
+                <code :if={@popcast.shell}>{@popcast.shell}</code>
+                <.none :if={!@popcast.shell} />
+              </td>
+            </tr>
+            <tr>
+              <th>terminal cols × rows</th>
+              <td>
+                <.term_size
+                  :if={@popcast.term_cols && @popcast.term_rows}
+                  cols={@popcast.term_cols}
+                  rows={@popcast.term_rows}
+                />
+                <.none :if={!(@popcast.term_cols && @popcast.term_rows)} />
+              </td>
+            </tr>
+            <tr>
+              <th>terminal type & version</th>
+              <td>
+                <.term_type type={@popcast.term_type} version={@popcast.term_version} />
+              </td>
+            </tr>
+            <tr>
+              <th>terminal original theme</th>
+              <td>
+                <%= if colors = original_theme_colors(@popcast) do %>
+                  <.palette_strip colors={colors} />
+                <% else %>
+                  <.none />
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <th>user agent</th>
+              <td class="truncate" title={@popcast.user_agent}>
+                <code :if={@popcast.user_agent}>{@popcast.user_agent}</code>
+                <.none :if={!@popcast.user_agent} />
+              </td>
+            </tr>
+            <tr :for={{name, value} <- env_vars(@popcast)}>
+              <th><span class="truncate" title={name}>{name}</span></th>
+              <td class="truncate" title={value}>
+                <code :if={value != ""}>{value}</code>
+                <.none :if={value == ""} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+
+  <.term_theme_style medium={@popcast} />
+
+  <div
+    id="player"
+    data-src={@player_src}
+    data-player-opts={Jason.encode!(@player_opts)}
+    class="admin-player mt"
+  >
+  </div>
+
+  <%= if desc = render_markdown(@popcast.description) do %>
+    <section class="card mt description">{desc}</section>
+  <% end %>
+</.page>

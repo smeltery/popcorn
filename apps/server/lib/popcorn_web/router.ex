@@ -1,0 +1,160 @@
+defmodule PopcornWeb.Router do
+  use PopcornWeb, :router
+  alias PopcornWeb.Plug.{Authn, TrailingFormat}
+
+  pipeline :browser do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug :fetch_live_flash
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug Authn
+  end
+
+  pipeline :api do
+    plug :accepts, ~w(json)
+  end
+
+  pipeline :beacon do
+    plug :fetch_cookies
+  end
+
+  pipeline :popcast do
+    plug TrailingFormat
+    plug :accepts, ~w(html js json pop txt svg png gif)
+    plug :format_specific_plugs
+    plug :put_secure_browser_headers
+  end
+
+  pipeline :oembed do
+    plug :accepts, ~w(json xml)
+    plug :put_secure_browser_headers
+  end
+
+  pipeline :webfinger do
+    plug :put_format, :json
+  end
+
+  scope "/", PopcornWeb do
+    pipe_through :popcast
+
+    resources "/a", RecordingController, only: [:show, :edit, :update, :delete]
+  end
+
+  scope "/", PopcornWeb do
+    pipe_through :beacon
+
+    post "/a/:recording_id/views", RecordingViewController, :create
+  end
+
+  scope "/", PopcornWeb do
+    pipe_through :oembed
+
+    get "/oembed", OembedController, :show
+  end
+
+  scope "/", PopcornWeb do
+    pipe_through :webfinger
+    get "/.well-known/webfinger", WebFingerController, :show
+  end
+
+  scope "/", PopcornWeb do
+    # Use the default browser stack
+    pipe_through :browser
+
+    get "/", ExploreController, :show
+
+    get "/explore", ExploreController, :show
+    get "/explore/recordings/featured", ExploreController, :featured_recordings
+    get "/explore/recordings/popular", ExploreController, :popular_recordings
+    get "/explore/recordings/recent", ExploreController, :recent_recordings
+    get "/explore/streams/live", ExploreController, :live_streams
+    get "/explore/streams/upcoming", ExploreController, :upcoming_streams
+
+    # legacy explore URLs
+    get "/explore/featured", ExploreController, :featured_recordings
+    get "/explore/public", ExploreController, :recent_recordings
+
+    get "/search", SearchController, :show, as: :search
+
+    get "/a/:id/iframe", RecordingController, :iframe
+    get "/a/:id/example", RecordingController, :example
+
+    resources "/s", StreamController, only: [:show, :edit, :update, :delete]
+
+    resources "/login", LoginController, only: [:new, :create], singleton: true
+    get "/login/sent", LoginController, :sent, as: :login
+
+    resources "/user", UserController,
+      as: :user,
+      only: [:edit, :update, :delete],
+      singleton: true do
+      resources "/streams", StreamController, only: [:index, :create]
+      get "/email", EmailController, :edit
+      put "/email", EmailController, :update
+    end
+
+    get "/~:username", UserController, :show
+    get "/~:username/avatar", AvatarController, :show
+    get "/~:username/recordings", UserRecordingController, :index
+    get "/~:username/streams/live", UserStreamController, :live
+    get "/~:username/streams/upcoming", UserStreamController, :upcoming
+    resources "/users", UserController, as: :users, only: [:new, :create]
+    get "/user/delete", UserController, :delete, as: :user_deletion
+
+    resources "/username", UsernameController, only: [:new, :create], singleton: true
+
+    resources "/session", SessionController, only: [:new, :create, :delete], singleton: true
+
+    get "/connect/:install_id", CliController, :show
+    post "/connect/:install_id", CliController, :create
+
+    resources "/clis", CliController, only: [:delete]
+
+    get "/about", PageController, :about
+  end
+
+  scope "/", PopcornWeb do
+    get "/ws/s/:public_token", WebsocketUpgrade, PopcornWeb.StreamConsumerSocket
+    get "/ws/S/:producer_token", WebsocketUpgrade, PopcornWeb.StreamProducerSocket
+  end
+
+  scope "/api", PopcornWeb.Api, as: :api do
+    pipe_through :api
+
+    scope "/v1" do
+      resources "/recordings", RecordingController, only: [:create, :update, :delete]
+      resources "/streams", StreamController, only: [:create, :update, :delete]
+
+      scope "/user" do
+        get "/streams", StreamController, :index
+      end
+    end
+
+    # used by CLI 2.x
+    post "/popcasts", RecordingController, :create
+  end
+
+  if Application.compile_env(:popcorn, :dev_routes) do
+    scope "/dev" do
+      pipe_through :browser
+      forward "/mailbox", Plug.Swoosh.MailboxPreview
+    end
+  end
+
+  defp format_specific_plugs(conn, []) do
+    conn
+    |> fetch_session([])
+    |> Authn.call([])
+    |> format_specific_plugs(get_format(conn))
+  end
+
+  defp format_specific_plugs(conn, "html") do
+    conn
+    |> fetch_flash([])
+    |> protect_from_forgery([])
+  end
+
+  defp format_specific_plugs(conn, _other), do: conn
+end

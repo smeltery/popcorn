@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Finish signing up</h2>
+  <p>Choose your username and create your {@conn.host} account.</p>
+
+  <.form for={@conn} action={~p"/users"} id="sign-up" class="username-form">
+    <input type="hidden" name="t" value={@sign_up_token} />
+    <input type="hidden" name="timezone" value="" />
+
+    <div class="form-field-vertical">
+      <label for="user_username">Your username:</label>
+      <input id="user_username" name="username" value={@username} data-behavior="focus" required />
+
+      <%= case assigns[:error] do %>
+        <% nil -> %>
+        <% :username_invalid -> %>
+          <p class="text-danger">
+            Use only letters, digits and "-" character. <br /> Examples:
+            <em>johndoe, gosia3000, ultimate-debugger</em>
+          </p>
+        <% :username_taken -> %>
+          <p class="text-danger">
+            This username is already taken.
+          </p>
+      <% end %>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create account</button>
+  </.form>
+</div>
+
+<script>
+  // @license magnet:?xt=urn:btih:8e4f440f4c65981c5bf93c76d35135ba5064d8b7&dn=apache-2.0.txt Apache-2.0
+  const form = document.forms.namedItem("sign-up");
+  const timezoneInput = form.querySelector('input[name="timezone"]');
+  timezoneInput.value = Intl?.DateTimeFormat?.()?.resolvedOptions?.()?.timeZone || '';
+  // @license-end
+</script>

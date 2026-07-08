@@ -1,0 +1,245 @@
+defmodule PopcornWeb.UserController do
+  use PopcornWeb, :controller
+  alias Popcorn.{Accounts, Streaming, Recordings}
+  alias Popcorn.Recordings.Query, as: RecordingQuery
+  alias Popcorn.Streaming.Query, as: StreamQuery
+  require Logger
+
+  plug :require_current_user when action in [:edit, :update]
+  plug :redirect_current_user when action in [:new, :create]
+
+  def new(conn, %{"t" => sign_up_token}) do
+    render(conn, "new.html", sign_up_token: sign_up_token, username: nil)
+  end
+
+  def new(conn, _params) do
+    redirect(conn, to: ~p"/login/new")
+  end
+
+  def create(conn, %{"t" => token} = params) do
+    timezone = params["timezone"]
+    username = params["username"]
+
+    case Popcorn.confirm_sign_up(token, username, timezone) do
+      {:ok, user} ->
+        conn
+        |> log_in(user)
+        |> put_flash(:info, "Welcome to popcorn!")
+        |> redirect_back_or(to: ~p"/~#{user}")
+
+      {:error, :token_invalid} ->
+        conn
+        |> put_flash(:error, "Invalid sign-up link.")
+        |> redirect(to: ~p"/login/new")
+
+      {:error, :token_expired} ->
+        conn
+        |> put_flash(:error, "This sign-up link has expired, sorry.")
+        |> redirect(to: ~p"/login/new")
+
+      {:error, :email_taken} ->
+        conn
+        |> put_flash(:error, "You already signed up with this email.")
+        |> redirect(to: ~p"/login/new")
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(422)
+        |> render("new.html",
+          sign_up_token: token,
+          username: username,
+          error: username_error(changeset)
+        )
+    end
+  end
+
+  def create(conn, _params) do
+    conn
+    |> put_flash(:error, "Invalid sign-up link.")
+    |> redirect(to: ~p"/login/new")
+  end
+
+  def show(conn, params) do
+    if user = get_user(params) do
+      do_show(conn, user)
+    else
+      {:error, :not_found}
+    end
+  end
+
+  defp do_show(conn, user) do
+    current_user = conn.assigns.current_user
+    self = !!(current_user && current_user.id == user.id)
+    live_streams = fetch_live_streams(user, current_user)
+    upcoming_streams = fetch_upcoming_streams(user, current_user)
+    popcasts = fetch_recent_popcasts(user, current_user, [live_streams, upcoming_streams])
+
+    render(
+      conn,
+      "show.html",
+      page_title: "#{user.username}'s profile",
+      user: user,
+      self: self,
+      live_streams: live_streams,
+      upcoming_streams: upcoming_streams,
+      popcasts: popcasts
+    )
+  end
+
+  defp fetch_live_streams(%{streaming_enabled: true} = user, current_user) do
+    %StreamQuery{
+      scope: {:listing_for, current_user},
+      filters: [:live, {:user, user}],
+      sort: :recently_started
+    }
+    |> list_streams(2)
+  end
+
+  defp fetch_live_streams(%{streaming_enabled: false}, _current_user), do: :disabled
+
+  defp fetch_upcoming_streams(%{streaming_enabled: true} = user, current_user) do
+    %StreamQuery{
+      scope: {:listing_for, current_user},
+      filters: [:upcoming, {:user, user}],
+      sort: :soonest
+    }
+    |> list_streams(2)
+  end
+
+  defp fetch_upcoming_streams(%{streaming_enabled: false}, _current_user), do: :disabled
+
+  defp fetch_recent_popcasts(user, current_user, earlier_sections) do
+    used_rows =
+      Enum.reduce(earlier_sections, 0, fn section, acc ->
+        case section do
+          :disabled -> acc
+          %{items: []} -> acc
+          %{items: _} -> acc + 1
+        end
+      end)
+
+    limit = (4 - used_rows) * 2
+
+    %RecordingQuery{
+      scope: {:listing_for, current_user},
+      filters: [{:user, user}],
+      sort: {:created, :desc}
+    }
+    |> list_popcasts(limit)
+  end
+
+  defp redirect_current_user(
+         %{assigns: %{current_user: %Popcorn.Accounts.User{} = user}} = conn,
+         _
+       ) do
+    conn
+    |> put_flash(:info, "You're already logged in.")
+    |> redirect(to: current_user_path(user))
+    |> halt()
+  end
+
+  defp redirect_current_user(conn, _), do: conn
+
+  defp current_user_path(%{username: username} = user) when is_binary(username), do: ~p"/~#{user}"
+  defp current_user_path(_user), do: ~p"/username/new"
+
+  defp username_error(changeset) do
+    case Keyword.get(changeset.errors, :username) do
+      {_msg, [{_, :format}]} -> :username_invalid
+      {_msg, [{_, :required}]} -> :username_invalid
+      {_msg, _} -> :username_taken
+    end
+  end
+
+  defp list_streams(query, limit) do
+    items = Streaming.list(query, limit + 1)
+
+    %{
+      items: Enum.take(items, limit),
+      has_more: length(items) > limit
+    }
+  end
+
+  defp list_popcasts(query, limit) do
+    items = Recordings.list(query, limit + 1)
+
+    %{
+      items: Enum.take(items, limit),
+      has_more: length(items) > limit
+    }
+  end
+
+  defp get_user(%{"username" => username}) do
+    Accounts.find_user_by_profile_id(username)
+  end
+
+  def edit(conn, _params) do
+    user = conn.assigns.current_user
+    changeset = Accounts.change_user(user)
+    render_edit_form(conn, user, changeset)
+  end
+
+  def update(conn, %{"user" => user_params}) do
+    user = conn.assigns.current_user
+
+    case Popcorn.update_user(user, user_params) do
+      {:ok, _user} ->
+        conn
+        |> put_flash(:info, "Settings updated")
+        |> redirect(to: ~p"/user/edit")
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        render_edit_form(conn, user, changeset)
+    end
+  end
+
+  defp render_edit_form(conn, user, changeset) do
+    clis = Accounts.list_clis(user)
+
+    render(conn, "edit.html",
+      changeset: changeset,
+      timezones: Tzdata.canonical_zone_list(),
+      streaming_enabled: user.streaming_enabled,
+      stream_recording_mode: Streaming.recording_mode(),
+      clis: clis
+    )
+  end
+
+  def delete(conn, %{"token" => token, "confirmed" => _}) do
+    case Popcorn.confirm_account_deletion(token) do
+      :ok ->
+        conn
+        |> log_out()
+        |> put_flash(:info, "Account deleted")
+        |> redirect(to: ~p"/")
+
+      {:error, :invalid_token} ->
+        conn
+        |> put_flash(:error, "Invalid account deletion token")
+        |> redirect(to: ~p"/")
+    end
+  end
+
+  def delete(conn, %{"t" => token}) do
+    render(conn, :delete, token: token)
+  end
+
+  def delete(conn, _params) do
+    user = conn.assigns.current_user
+    address = user.email
+
+    case Popcorn.initiate_account_deletion(user, PopcornWeb.UrlProvider) do
+      :ok ->
+        conn
+        |> put_flash(:info, "Account removal initiated - check your inbox (#{address})")
+        |> redirect(to: ~p"/~#{user}")
+
+      {:error, reason} ->
+        Logger.warning("email delivery error: #{inspect(reason)}")
+
+        conn
+        |> put_flash(:error, "Error sending email, please try again later")
+        |> redirect(to: ~p"/user/edit")
+    end
+  end
+end

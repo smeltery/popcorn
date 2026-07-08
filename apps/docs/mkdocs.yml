@@ -1,0 +1,143 @@
+site_name: popcorn docs
+site_author: Marcin Kulik
+
+repo_url: https://github.com/dotbrains/popcorn
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: black
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  font: false
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+  language: en
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+
+nav:
+  - index.md
+  - About:
+    - history.md
+    - how-it-works.md
+    - community.md
+    - integrations.md
+    - donations.md
+    - consulting.md
+  - getting-started.md
+  - Manual:
+    - manual/index.md
+    - CLI:
+      - manual/cli/index.md
+      - manual/cli/quick-start.md
+      - manual/cli/installation.md
+      - Configuration:
+        - manual/cli/configuration/index.md
+        - manual/cli/configuration/v2.md
+        - manual/cli/configuration/v3.md
+      - manual/cli/markers.md
+      - manual/cli/shortcuts.md
+      - manual/cli/desktop-notifications.md
+    - PLAYER:
+      - manual/player/index.md
+      - manual/player/quick-start.md
+      - manual/player/loading.md
+      - manual/player/options.md
+      - manual/player/api.md
+      - manual/player/fonts.md
+      - manual/player/markers.md
+      - manual/player/themes.md
+      - manual/player/shortcuts.md
+      - manual/player/parsers.md
+      - manual/player/upgrading.md
+    - SERVER:
+      - manual/server/index.md
+      - Self-hosting:
+        - manual/server/self-hosting/index.md
+        - manual/server/self-hosting/quick-start.md
+        - manual/server/self-hosting/nixos.md
+        - manual/server/self-hosting/configuration.md
+        - manual/server/self-hosting/upgrading.md
+        - manual/server/self-hosting/admin.md
+        - manual/server/self-hosting/customization.md
+      - API: manual/server/api.md
+      - manual/server/streaming.md
+      - manual/server/sharing.md
+      - manual/server/embedding.md
+    - AGG:
+      - manual/popcorn-gif/index.md
+      - manual/popcorn-gif/installation.md
+      - manual/popcorn-gif/usage.md
+    - FILE FORMAT:
+      - manual/popcast/v3.md
+      - manual/popcast/v2.md
+      - manual/popcast/v1.md
+  - FAQ: faq.md
+  - Blog: https://blog.popcorn.local
+  - Forum: https://discourse.popcorn.local
+  - Code: https://github.com/dotbrains/popcorn
+
+markdown_extensions:
+  - attr_list
+  - admonition
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_css:
+  - stylesheets/player-3.9.0-83ce182.css
+  - stylesheets/extra.css
+  - stylesheets/fira.css
+
+extra_javascript:
+  - javascripts/player-3.9.0-83ce182.min.js
+  - javascripts/extra.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dotbrains/popcorn
+      name: popcorn on Github
+    - icon: fontawesome/brands/mastodon
+      link: https://fosstodon.org/@popcorn
+      name: popcorn on Mastodon
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/popcorn
+      name: popcorn on X (Twitter)
+
+copyright: Copyright &copy; 2023 Marcin Kulik

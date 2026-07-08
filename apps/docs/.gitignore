@@ -1,0 +1,5 @@
+.venv
+.vscode
+.direnv
+.envrc
+/site

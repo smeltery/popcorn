@@ -1,0 +1,52 @@
+defmodule Popcorn.Repo do
+  use Ecto.Repo,
+    otp_app: :popcorn,
+    adapter: Ecto.Adapters.Postgres
+
+  use Scrivener, page_size: 10
+
+  def with_work_mem(work_mem, fun) when is_function(fun, 0) do
+    {:ok, result} =
+      transact(fn ->
+        query!("SELECT set_config('work_mem', $1, true)", [work_mem])
+        {:ok, fun.()}
+      end)
+
+    result
+  end
+
+  def count(query) do
+    aggregate(query, :count, :id)
+  end
+
+  def pages(query, page_size) do
+    Stream.iterate(:ok, & &1)
+    |> Stream.scan({nil, nil}, fn _, {last_id, _} ->
+      items = page(query, last_id, page_size)
+      last = List.last(items)
+      {last && last.id, items}
+    end)
+    |> Stream.map(&elem(&1, 1))
+    |> Stream.take_while(&(length(&1) > 0))
+  end
+
+  defp page(query, last_id, page_size) do
+    import Ecto.Query
+
+    query =
+      from x in query,
+        order_by: x.id,
+        limit: ^page_size
+
+    query =
+      case last_id do
+        nil ->
+          query
+
+        id ->
+          where(query, [x], x.id > ^id)
+      end
+
+    all(query)
+  end
+end

@@ -1,0 +1,8 @@
+<h1>Looking for GIF?</h1>
+
+<p>You can use <a href="https://github.com/dotbrains/popcorn/tree/main/crates/agg">agg</a> to do it
+  yourself. Once you have it installed run the following commands in your
+  terminal:</p>
+
+<pre><code>wget -O <%= @popcast_id %>.pop <%= @file_url %>
+agg <%= @popcast_id %>.pop <%= @popcast_id %>.gif</code></pre>

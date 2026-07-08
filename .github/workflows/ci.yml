@@ -29,7 +29,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: 1.82.0
+          toolchain: 1.85.0
           components: rustfmt, clippy
 
       - name: Cache Cargo
@@ -79,7 +79,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: 1.82.0
+          toolchain: 1.85.0
           targets: ${{ matrix.target }}
 
       - name: Install cross
@@ -100,6 +100,123 @@ jobs:
 
       - name: Build target
         run: ${{ env.CARGO }} build -p popcorn --locked --target ${{ matrix.target }}
+
+  player:
+    name: Player
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.85.0
+          targets: wasm32-unknown-unknown
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: packages/player/package-lock.json
+
+      - name: Install dependencies
+        working-directory: packages/player
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: packages/player
+        run: npx playwright install --with-deps chromium firefox
+
+      - name: Build
+        working-directory: packages/player
+        run: npm run build
+
+      - name: Test
+        working-directory: packages/player
+        run: npm test
+
+  server:
+    name: Server
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Erlang/Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          otp-version: "28.0"
+          elixir-version: "1.19.0"
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: apps/server/assets/package-lock.json
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y librsvg2-bin zstd
+
+      - name: Install Mix dependencies
+        working-directory: apps/server
+        run: mix deps.get --locked
+
+      - name: Install asset dependencies
+        working-directory: apps/server/assets
+        run: npm ci
+
+      - name: Compile
+        working-directory: apps/server
+        run: mix compile
+
+      - name: Test
+        working-directory: apps/server
+        env:
+          DATABASE_URL: ecto://postgres:postgres@localhost/popcorn_test
+        run: mix test
+
+  docs:
+    name: Docs
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: apps/docs/requirements.txt
+
+      - name: Install dependencies
+        working-directory: apps/docs
+        run: pip install -r requirements.txt
+
+      - name: Build
+        working-directory: apps/docs
+        run: mkdocs build --strict
 
   release_smoke:
     name: Release Smoke

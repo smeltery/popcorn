@@ -1,0 +1,140 @@
+defmodule Popcorn.Factory do
+  use ExMachina.Ecto, repo: Popcorn.Repo
+  alias Popcorn.Accounts.{Cli, User}
+  alias Popcorn.FileStore
+  alias Popcorn.Recordings.{Popcast, PopcastStats}
+  alias Popcorn.Streaming.Stream
+
+  def user_factory do
+    %User{
+      username: sequence(:username, &"username-#{&1}"),
+      email: sequence(:email, &"email-#{&1}@example.com"),
+      auth_token: Crypto.random_token(20),
+      default_recording_visibility: :unlisted,
+      default_stream_visibility: :unlisted
+    }
+  end
+
+  def temporary_user_factory do
+    %{user_factory() | email: nil}
+  end
+
+  def cli_factory do
+    %Cli{
+      user: build(:user),
+      token: sequence(:install_id, &install_id/1)
+    }
+  end
+
+  def revoked_cli_factory do
+    %Cli{
+      user: build(:user),
+      token: sequence(:install_id, &install_id/1),
+      revoked_at: Timex.now()
+    }
+  end
+
+  def popcast_factory do
+    build(:popcast_v2)
+  end
+
+  def popcast_v1_factory do
+    %Popcast{
+      user: build(:user),
+      version: 1,
+      path: sequence(:path_v1, &"recordings/#{&1}.json"),
+      compressed: false,
+      duration: 123.45,
+      term_cols: 80,
+      term_rows: 24,
+      secret_token: sequence(:secret_token, &secret_token/1),
+      snapshot: {[[["foo", %{}, 1]], [["bar", %{}, 1]]], {3, 1}}
+    }
+  end
+
+  def popcast_v2_factory do
+    %Popcast{
+      user: build(:user),
+      version: 2,
+      path: sequence(:path_v2v3, &"recordings/#{&1}.pop"),
+      compressed: false,
+      duration: 123.45,
+      term_cols: 80,
+      term_rows: 24,
+      secret_token: sequence(:secret_token, &secret_token/1),
+      snapshot: {[[["foo", %{}, 1]], [["bar", %{}, 1]]], {3, 1}}
+    }
+  end
+
+  def popcast_v3_factory do
+    %Popcast{
+      user: build(:user),
+      version: 3,
+      path: sequence(:path_v2v3, &"recordings/#{&1}.pop"),
+      compressed: false,
+      duration: 123.45,
+      term_cols: 80,
+      term_rows: 24,
+      secret_token: sequence(:secret_token, &secret_token/1),
+      snapshot: {[[["foo", %{}, 1]], [["bar", %{}, 1]]], {3, 1}}
+    }
+  end
+
+  def popcast_stats_factory do
+    %PopcastStats{
+      popcast_id: nil,
+      popularity_score: 0.0,
+      total_views: 0,
+      popularity_dirty: false
+    }
+  end
+
+  def stream_factory do
+    %Stream{
+      user: build(:user),
+      public_token: sequence(:public_token, &public_token/1),
+      producer_token: sequence(:producer_token, &"token-#{&1}")
+    }
+  end
+
+  defp public_token(n) do
+    "public#{n}"
+    |> String.codepoints()
+    |> Elixir.Stream.cycle()
+    |> Elixir.Stream.take(16)
+    |> Enum.join("")
+  end
+
+  defp secret_token(n) do
+    "s3cr3t#{n}"
+    |> String.codepoints()
+    |> Elixir.Stream.cycle()
+    |> Elixir.Stream.take(16)
+    |> Enum.join("")
+  end
+
+  defp install_id(n) do
+    hex = n |> Integer.to_string(16) |> String.downcase() |> String.pad_leading(32, "0")
+    <<a::binary-8, b::binary-4, c::binary-4, d::binary-4, e::binary-12>> = hex
+    "#{a}-#{b}-#{c}-#{d}-#{e}"
+  end
+
+  def with_file(popcast, filename \\ nil)
+
+  def with_file(popcast, nil) do
+    filename =
+      case popcast.version do
+        1 -> "welcome.json"
+        2 -> "welcome.pop"
+        3 -> "3/full.pop"
+      end
+
+    with_file(popcast, filename)
+  end
+
+  def with_file(popcast, filename) do
+    :ok = FileStore.put_file(popcast.path, "test/fixtures/#{filename}", "application/json")
+
+    popcast
+  end
+end

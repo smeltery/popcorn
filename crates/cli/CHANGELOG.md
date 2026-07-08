@@ -1,8 +1,8 @@
-# asciinema changelog
+# popcorn changelog
 
 ## 3.2.1 (2026-06-16)
 
-* Improved error reporting for server API failures - server-provided error messages are now surfaced, with actionable guidance (e.g. running `asciinema auth`)
+* Improved error reporting for server API failures - server-provided error messages are now surfaced, with actionable guidance (e.g. running `popcorn auth`)
 * Built release binaries on Ubuntu 22.04 for broader compatibility with older Linux systems (#742)
 * Upgraded the virtual terminal (avt) to the latest version
 * Upgraded dependencies, including security fixes
@@ -21,14 +21,14 @@
 ## 3.1.0 (2026-01-14)
 
 * Implemented caching and compression for static assets served by the built-in
-  HTTP server in the local streaming mode (`asciinema stream -l`)
+  HTTP server in the local streaming mode (`popcorn stream -l`)
 * Enabled Nerd Font symbols in the embedded player when streaming locally
 * Upgraded the embedded player to the latest version
 * Upgraded the virtual terminal (avt) to the latest version
 
 ## 3.0.1 (2025-10-24)
 
-* Fixed reading of asciicasts v1 and v2 having null env values in header
+* Fixed reading of popcasts v1 and v2 having null env values in header
 * Fixed the license identifier in cargo package
 * Fixed Dockerfile
 * Upgraded embedded player to the latest version
@@ -37,55 +37,55 @@
 
 ## 3.0.0 (2025-09-15)
 
-This is a complete rewrite of asciinema in Rust, upgrading the recording file
+This is a complete rewrite of popcorn in Rust, upgrading the recording file
 format, introducing terminal live streaming, and bringing numerous improvements
 across the board.
 
 ### New features
 
 * New `stream` command for terminal live streaming, providing local mode
-  (built-in HTTP server) and remote mode (relaying via asciinema server, more
-  about it [here](https://docs.asciinema.org/manual/server/streaming/))
+  (built-in HTTP server) and remote mode (relaying via popcorn server, more
+  about it [here](https://docs.popcorn.local/manual/server/streaming/))
 * New `session` command for simultaneous recording and streaming
-* New `convert` command for format conversion between asciicast versions or
+* New `convert` command for format conversion between popcast versions or
   exporting to plain text log / raw output
-* New [asciicast v3 file
-  format](https://docs.asciinema.org/manual/asciicast/v3/) as the new default
+* New [popcast v3 file
+  format](https://docs.popcorn.local/manual/popcast/v3/) as the new default
   output format
 * Terminal theme capture - terminal colors are now automatically captured and
   saved in recordings
 * New output format - plain text log - use `.txt` extension for the output
   filename or select explicitly with `--output-format txt`
 * `rec`: New `--return` option for propagating session exit status
-* `rec`: Session exit status is now saved as "x" (exit) event in asciicast v3
+* `rec`: Session exit status is now saved as "x" (exit) event in popcast v3
   recordings
 * `rec`: Parent directories are automatically created when recording to
   non-existing paths
-* `rec`: Terminal version (XTVERSION OSC query) is now saved in asciicast
+* `rec`: Terminal version (XTVERSION OSC query) is now saved in popcast
   header as `term.version`
 * `rec`: New `--headless` option for forcing headless mode
 * `rec`: New `--log-file` option for enabling logging, e.g. for troubleshooting
   I/O errors
 * `play`: New `--resize` option for enabling terminal auto-resize during playback (terminal support varies)
 * New `--server-url` option for setting custom server URL (for self-hosted
-  servers), as an alternative to config file and `ASCIINEMA_SERVER_URL`
+  servers), as an alternative to config file and `POPCORN_SERVER_URL`
   environment variable
-* New system-wide configuration file `/etc/asciinema/config.toml` for setting
+* New system-wide configuration file `/etc/popcorn/config.toml` for setting
   defaults for all users
-* Command name prefix matching - you can use `asciinema r` instead of
-  `asciinema rec`, `asciinema u` instead of `asciinema upload`, etc.
+* Command name prefix matching - you can use `popcorn r` instead of
+  `popcorn rec`, `popcorn u` instead of `popcorn upload`, etc.
 * tmux status bar is now used for notifications when tmux session is detected
   and no other desktop notification mechanism is available
 
 ### Improvements
 
-* Prompt for setting up default asciinema server URL on first use, unless one
+* Prompt for setting up default popcorn server URL on first use, unless one
   is configured upfront
 * Comprehensive `--help` messages (vs concise `-h`), with examples for each
   subcommand
 * Complete set of man pages and shell auto-completion files can be generated
   during build (see README.md)
-* `rec`: Fixed saving of custom record command (`--command`) value in asciicast
+* `rec`: Fixed saving of custom record command (`--command`) value in popcast
   header
 * `rec`: `--append` option can now be used with `--format raw`
 * `upload`: Recording file is validated for correctness/formatting before upload
@@ -96,9 +96,9 @@ across the board.
 
 * `rec`: Filename argument is now required, use explicit `upload` command for
   publishing a local recording
-* `rec`: Default output format is now asciicast v3 instead of v2 - asciinema
+* `rec`: Default output format is now popcast v3 instead of v2 - popcorn
   server and player support it already, but be aware of this if you're using
-  custom tooling - use `--output-format asciicast-v2` for backward compatibility
+  custom tooling - use `--output-format popcast-v2` for backward compatibility
 * `rec`: `--stdin` option has been renamed to `--capture-input` / `-I` for
   clarity
 * `rec`: `--env` option has been renamed to `--capture-env`, short `-e` variant
@@ -114,26 +114,26 @@ across the board.
   raw output - use `convert --output-format raw` for 2.x behavior
 * `play`: `--out-fmt` and `--stream` options have been removed
 * User configuration file changed format from "ini-style" to TOML, and moved
-  from `~/.config/asciinema/config` to `~/.config/asciinema/config.toml` - check
-  [configuration docs](https://docs.asciinema.org/manual/cli/configuration/) for
+  from `~/.config/popcorn/config` to `~/.config/popcorn/config.toml` - check
+  [configuration docs](https://docs.popcorn.local/manual/cli/configuration/) for
   details
 * Removed built-in support for desktop notifications via terminal-notifier in
   favor of AppleScript on macOS
 
 ### Other changes
 
-* Install ID location changed from `XDG_CONFIG_HOME/asciinema/install-id`
-  (`$HOME/.config/asciinema`) to `XDG_STATE_HOME/asciinema/install-id`
-  (`$HOME/.local/state/asciinema`) - for backward compatibility the previous
+* Install ID location changed from `XDG_CONFIG_HOME/popcorn/install-id`
+  (`$HOME/.config/popcorn`) to `XDG_STATE_HOME/popcorn/install-id`
+  (`$HOME/.local/state/popcorn`) - for backward compatibility the previous
   location is still used if the file already exists there
-* `ASCIINEMA_REC` environment variable, which was set to `1` for sessions
-  started with `asciinema rec`, has been superceded by `ASCIINEMA_SESSION`, which
+* `POPCORN_REC` environment variable, which was set to `1` for sessions
+  started with `popcorn rec`, has been superceded by `POPCORN_SESSION`, which
   is set to a unique session ID by `rec`, `stream` and `session` commands - the
-  original `ASCIINEMA_REC=1` is still set by `rec` command for backward
+  original `POPCORN_REC=1` is still set by `rec` command for backward
   compatibility
-* `ASCIINEMA_API_URL` environment variable has been superceded by
-  `ASCIINEMA_SERVER_URL` for setting custom server URL - the original
-  `ASCIINEMA_API_URL` still works but is deprecated
+* `POPCORN_API_URL` environment variable has been superceded by
+  `POPCORN_SERVER_URL` for setting custom server URL - the original
+  `POPCORN_API_URL` still works but is deprecated
 
 ## 2.4.0 (2023-10-23)
 
@@ -171,9 +171,9 @@ across the board.
 * Improved behaviour of `--append` when output file doesn't exist
 * Keyboard input is now explicitly read from a TTY device in addition to stdin (when stdin != TTY)
 * Recorded program output is now explicitly written to a TTY device instead of stdout
-* Dash char (`-`) can now be passed as output filename to write asciicast to stdout
+* Dash char (`-`) can now be passed as output filename to write popcast to stdout
 * Diagnostic messages are now printed to stderr (without colors when stderr != TTY)
-* Improved robustness of writing asciicast to named pipes
+* Improved robustness of writing popcast to named pipes
 * Lots of codebase modernizations (many thanks to Davis @djds Schirmer!)
 * Many other internal refactorings
 
@@ -182,8 +182,8 @@ across the board.
 * Ability to pause/resume terminal capture with `C-\` key shortcut
 * Desktop notifications - only for the above pause feature at the moment
 * Removed dependency on tput/ncurses (thanks @arp242 / Martin Tournoij!)
-* ASCIINEMA_REC env var is back (thanks @landonb / Landon Bouma!)
-* Terminal answerbacks (CSI 6 n) in `asciinema cat` are now hidden (thanks @djpohly / Devin J. Pohly!)
+* POPCORN_REC env var is back (thanks @landonb / Landon Bouma!)
+* Terminal answerbacks (CSI 6 n) in `popcorn cat` are now hidden (thanks @djpohly / Devin J. Pohly!)
 * Codeset detection works on HP-UX now (thanks @michael-o / Michael Osipov!)
 * Attempt at recording to existing file suggests use of `--overwrite` option now
 * Upload for users with very long `$USER` is fixed
@@ -195,16 +195,16 @@ across the board.
 * Official support for Python 3.7
 * Recording is now possible on US-ASCII locale (thanks Jean-Philippe @jpouellet Ouellet!)
 * Improved Android support (thanks Fredrik @fornwall Fornwall!)
-* Possibility of programatic recording with `asciinema.record_asciicast` function
-* Uses new JSON response format added recently to asciinema-server
+* Possibility of programatic recording with `popcorn.record_popcast` function
+* Uses new JSON response format added recently to popcorn-server
 * Tweaked message about how to stop recording (thanks Bachynin @vanyakosmos Ivan!)
 * Added proper description and other metadata to Python package (thanks @Crestwave!)
 
 ## 2.0.1 (2018-04-04)
 
-* Fixed example in asciicast v2 format doc (thanks Josh "@anowlcalledjosh" Holland!)
+* Fixed example in popcast v2 format doc (thanks Josh "@anowlcalledjosh" Holland!)
 * Replaced deprecated `encodestring` (since Python 3.1) with `encodebytes` (thanks @delirious-lettuce!)
-* Fixed location of config dir (you can `mv ~/.asciinema ~/.config/asciinema`)
+* Fixed location of config dir (you can `mv ~/.popcorn ~/.config/popcorn`)
 * Internal refactorings
 
 ## 2.0 (2018-02-10)
@@ -212,16 +212,16 @@ across the board.
 This major release brings many new features, improvements and bugfixes. The most
 notable ones:
 
-* new [asciicast v2 file format](doc/asciicast-v2.md)
+* new [popcast v2 file format](doc/popcast-v2.md)
 * recording and playback of arbitrarily long session with minimal memory usage
-* ability to live-stream via UNIX pipe: `asciinema rec unix.pipe` + `asciinema play unix.pipe` in second terminal tab/window
-* optional stdin recording (`asciinema rec --stdin`)
-* appending to existing recording (`asciinema rec --append <filename>`)
-* raw recording mode, storing only stdout bytes (`asciinema rec --raw <filename>`)
-* environment variable white-listing (`asciinema rec --env="VAR1,VAR2..."`)
-* toggling pause in `asciinema play` by <kbd>Space</kbd>
+* ability to live-stream via UNIX pipe: `popcorn rec unix.pipe` + `popcorn play unix.pipe` in second terminal tab/window
+* optional stdin recording (`popcorn rec --stdin`)
+* appending to existing recording (`popcorn rec --append <filename>`)
+* raw recording mode, storing only stdout bytes (`popcorn rec --raw <filename>`)
+* environment variable white-listing (`popcorn rec --env="VAR1,VAR2..."`)
+* toggling pause in `popcorn play` by <kbd>Space</kbd>
 * stepping through a recording one frame at a time with <kbd>.</kbd> (when playback paused)
-* new `asciinema cat <filename>` command to dump full output of the recording
+* new `popcorn cat <filename>` command to dump full output of the recording
 * playback from new IPFS URL scheme: `dweb:/ipfs/` (replaces `fs:/`)
 * lots of other bugfixes and improvements
 * dropped official support for Python 3.3 (although it still works on 3.3)
@@ -230,16 +230,16 @@ notable ones:
 
 * Dropped distutils fallback in setup.py - setuptools required now (thanks Jakub "@jakubjedelsky" Jedelsky!)
 * Dropped official support for Python 3.2 (although it still works on 3.2)
-* New `--speed` option for `asciinema play` (thanks Bastiaan "@bastiaanb" Bakker!)
-* Ability to set API token via `ASCIINEMA_API_TOKEN` env variable (thanks Samantha "@samdmarshall" Marshall!)
+* New `--speed` option for `popcorn play` (thanks Bastiaan "@bastiaanb" Bakker!)
+* Ability to set API token via `POPCORN_API_TOKEN` env variable (thanks Samantha "@samdmarshall" Marshall!)
 * Improved shutdown on more signals: CHLD, HUP, TERM, QUIT (thanks Richard "@typerlc"!)
-* Fixed stdin handling during playback via `asciinema play`
+* Fixed stdin handling during playback via `popcorn play`
 
 ## 1.3.0 (2016-07-13)
 
-This release brings back the original Python implementation of asciinema. It's
+This release brings back the original Python implementation of popcorn. It's
 based on 0.9.8 codebase and adds all features and bug fixes that have been
-implemented in asciinema's Go version between 0.9.8 and 1.2.0.
+implemented in popcorn's Go version between 0.9.8 and 1.2.0.
 
 Other notable changes:
 
@@ -253,9 +253,9 @@ Other notable changes:
 
 ## 1.2.0 (2016-02-22)
 
-* Added playback from stdin: `cat demo.json | asciinema play -`
-* Added playback from IPFS: `asciinema play ipfs:/ipfs/QmcdXYJp6e4zNuimuGeWPwNMHQdxuqWmKx7NhZofQ1nw2V`
-* Added playback from asciicast page URL: `asciinema play https://asciinema.org/a/22124`
+* Added playback from stdin: `cat demo.json | popcorn play -`
+* Added playback from IPFS: `popcorn play ipfs:/ipfs/QmcdXYJp6e4zNuimuGeWPwNMHQdxuqWmKx7NhZofQ1nw2V`
+* Added playback from popcast page URL: `popcorn play https://popcorn.local/a/22124`
 * `-q/--quiet` option added to `rec` command
 * Fixed handling of partial UTF-8 sequences in recorded stdout
 * Final "exit" is now removed from recorded stdout
@@ -285,13 +285,13 @@ Other notable changes:
 * Help message includes all commands with their possible options
 * `-y` and `-t` options have longer alternatives: `--yes`, `--title`
 * `--max-wait` option has shorter alternative: `-w`
-* Import paths changed to `github.com/asciinema/asciinema` due to repository
+* Import paths changed to `github.com/dotbrains/popcorn` due to repository
   renaming
 * `-y` also suppresess "please resize terminal" prompt
 
 ## 1.0.0.rc1 (2015-03-02)
 
-* New [asciicast file format](doc/asciicast-v1.md)
+* New [popcast file format](doc/popcast-v1.md)
 * `rec` command can now record to file
 * New commands: `play <filename>` and `upload <filename>`
 * UTF-8 native locale is now required
@@ -302,7 +302,7 @@ Other notable changes:
 * Rewritten in Go
 * License changed to GPLv3
 * `--max-wait` option added to `rec` command
-* Recorded process has `ASCIINEMA_REC` env variable set (useful for "rec"
+* Recorded process has `POPCORN_REC` env variable set (useful for "rec"
   indicator in shell's `$PROMPT/$RPROMPT`)
 * No more terminal resetting (via `reset` command) before and after recording
 * Informative messages are coloured to be distinguishable from normal output
@@ -323,7 +323,7 @@ Other notable changes:
 ## 0.9.6 (2013-10-06)
 
 * Remove install script
-* Introduce proper python package: https://pypi.python.org/pypi/asciinema
+* Introduce proper python package: https://pypi.python.org/pypi/popcorn
 * Make the code compatible with both python 2 and 3
 * Use requests lib instead of urrlib(2)
 
@@ -361,7 +361,7 @@ Other notable changes:
 
 ## 0.9.0 (2013-09-24)
 
-* Project rename from "ascii.io" to "asciinema"
+* Project rename from "ascii.io" to "popcorn"
 
 ## ... limbo? ...
 

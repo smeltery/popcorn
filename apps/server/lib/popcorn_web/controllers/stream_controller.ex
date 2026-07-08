@@ -1,0 +1,198 @@
+defmodule PopcornWeb.StreamController do
+  use PopcornWeb, :controller
+  import PopcornWeb.Plug.ReturnTo
+  alias Popcorn.{Recordings, Streaming}
+  alias Popcorn.Recordings.Query, as: RecordingQuery
+  alias Popcorn.Streaming.Query, as: StreamQuery
+  alias PopcornWeb.{Authorization, FallbackController, StreamHTML, PlayerOpts}
+  alias Ecto.Changeset
+
+  plug :require_current_user when action in [:index, :create, :edit, :update, :delete]
+  plug :load_and_authorize_stream when action in [:show, :edit, :update, :delete]
+  plug :check_streaming_enabled when action in [:index, :edit, :update, :start]
+
+  def index(conn, params) do
+    current_user = conn.assigns.current_user
+
+    streams =
+      %StreamQuery{scope: :system, filters: [{:user, current_user}], sort: :activity}
+      |> Streaming.paginate(params["page"], 25)
+
+    stream_ids = Enum.map(streams, & &1.id)
+
+    rec_count_by_stream_id =
+      %RecordingQuery{
+        scope: :system,
+        filters: [{:user, current_user}, {:stream, {:in, stream_ids}}]
+      }
+      |> Recordings.count_by(:stream)
+
+    render(conn, "index.html",
+      streams: streams,
+      rec_count_by_stream_id: rec_count_by_stream_id
+    )
+  end
+
+  def create(conn, _params) do
+    case Streaming.create_stream(conn.assigns.current_user) do
+      {:ok, stream} ->
+        id = Streaming.short_public_token(stream)
+
+        conn
+        |> put_flash(:info, "Stream #{id} created.")
+        |> redirect(to: ~p"/user/streams")
+    end
+  end
+
+  def show(conn, params) do
+    stream = conn.assigns.stream
+    current_user = conn.assigns.current_user
+    user_is_self = match?({%{id: id}, %{id: id}}, {current_user, stream.user})
+    stream_popcasts = fetch_stream_popcasts(stream, current_user)
+    other_popcasts = fetch_other_popcasts(stream, current_user)
+
+    render(conn, :show,
+      page_title: StreamHTML.title(stream),
+      player_opts: player_opts(params),
+      actions: stream_actions(stream, current_user),
+      user_is_self: user_is_self,
+      stream_popcasts: stream_popcasts,
+      other_popcasts: other_popcasts
+    )
+  end
+
+  def edit(conn, params) do
+    conn =
+      if ret = params["ret"] do
+        save_return_path(conn, ret)
+      else
+        conn
+      end
+
+    render_edit_form(conn, Streaming.change_stream(conn.assigns.stream))
+  end
+
+  def update(conn, %{"stream" => params}) do
+    case Streaming.update_stream(conn.assigns.stream, params) do
+      {:ok, stream} ->
+        id = Streaming.short_public_token(stream)
+
+        conn
+        |> put_flash(:info, "Stream #{id} updated.")
+        |> redirect_back_or(to: ~p"/s/#{stream}")
+
+      {:error, %Changeset{} = changeset} ->
+        render_edit_form(conn, changeset)
+    end
+  end
+
+  defp render_edit_form(conn, changeset) do
+    render(conn, :edit,
+      changeset: changeset,
+      instance_url: PopcornWeb.Endpoint.url(),
+      schedule: schedule_value(conn.params["stream"], changeset),
+      timezone: conn.assigns.current_user.timezone
+    )
+  end
+
+  defp schedule_value(stream_params, changeset) do
+    cond do
+      value = get_in(stream_params, ["schedule"]) ->
+        value
+
+      value = Changeset.get_field(changeset, :schedule) ->
+        Crontab.CronExpression.Composer.compose(value)
+
+      true ->
+        ""
+    end
+  end
+
+  def delete(conn, params) do
+    stream = conn.assigns.stream
+
+    case Streaming.delete_stream(stream) do
+      {:ok, stream} ->
+        id = Streaming.short_public_token(stream)
+
+        conn
+        |> put_flash(:info, "Stream #{id} deleted.")
+        |> redirect(to: ~p"/user/streams")
+
+      {:error, _reason} ->
+        conn
+        |> put_flash(:error, "Couldn't remove this stream.")
+        |> redirect(to: params["ret"] || ~p"/s/#{stream}")
+    end
+  end
+
+  defp fetch_stream_popcasts(stream, current_user) do
+    %RecordingQuery{
+      scope: {:listing_for, current_user},
+      filters: [{:user, stream.user_id}, {:stream, stream}],
+      sort: {:created, :desc}
+    }
+    |> list_popcasts(4)
+  end
+
+  defp fetch_other_popcasts(stream, current_user) do
+    %RecordingQuery{
+      scope: {:listing_for, current_user},
+      filters: [{:user, stream.user_id}, {:stream, {:not_eq, stream.id}}],
+      sort: :random
+    }
+    |> list_popcasts(4)
+  end
+
+  defp list_popcasts(query, limit) do
+    items = Recordings.list(query, limit + 1)
+
+    %{
+      items: Enum.take(items, limit),
+      has_more: length(items) > limit
+    }
+  end
+
+  defp player_opts(params) do
+    PlayerOpts.parse(params, :stream)
+  end
+
+  @actions [:edit, :delete]
+
+  defp stream_actions(stream, user) do
+    Enum.filter(@actions, &Authorization.can?(user, &1, stream))
+  end
+
+  defp load_and_authorize_stream(conn, _) do
+    id = String.trim(conn.params["id"])
+    stream = Streaming.find_stream_by_public_token(id)
+
+    if stream && stream.user.streaming_enabled do
+      user = conn.assigns[:current_user]
+      action = Phoenix.Controller.action_name(conn)
+
+      if Authorization.can?(user, action, stream) do
+        assign(conn, :stream, stream)
+      else
+        conn
+        |> FallbackController.call({:error, :forbidden})
+        |> halt()
+      end
+    else
+      conn
+      |> FallbackController.call({:error, :not_found})
+      |> halt()
+    end
+  end
+
+  defp check_streaming_enabled(conn, _opts) do
+    if conn.assigns.current_user.streaming_enabled do
+      conn
+    else
+      conn
+      |> put_flash(:error, "Streaming is disabled for your account.")
+      |> redirect(to: ~p"/")
+      |> halt()
+    end
+  end
+end

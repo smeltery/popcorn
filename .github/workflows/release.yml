@@ -58,7 +58,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: 1.82.0
+          toolchain: 1.85.0
           components: rustfmt, clippy
 
       - name: Format
@@ -105,7 +105,7 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: 1.82.0
+          toolchain: 1.85.0
           targets: ${{ matrix.target }}
 
       - name: Install cross

@@ -1,0 +1,58 @@
+defmodule PopcornWeb.Plug.AdminGate do
+  @moduledoc """
+  Serves the admin panel on the main endpoint: dispatches /admin requests to
+  PopcornAdmin.Router for admins, sends anonymous users to the login page,
+  and 404s non-admins so the panel's existence isn't advertised.
+
+  Opt-in via the ADMIN_PANEL_ON_MAIN_ENDPOINT env var; when disabled, /admin falls
+  through to the main router's regular 404.
+  """
+
+  import Plug.Conn
+  alias Popcorn.AppEnv
+  alias Popcorn.Accounts.User
+  alias PopcornWeb.Authentication
+
+  def init(opts), do: opts
+
+  def call(%Plug.Conn{path_info: ["admin" | _]} = conn, _opts) do
+    if enabled?() do
+      dispatch(conn)
+    else
+      conn
+    end
+  end
+
+  def call(conn, _opts), do: conn
+
+  @doc "Whether the admin panel is served on the main endpoint."
+  def enabled? do
+    AppEnv.get(__MODULE__, [])[:enabled] == true
+  end
+
+  defp dispatch(conn) do
+    conn =
+      conn
+      |> fetch_session()
+      |> PopcornWeb.Plug.Authn.call([])
+
+    case conn.assigns.current_user do
+      %User{is_admin: true} ->
+        conn
+        |> PopcornAdmin.Router.call(PopcornAdmin.Router.init([]))
+        |> halt()
+
+      %User{} ->
+        raise Phoenix.Router.NoRouteError, conn: conn, router: PopcornWeb.Router
+
+      nil ->
+        # Anonymous admin-panel access is a browser flow: reconstruct the
+        # browser context this endpoint plug bypasses (HTML format + flash) so
+        # require_current_user redirects to the login page (rather than 401).
+        conn
+        |> Phoenix.Controller.put_format("html")
+        |> Phoenix.Controller.fetch_flash()
+        |> Authentication.require_current_user([])
+    end
+  end
+end

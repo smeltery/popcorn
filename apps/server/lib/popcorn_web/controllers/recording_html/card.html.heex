@@ -1,0 +1,29 @@
+<MediumHTML.card
+  url={~p"/a/#{@popcast}"}
+  title={title(@popcast)}
+  theme={theme(@popcast)}
+  author_profile_url={author_profile_path(@popcast)}
+  author_username={author_username(@popcast)}
+  author_avatar_url={author_avatar_url(@popcast)}
+  inserted_at={if !assigns[:no_created_at], do: @popcast.inserted_at}
+>
+  <:preview>
+    <object
+      type="image/svg+xml"
+      data={
+        ~p"/a/#{@popcast}" <>
+          ".svg?f=t&v=#{RecordingSVG.svg_cache_key(@popcast)}"
+      }
+    >
+    </object>
+  </:preview>
+
+  <:duration>
+    {duration(@popcast)}
+  </:duration>
+
+  <:badges>
+    <.visibility_badge :if={assigns[:show_visibility_badge]} visibility={@popcast.visibility} />
+    <.featured_badge :if={@popcast.featured} />
+  </:badges>
+</MediumHTML.card>

@@ -1,0 +1,118 @@
+defmodule Popcorn.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :popcorn,
+      version: "1.0.0",
+      elixir: "~> 1.14",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
+      deps: deps(),
+      releases: [
+        popcorn: [
+          config_providers: [
+            {Config.Reader, {:system, "RELEASE_ROOT", "/etc/custom.exs"}}
+          ]
+        ]
+      ]
+    ]
+  end
+
+  # Configuration for the OTP application.
+  #
+  # Type `mix help compile.app` for more information.
+  def application do
+    [
+      mod: {Popcorn.Application, []},
+      extra_applications: [:logger, :runtime_tools, :os_mon, :inets, :ssl]
+    ]
+  end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  # Specifies your project dependencies.
+  #
+  # Type `mix help deps` for examples and options.
+  defp deps do
+    [
+      {:briefly, "~> 0.3"},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:crontab, "~> 1.2"},
+      {:earmark, "~> 1.4.46"},
+      {:ecto_psql_extras, "~> 0.8.8"},
+      {:ecto_sql, "~> 3.6"},
+      {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
+      {:ex_aws, "~> 2.2"},
+      {:ex_aws_s3, "~> 2.1"},
+      {:ex_machina, "~> 2.4", only: :test},
+      {:gen_smtp, "~> 1.3"},
+      {:gettext, "~> 0.20"},
+      {:hackney, "~> 1.18"},
+      {:horde, "~> 0.8.7"},
+      {:html_sanitize_ex, "~> 1.4"},
+      {:identicon_svg, "~> 0.9.2"},
+      {:inflex, "~> 2.0"},
+      {:jason, "~> 1.2"},
+      {:libcluster, "~> 3.3"},
+      {:mix_test_watch, "~> 1.2", only: :dev, runtime: false},
+      {:oban, "~> 2.20"},
+      {:oban_web, "~> 2.11"},
+      {:ok, "~> 2.3"},
+      {:phoenix, "~> 1.7.11"},
+      {:phoenix_ecto, "~> 4.5.1"},
+      {:phoenix_view, "~> 2.0.3"},
+      {:phoenix_html, "~> 3.3.3"},
+      {:phoenix_live_dashboard, "~> 0.8.7"},
+      {:phoenix_live_reload, "~> 1.6", only: :dev},
+      {:phoenix_live_view, "~> 1.0.4"},
+      {:phoenix_pubsub, "~> 2.1.3"},
+      {:phoenix_test, "~> 0.9.0", only: :test},
+      {:plug_attack, "~> 0.4.3"},
+      {:plug_cowboy, "~> 2.7"},
+      {:postgrex, ">= 0.0.0"},
+      {:process_tree, "~> 0.2.1", only: :test},
+      {:remote_ip, "~> 1.1"},
+      {:rustler, "~> 0.37.1"},
+      {:scrivener_ecto, "~> 2.4"},
+      {:sentry, "~> 12.0"},
+      {:stream_data, "~> 1.0", only: :test},
+      {:swoosh, "~> 1.16"},
+      {:tailwind, "~> 0.3.1", runtime: Mix.env() == :dev},
+      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_poller, "~> 1.0"},
+      {:timex, "~> 3.7"},
+      {:uuid, "~> 1.1"}
+    ]
+  end
+
+  # Aliases are shortcuts or tasks specific to the current project.
+  # For example, to create, migrate and run the seeds file at once:
+  #
+  #     $ mix ecto.setup
+  #
+  # See the documentation for `Mix` for more info on aliases.
+  defp aliases do
+    [
+      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
+      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      "assets.setup": [
+        "tailwind.install --if-missing --no-assets",
+        "esbuild.install --if-missing"
+      ],
+      "assets.build": ["tailwind default", "tailwind iframe", "esbuild default", "esbuild admin"],
+      "assets.deploy": [
+        "tailwind default --minify",
+        "tailwind iframe --minify",
+        "esbuild default --minify",
+        "esbuild admin --minify",
+        "phx.digest"
+      ],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+    ]
+  end
+end
