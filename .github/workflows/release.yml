@@ -33,7 +33,7 @@ jobs:
       ref: ${{ github.sha }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - id: release_meta
         name: Resolve release version
@@ -109,7 +109,7 @@ jobs:
       CARGO: cargo
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ needs.preflight.outputs.ref }}
 
