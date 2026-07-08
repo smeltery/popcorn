@@ -83,45 +83,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e16d2d3311acee920a9eb8d33b8cbc1787ce4a264e85f964c2404b969bdcd487"
 
 [[package]]
-name = "popcorn"
-version = "3.2.1"
-dependencies = [
- "anyhow",
- "async-trait",
- "avt",
- "axum",
- "bytes",
- "clap",
- "clap_complete",
- "clap_mangen",
- "config",
- "futures-util",
- "nix",
- "rand",
- "reqwest",
- "rgb",
- "rust-embed",
- "rustls",
- "rustyline",
- "serde",
- "serde_json",
- "signal-hook",
- "signal-hook-tokio",
- "tempfile",
- "tokio",
- "tokio-stream",
- "tokio-tungstenite",
- "tokio-util",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "url",
- "uuid",
- "which",
- "zstd",
-]
-
-[[package]]
 name = "async-compression"
 version = "0.4.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -927,6 +888,45 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "19f132c84eca552bf34cab8ec81f1c1dcc229b811638f9d283dceabe58c5569e"
 
 [[package]]
+name = "popcorn"
+version = "3.2.1"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "avt",
+ "axum",
+ "bytes",
+ "clap",
+ "clap_complete",
+ "clap_mangen",
+ "config",
+ "futures-util",
+ "nix",
+ "rand",
+ "reqwest",
+ "rgb",
+ "rust-embed",
+ "rustls",
+ "rustyline",
+ "serde",
+ "serde_json",
+ "signal-hook",
+ "signal-hook-tokio",
+ "tempfile",
+ "tokio",
+ "tokio-stream",
+ "tokio-tungstenite",
+ "tokio-util",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "url",
+ "uuid",
+ "which",
+ "zstd",
+]
+
+[[package]]
 name = "ppv-lite86"
 version = "0.2.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1062,9 +1062,9 @@ checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 
 [[package]]
 name = "reqwest"
-version = "0.12.20"
+version = "0.12.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eabf4c97d9130e2bf606614eb937e86edac8292eaa6f422f995d7e8de1eb1813"
+checksum = "9d0946410b9f7b082a427e4ef5c8ff541a88b357bc6c637c40db3a68ac70a36f"
 dependencies = [
  "async-compression",
  "base64",
