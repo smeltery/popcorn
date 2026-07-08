@@ -1238,7 +1238,7 @@ struct SgrOpsDecoder<'a> {
     ps: &'a [Param],
 }
 
-impl<'a> Iterator for SgrOpsDecoder<'a> {
+impl Iterator for SgrOpsDecoder<'_> {
     type Item = SgrOp;
 
     fn next(&mut self) -> Option<Self::Item> {
