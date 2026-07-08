@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="recording-index-layout">
+    <div>
+      <div class="heading">
+        <h2 :if={@self}>Your live streams</h2>
+        <h2 :if={!@self}>Live streams by <.profile_link user={@user} /></h2>
+      </div>
+
+      <%= if @streams.total_entries > 0 do %>
+        <div class="popcast-list">
+          <div :for={stream <- @streams}>
+            {live_render(@conn, PopcornWeb.LiveStreamCardLive,
+              session: %{"stream_id" => stream.id, "show_visibility_badge" => @self}
+            )}
+          </div>
+        </div>
+
+        <.pagination_links page={@streams} />
+      <% else %>
+        <p>{username(@user)} has no live streams.</p>
+      <% end %>
+    </div>
+  </div>
+</div>

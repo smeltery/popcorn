@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="recording-index-layout">
+    <div>
+      <div class="heading">
+        <h2><a href={~p"/explore"}>Explore</a> &raquo; Featured recordings</h2>
+      </div>
+
+      <div class="popcast-list">
+        <div :for={popcast <- @popcasts}>
+          <RecordingHTML.card popcast={popcast} />
+        </div>
+      </div>
+
+      <.pagination_links page={@popcasts} />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+{
+  "name": "popcorn-player",
+  "description": "Web player for terminal session recordings.",
+  "version": "0.1.0",
+  "author": "dotbrains",
+  "homepage": "https://github.com/dotbrains/popcorn/tree/main/packages/player",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dotbrains/popcorn.git"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "main": "dist/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./ui.js": "./dist/ui.js",
+    "./dist/bundle/popcorn-player.css": "./dist/bundle/popcorn-player.css",
+    "./dist/bundle/popcorn-player.min.js": "./dist/bundle/popcorn-player.min.js",
+    "./dist/bundle/popcorn-player-ui.min.js": "./dist/bundle/popcorn-player-ui.min.js",
+    "./dist/bundle/popcorn-player-worker.min.js": "./dist/bundle/popcorn-player-worker.min.js"
+  },
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c --environment production && lessc src/less/popcorn-player.less >dist/bundle/popcorn-player.css",
+    "test": "playwright test",
+    "format": "prettier src/**/*.js src/driver/recording/*.js tests/**/*.spec.js tests/driver/recording/*.spec.js --write"
+  },
+  "browserslist": [
+    "defaults and supports wasm"
+  ],
+  "prettier": {
+    "printWidth": 100
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.29.7",
+    "solid-js": "^1.9.14",
+    "solid-transition-group": "^0.2.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@babel/plugin-transform-runtime": "^7.29.7",
+    "@babel/preset-env": "^7.29.7",
+    "@playwright/test": "^1.61.1",
+    "@rollup/plugin-babel": "^6.1.0",
+    "@rollup/plugin-commonjs": "^28.0.9",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@wasm-tool/rollup-plugin-rust": "^3.1.6",
+    "babel-preset-solid": "^1.9.12",
+    "eslint": "^7.27.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.10.2",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-prettier": "^3.4.0",
+    "less": "4.4.2",
+    "prettier": "3.2.5",
+    "rollup": "^4.62.2"
+  }
+}

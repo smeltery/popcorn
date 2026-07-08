@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="recording-index-layout">
+    <div>
+      <div class="heading">
+        <h2><a href={~p"/explore"}>Explore</a> &raquo; Recent recordings</h2>
+      </div>
+
+      <%= if @popcasts.total_entries > 0 do %>
+        <div class="popcast-list">
+          <div :for={popcast <- @popcasts}>
+            <RecordingHTML.card popcast={popcast} />
+          </div>
+        </div>
+
+        <.pagination_links page={@popcasts} />
+      <% else %>
+        <p>No recordings have been made <em>public</em> yet.</p>
+
+        <p>
+          You can make your recording public from its settings page.
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+defmodule Popcorn.Streaming.Stream do
+  use Ecto.Schema
+
+  schema "streams" do
+    field :public_token, :string
+    field :producer_token, :string
+    field :visibility, Ecto.Enum, values: ~w[private unlisted public]a, default: :unlisted
+    field :term_cols, :integer
+    field :term_rows, :integer
+    field :term_type, :string
+    field :term_version, :string
+    field :term_theme_name, :string
+    field :term_theme_fg, :string
+    field :term_theme_bg, :string
+    field :term_theme_palette, :string
+    field :term_theme_prefer_original, :boolean, default: true
+    field :term_bold_is_bright, :boolean, default: false
+    field :term_adaptive_palette, :boolean, default: false
+    field :term_line_height, :float
+    field :term_font_family, :string
+    field :term_cursor_mode, :string, default: "blinking"
+    field :keystroke_overlay, :boolean, default: false
+    field :live, :boolean, default: false
+    field :last_activity_at, :utc_datetime
+    field :last_started_at, :utc_datetime
+    field :title, :string
+    field :description, :string
+    field :shell, :string
+    field :user_agent, :string
+    field :current_viewer_count, :integer
+    field :peak_viewer_count, :integer
+    field :buffer_time, :float
+    field :protocol, :string
+    field :snapshot, Popcorn.Ecto.Type.Snapshot
+    field :env, :map
+    field :audio_url, :string
+    field :schedule, Crontab.CronExpression.Ecto.Type
+    field :next_start_at, :utc_datetime
+    field :offline_grace_period, :integer
+
+    timestamps(type: :utc_datetime)
+
+    belongs_to :user, Popcorn.Accounts.User
+  end
+
+  defimpl Phoenix.Param do
+    def to_param(stream), do: stream.public_token
+  end
+end

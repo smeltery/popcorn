@@ -1,0 +1,46 @@
+# Upgrading
+
+To upgrade your instance of popcorn server to the latest version:
+
+- check the [releases](https://github.com/dotbrains/popcorn/releases)
+  for the latest version number,
+- check the release notes of _all_ versions between the one you're running and
+  the one you're upgrading to, and look for manual upgrade steps and breaking
+  changes for each version - if there are manual steps you omit you may end up
+  with a broken installation,
+- apply the new version using the steps for your deployment method below.
+
+Release notes for each version include detailed information on the steps needed
+for a successful upgrade. Backward compatibility is always a high priority when
+cutting a new release, thus, breaking changes are more the exception than the
+rule.
+
+## Docker
+
+Update the `popcorn` container image tag to the latest number:
+
+```diff title="docker-compose.yml"
+ services:
+   popcorn:
+-    image: ghcr.io/dotbrains/popcorn-server:20260616
++    image: ghcr.io/dotbrains/popcorn-server:20260626
+     # ...
+```
+
+Then recreate the stack with `docker compose up -d`.
+
+## NixOS
+
+Bump the pinned `popcorn-server` flake input to the new release:
+
+```diff title="flake.nix"
+   inputs = {
+     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+-    popcorn-server.url = "github:popcorn/popcorn-server/20260616";
++    popcorn-server.url = "github:popcorn/popcorn-server/20260626";
+   };
+```
+
+Then run `nixos-rebuild switch`. If you track the `main` branch instead of a
+pinned tag, run `nix flake update popcorn-server` first. Database migrations
+run automatically on start.

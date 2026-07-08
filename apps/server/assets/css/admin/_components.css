@@ -1,0 +1,117 @@
+/* Components */
+
+/* Page header */
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  gap: 1rem;
+}
+
+.page-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  /* keeps the header height stable with or without a "New …" button */
+  min-height: 2.125rem;
+}
+
+.page-title .tag { text-transform: uppercase; }
+
+/* Avatars */
+
+.avatar {
+  flex: none;
+  border-radius: 3px;
+  background: var(--surface-2);
+  object-fit: cover;
+}
+
+.page-title .avatar { width: 32px; height: 32px; }
+
+/* Inline so the username sits on the row's text baseline (inline-flex misaligns
+   it, visibly in Firefox); user_link/1 emits no whitespace — the avatar margin
+   is the gap. */
+.user-cell { display: inline; vertical-align: baseline; }
+.user-cell img.avatar { vertical-align: middle; margin-right: 0.4rem; }
+.avatar-sm { width: 18px; height: 18px; }
+
+/* Buttons */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  line-height: 1.4;
+  border: 1px solid var(--border-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.1s ease, border-color 0.1s ease;
+}
+
+.btn:hover {
+  background: var(--surface-2);
+  text-decoration: none;
+}
+
+.btn:active { transform: translateY(0.5px); }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent-strong);
+  color: var(--accent-text);
+}
+
+.btn-primary:hover {
+  background: var(--accent-strong);
+}
+
+.btn-danger {
+  background: var(--surface);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.btn-danger:hover {
+  background: var(--danger-bg);
+}
+
+/* Tags */
+
+.tag {
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 3px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  line-height: 1.4;
+}
+
+.tag-muted { color: var(--muted); }
+.tag-success { background: var(--accent); color: var(--accent-text); border-color: var(--accent-strong); }
+.tag-danger { background: var(--danger-bg); color: var(--danger); border-color: var(--danger); }
+.tag-live { background: var(--live-solid); color: #fff; border-color: var(--live-solid); }
+

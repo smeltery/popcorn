@@ -1,0 +1,46 @@
+PYTHON ?= python3
+SHELL := bash
+
+.PHONY: check shellcheck actionlint markdown file-sizes flat-directories docs release-smoke \
+	rust-format rust-lint rust-test integration player server
+
+check: shellcheck actionlint markdown file-sizes flat-directories docs release-smoke
+
+shellcheck:
+	scripts/check_shell.sh
+
+actionlint:
+	actionlint
+
+markdown:
+	$(PYTHON) scripts/check_markdown.py
+
+file-sizes:
+	$(PYTHON) scripts/check_file_sizes.py
+
+flat-directories:
+	$(PYTHON) scripts/check_flat_directories.py
+
+docs:
+	cd apps/docs && .venv/bin/mkdocs build --strict
+
+release-smoke:
+	$(PYTHON) scripts/check_release_workflow.py
+
+rust-format:
+	cargo fmt --all --check
+
+rust-lint:
+	cargo clippy --workspace --all-targets --locked -- -D warnings
+
+rust-test:
+	cargo test --workspace --locked
+
+integration:
+	crates/cli/tests/integration.sh
+
+player:
+	cd packages/player && bun install --frozen-lockfile && bun run build && bun run test
+
+server:
+	cd apps/server && mix deps.get --locked && mix test

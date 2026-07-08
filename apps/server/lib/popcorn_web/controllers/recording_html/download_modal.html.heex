@@ -1,0 +1,84 @@
+<dialog id="download-modal" class="modal modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Download this recording</h5>
+      <button type="button" class="modal-close" data-modal-close aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p>
+        <%= case @popcast.version do %>
+          <% 1 -> %>
+            You can download this recording in <a href="https://docs.popcorn.local/manual/popcast/v1/">popcast v1 format</a>, as a .json file.
+          <% n -> %>
+            You can download this recording in <a href={"https://docs.popcorn.local/manual/popcast/v#{n}/"}>popcast v{n} format</a>, as a .pop file.
+        <% end %>
+      </p>
+
+      <.link
+        href={popcast_file_url(@popcast) <> "?dl=1"}
+        class="btn btn-primary"
+        download={download_filename(@popcast)}
+        rel="nofollow"
+      >
+        Download
+      </.link>
+
+      <h2>Replay in terminal</h2>
+
+      <p>
+        You can replay the downloaded recording in your terminal using the
+        <code>popcorn play</code>
+        command:
+      </p>
+
+      <.code_with_copy>popcorn play {download_filename(@popcast)}</.code_with_copy>
+
+      <p>
+        If you don't have popcorn CLI installed then <a href="https://docs.popcorn.local/manual/cli/installation/">see installation instructions</a>.
+      </p>
+
+      <h2>Use with stand-alone player on your website</h2>
+
+      <p>
+        Download popcorn player from
+        <a href="https://github.com/dotbrains/popcorn/tree/main/packages/player/releases">
+          the releases page
+        </a>
+        (you only need <code>.js</code>
+        and <code>.css</code>
+        file), then use it like this:
+      </p>
+
+      <pre><code>&lt;!DOCTYPE html>
+&lt;html>
+&lt;head>
+  &lt;link rel="stylesheet" type="text/css" href="/assets/popcorn-player.css" />
+&lt;/head>
+&lt;body>
+  &lt;div id="player">&lt;/div>
+  &lt;script src="/assets/popcorn-player.min.js">&lt;/script>
+  &lt;script>
+    // @license magnet:?xt=urn:btih:8e4f440f4c65981c5bf93c76d35135ba5064d8b7&dn=apache-2.0.txt Apache-2.0
+    PopcornPlayer.create(
+      '/assets/<%= download_filename(@popcast) %>',
+      document.getElementById('player'),
+      &lbrace; cols: <%= term_cols(@popcast) %>, rows: <%= term_rows(@popcast) %> &rbrace;
+    );
+    // @license-end
+  &lt;/script>
+&lt;/body>
+&lt;/html></code></pre>
+
+      <p>
+        See
+        <a href="https://docs.popcorn.local/manual/player/quick-start/">
+          popcorn player quick-start guide
+        </a>
+        for full usage instructions.
+      </p>
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - v[0-9]+.*
+
+jobs:
+  create-release:
+    name: Create GH release draft
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - name: Create the release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create ${{ github.ref_name }} --draft --verify-tag --title ${{ github.ref_name }}
+
+  upload-binary:
+    needs: create-release
+    name: ${{ matrix.target }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            strip: strip
+
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+            strip: strip
+            build-deps: musl-tools
+
+          - os: ubuntu-latest
+            target: arm-unknown-linux-gnueabihf
+            use-cross: true
+            strip: arm-linux-gnueabihf-strip
+            build-deps: binutils-arm-linux-gnueabihf
+
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-gnu
+            use-cross: true
+            strip: aarch64-linux-gnu-strip
+            build-deps: binutils-aarch64-linux-gnu
+
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            binary_ext: ".exe"
+
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            strip: strip
+
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            strip: strip
+
+    env:
+      CARGO: cargo
+
+    steps:
+      - uses: actions/checkout@v6.0.2
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install cross
+        if: matrix.use-cross
+        uses: taiki-e/install-action@v2.75.27
+        with:
+          tool: cross
+
+      - name: Overwrite build command env variable
+        if: matrix.use-cross
+        shell: bash
+        run: echo "CARGO=cross" >> $GITHUB_ENV
+
+      - name: Install build deps
+        if: matrix.build-deps
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ${{ matrix.build-deps }}
+
+      - name: Build release binary
+        run: ${{ env.CARGO }} build --release --locked --target ${{ matrix.target }}
+
+      - name: Strip binary
+        if: matrix.strip
+        run: ${{ matrix.strip }} target/${{ matrix.target }}/release/agg${{ matrix.binary_ext }}
+
+      - name: Upload the binary to the release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv target/${{ matrix.target }}/release/agg${{ matrix.binary_ext }} target/release/agg-${{ matrix.target }}${{ matrix.binary_ext }}
+          gh release upload ${{ github.ref_name }} target/release/agg-${{ matrix.target }}${{ matrix.binary_ext }}

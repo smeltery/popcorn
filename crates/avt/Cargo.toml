@@ -1,0 +1,34 @@
+[package]
+name = "popcorn-terminal"
+version = "0.1.0"
+edition = "2021"
+authors = ["dotbrains"]
+repository = "https://github.com/dotbrains/popcorn"
+description = "popcorn virtual terminal"
+license-file = "LICENSE"
+
+# MSRV
+rust-version = "1.82.0"
+
+[dependencies]
+rgb = "0.8.33"
+unicode-width = "0.2.1"
+
+[dev-dependencies]
+rand = "0.7"
+proptest = "=1.9.0"
+tempfile = "=3.24.0"
+criterion = "0.3"
+pretty_assertions = "1.0"
+
+[[bench]]
+name = "parser"
+harness = false
+
+[[bench]]
+name = "vt"
+harness = false
+
+[[bench]]
+name = "charset"
+harness = false

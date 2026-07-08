@@ -1,0 +1,9 @@
+/* Popcorn player embed */
+
+.admin-player {
+  background: #1a1f24;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+

@@ -1,0 +1,17 @@
+@import "../node_modules/popcorn-player/dist/bundle/popcorn-player.css";
+@import "./fonts/fira-code.css";
+@import "./fonts/jetbrains-mono.css";
+@import "./fonts/symbols-nerd-font.css";
+
+@import "./admin/_base.css";
+@import "./admin/_theme.css";
+@import "./admin/_layout.css";
+@import "./admin/_components.css";
+@import "./admin/_tables.css";
+@import "./admin/_forms.css";
+@import "./admin/_dashboard.css";
+@import "./admin/_query.css";
+@import "./admin/_details.css";
+@import "./admin/_actions.css";
+@import "./admin/_player.css";
+@import "./admin/_utilities.css";

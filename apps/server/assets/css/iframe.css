@@ -1,0 +1,37 @@
+/* ==========================================================================
+ * Iframe layout styles (layouts/iframe.html) wrapping embedded player.
+ * Only loads fonts/player CSS needed by the embed.
+ * ========================================================================== */
+
+/* == Font/player imports == */
+
+@import "../node_modules/popcorn-player/dist/bundle/popcorn-player.css";
+@import "./fonts/fira-code.css";
+@import "./fonts/jetbrains-mono.css";
+@import "./fonts/symbols-nerd-font.css";
+
+/* == Embed body == */
+
+body.iframe {
+  color: #333;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+
+  .powered {
+    margin: 8px 0 0 0;
+    text-align: right;
+    font-size: 13px;
+
+    a {
+      color: inherit;
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

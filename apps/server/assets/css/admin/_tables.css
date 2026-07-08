@@ -1,0 +1,88 @@
+/* Tables */
+
+.table-wrap {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+th {
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface-2);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+tbody tr:hover { background: var(--row-hover); }
+
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+td.mono, th.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+/* one font, one baseline — mono next to sans sits visibly off in Firefox */
+.list-table td.mono, .list-table th.mono,
+.recent td.mono, .recent th.mono { font-family: inherit; }
+
+/* single-line rows; .title-text caps long titles instead of grabbing the spare width */
+.list-table th, .list-table td { white-space: nowrap; }
+
+.list-table .col-title { min-width: 8rem; }
+
+.title-cell { display: flex; align-items: center; min-width: 0; }
+
+.title-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  max-width: 32rem;
+}
+
+/* quiet inline flag icons beside the title */
+.flag {
+  flex: none;
+  display: inline-flex;
+  margin-left: 0.3rem;
+  color: var(--muted);
+}
+
+.title-text + .flag { margin-left: 0.7rem; }
+
+.flag svg { display: block; width: 0.9rem; height: 0.9rem; }
+
+/* same top gap as .pagination */
+.see-all { margin-top: 0.75rem; }
+
+tbody tr.archived,
+tbody tr.revoked { opacity: 0.5; }
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--live);
+  font-weight: 500;
+}
+
+.live-indicator::before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+

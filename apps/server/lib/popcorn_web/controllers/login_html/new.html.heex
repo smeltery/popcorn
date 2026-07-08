@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="grid-cols-2">
+    <div>
+      <h1><.user_circle_outline_icon /> Log in</h1>
+      <br />
+
+      <.form :let={f} for={@conn} action={~p"/login"} as={:login} class="login-form">
+        <.label for={f[:email]} style="display: none">E-mail or username</.label>
+
+        <.input
+          field={f[:email]}
+          class="email-field"
+          data-behavior="focus"
+          placeholder="Email address or username"
+        />
+
+        <div class="hpf-wrapper">
+          <.input field={f[:username]} value="" tabindex="-1" autocomplete="nope" />
+        </div>
+
+        <div class="hpf-wrapper">
+          <input name="login[terms]" type="checkbox" value="1" tabindex="-1" />
+        </div>
+
+        <button class="btn btn-primary" type="submit">Log in</button>
+      </.form>
+
+      <%= if error = assigns[:error] do %>
+        <br />
+        <p class="text-danger">{error}</p>
+      <% end %>
+
+      <br /><br />
+    </div>
+
+    <div>
+      <h2><.info_outline_icon /> First time here?</h2>
+
+      <%= if sign_up_enabled?() do %>
+        <p>We use email-based, passwordless login process. Enter your email
+          address and you'll receive a one-time login link. After you open it
+          you'll be able to finish signing up and pick your username.</p>
+      <% else %>
+        <p>Public sign up on this site hasn't been enabled. Bummer! Try contacting the
+          administrator.</p>
+      <% end %>
+
+      <h2><.info_outline_icon /> Coming back?</h2>
+
+      <p>If you already have an account then enter either your username, or the
+        email address you used for the first time here. We'll send you an email
+        with a one-time login link.</p>
+    </div>
+  </div>
+</div>

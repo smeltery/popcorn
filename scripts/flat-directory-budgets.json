@@ -1,0 +1,25 @@
+{
+  "default_files": 25,
+  "directories": {
+    "apps/docs/docs/assets/fonts": {
+      "limit": 120,
+      "reason": "Checked-in documentation font assets are grouped by font family files."
+    },
+    "apps/server/lib/popcorn": {
+      "limit": 40,
+      "reason": "Phoenix domain context entry modules live at the application namespace boundary."
+    },
+    "apps/server/lib/popcorn_web/controllers": {
+      "limit": 50,
+      "reason": "Phoenix controllers, HTML modules, and format modules share framework routing conventions."
+    },
+    "apps/server/priv/repo/migrations": {
+      "limit": 150,
+      "reason": "Database migrations are chronological source files and should stay in one directory."
+    },
+    "apps/server/priv/static/fonts": {
+      "limit": 30,
+      "reason": "Static font assets are served from one framework-owned asset directory."
+    }
+  }
+}

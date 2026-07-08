@@ -1,0 +1,1 @@
+../../dist/bundle/popcorn-player.js

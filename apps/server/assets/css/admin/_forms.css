@@ -1,0 +1,109 @@
+/* Forms */
+
+.form {
+  max-width: 60ch;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+label {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+input[type="text"], input[type="email"], input[type="number"], input[type="search"], input[type="url"], textarea, select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--text);
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent-strong);
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+textarea { min-height: 6rem; resize: vertical; }
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.8rem;
+}
+
+.merge-target { flex: 1; max-width: 24rem; }
+
+/* Cards (stat tiles, dashboard tiles) */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+}
+
+/* .recent opts out — its h3 is a bordered header bar */
+.card:not(.recent) > h3 { margin-bottom: 1rem; }
+
+h3.card-head { display: flex; justify-content: space-between; align-items: baseline; }
+.card-head-action { font-size: 0.875rem; font-weight: 400; }
+
+/* descendant selector: also covers h4s nested in card sub-sections */
+.card:not(.recent) h4 { margin-bottom: 0.5rem; }
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  color: var(--text);
+}
+
+/* Flash messages */
+
+.flash {
+  padding: 0.5rem 0.75rem;
+  margin: 0 0 1rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+}
+
+.flash-info { background: var(--surface-2); }
+.flash-error { background: var(--danger-bg); border-color: var(--danger); color: var(--danger-strong); }
+
+time { color: inherit; }
+
+abbr[title] {
+  cursor: help;
+  text-decoration: underline dotted;
+  text-decoration-color: var(--muted);
+  text-underline-offset: 2px;
+}
+

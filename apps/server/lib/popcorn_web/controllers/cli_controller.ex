@@ -1,0 +1,59 @@
+defmodule PopcornWeb.CliController do
+  use PopcornWeb, :controller
+
+  plug :require_current_user
+
+  def show(conn, %{"install_id" => install_id}) do
+    preview = Popcorn.preview_cli_claim(conn.assigns.current_user, install_id)
+
+    render(conn, :show, install_id: install_id, preview: preview)
+  end
+
+  def create(conn, %{"install_id" => install_id}) do
+    case Popcorn.claim_cli(conn.assigns.current_user, install_id) do
+      :ok ->
+        conn
+        |> put_flash(:info, "CLI successfully authenticated with your account")
+        |> redirect(to: next_path(conn))
+
+      {:error, :token_taken} ->
+        conn
+        |> put_flash(:error, "This CLI has been authenticated with a different user account")
+        |> redirect(to: ~p"/connect/#{install_id}")
+
+      {:error, :token_invalid} ->
+        conn
+        |> put_flash(:error, "Invalid installation ID - make sure to paste the URL correctly")
+        |> redirect(to: ~p"/connect/#{install_id}")
+
+      {:error, :cli_revoked} ->
+        conn
+        |> put_flash(:error, "This CLI authentication has been revoked")
+        |> redirect(to: ~p"/connect/#{install_id}")
+    end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    case Popcorn.revoke_cli(conn.assigns.current_user, id) do
+      :ok ->
+        conn
+        |> put_flash(:info, "CLI authentication revoked")
+        |> redirect(to: ~p"/user/edit")
+
+      {:error, :not_found} ->
+        conn
+        |> put_flash(:error, "CLI not found")
+        |> redirect(to: ~p"/user/edit")
+    end
+  end
+
+  defp next_path(conn) do
+    user = conn.assigns.current_user
+
+    if user.username do
+      ~p"/~#{user}"
+    else
+      ~p"/username/new"
+    end
+  end
+end
