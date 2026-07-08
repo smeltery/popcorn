@@ -95,22 +95,7 @@ The benefit of this configuration is typically observed only for high
 frame-rate / high bandwidth recordings. For typical demos/sessions it's
 not worth the setup hassle.
 
-## Donations
-
-
-
-Popcorn is maintained by dotbrains.
-
-- [Brightbox](https://www.brightbox.com/)
-
-## Consulting
-
-If you're interested in integration or customization of popcorn player to suit
-your needs, contact dotbrains.
-
 ## License
 
-© 2011 Marcin Kulik.
-
-All code is licensed under the Apache License, Version 2.0. See
-[LICENSE](./LICENSE) file for details.
+popcorn player is licensed under the PolyForm Shield License 1.0.0. See
+[LICENSE](./LICENSE) for details.

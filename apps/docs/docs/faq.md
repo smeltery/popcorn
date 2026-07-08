@@ -7,18 +7,11 @@ hide:
 
 Here you can find answers to most frequently asked questions about popcorn.
 
-If you don't find an answer to your question join our Matrix room
-`#popcorn:matrix.org` ([web
-client](https://matrix.to/#/#popcorn:matrix.org)) or `#popcorn` IRC channel
-on [Libera.Chat](https://libera.chat/) ([web
-client](https://web.libera.chat/#popcorn)).
+If you don't find an answer to your question, see [support](support.md).
 
 ## How is "popcorn" pronounced?
 
-_[as-kee-nuh-muh]_.
-
-The word "popcorn" is a combination of English "ASCII" and Ancient Greek
-"κίνημα" (kínēma, "movement").
+_[pop-korn]_.
 
 ## What kind of sorcery is this?
 

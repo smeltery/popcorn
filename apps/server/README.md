@@ -50,27 +50,7 @@ Notable features:
 Refer to [popcorn server docs](https://docs.popcorn.local/manual/server/) for
 further details.
 
-## Donations
+## License
 
-Sustainability of popcorn development relies on donations and sponsorships.
-
-Please help the software project you use and love. Become a
-[supporter](https://docs.popcorn.local/donations/#individuals) or a [corporate
-sponsor](https://docs.popcorn.local/donations/#corporate-sponsorship).
-
-popcorn is sponsored by:
-
-- [Brightbox](https://www.brightbox.com/)
-
-## Consulting
-
-If you're interested in hosting, maintenance or customization of popcorn
-server, check [popcorn consulting
-services](https://docs.popcorn.local/consulting/).
-
-## Copyright
-
-© 2011 Marcin Kulik.
-
-All code is licensed under the Apache License, Version 2.0. See LICENSE file for
-details.
+popcorn server is licensed under the PolyForm Shield License 1.0.0. See
+[LICENSE](./LICENSE) for details.

@@ -61,6 +61,6 @@ Notable features:
 
 ---
 
-popcorn player is free and open-source software (FOSS). Source code and
-license available at
+popcorn player is licensed under the PolyForm Shield License 1.0.0. Source code
+and license are available at
 [github.com/dotbrains/popcorn](https://github.com/dotbrains/popcorn).

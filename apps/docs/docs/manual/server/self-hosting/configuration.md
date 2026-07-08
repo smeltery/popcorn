@@ -714,8 +714,7 @@ check [how to customize](customization.md) the server by changing its source
 code and building a custom container image. This may require a bit of
 Elixir/Phoenix knowledge though.
 
-For non-trivial customizations you may want to consider using [popcorn
-consulting services](../../../consulting.md).
+For non-trivial customizations, see [support](../../../support.md).
 
 ### Custom TLS client certificate
 

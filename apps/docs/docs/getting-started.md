@@ -192,9 +192,7 @@ the standalone player on your website like this:
   ...
   <script src="/popcorn-player.min.js"></script>
   <script>
-    // @license magnet:?xt=urn:btih:8e4f440f4c65981c5bf93c76d35135ba5064d8b7&dn=apache-2.0.txt Apache-2.0
     PopcornPlayer.create('/demo.pop', document.getElementById('demo'));
-    // @license-end
   </script>
 </body>
 </html>
@@ -289,14 +287,7 @@ Thank you for taking the first steps with popcorn through this introductory
 guide. Our goal was to provide you with a clear, high-level overview of the
 popcorn tools and their usage.
 
-For additional insights and answers, feel free to explore our [FAQ](faq.md)
-section and join the conversation in the `#popcorn` room on the Matrix
-network, `#popcorn:matrix.org` ([web
-client](https://matrix.to/#/#popcorn:matrix.org)), or `#popcorn` IRC channel
-on [Libera.Chat](https://libera.chat/) ([web
-client](https://web.libera.chat/#popcorn)).
-
-To stay updated on the latest developments and get useful tips, follow
-[@popcorn@fosstodon.org](https://fosstodon.org/@popcorn) on Mastodon.
+For additional insights and answers, explore the [FAQ](faq.md) section or see
+[support](support.md).
 
 Happy recording!

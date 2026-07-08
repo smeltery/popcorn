@@ -53,11 +53,5 @@ pointing [popcorn CLI](../../cli/index.md) to the server using the
     ```
 
 
-If you need help with installation or maintenance feel free to ask on [popcorn
-forum](https://discourse.popcorn.local) or in [popcorn Matrix
-room](https://matrix.to/#/#popcorn:matrix.org).
-
-Last but not least, if your company is interested in having the installation,
-maintenance or customization of the server performed by the people who created
-popcorn, then check out [popcorn consulting
-services](../../../consulting.md).
+If you need help with installation or maintenance, see
+[support](../../../support.md).

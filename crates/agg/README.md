@@ -99,16 +99,7 @@ If you use Podman in root-less mode:
 podman run --rm -v $PWD:/data popcorn-gif demo.pop demo.gif
 ```
 
-## Consulting
-
-If you're interested in customization of popcorn-gif or any other popcorn component to
-for your corporate needs, check [popcorn consulting
-services](https://docs.popcorn.org/consulting/).
-
 ## License
 
-© 2022 Marcin Kulik.
-
-
-All code is licensed under the GPL, v3 or later. See [LICENSE](./LICENSE) file
-for details.
+popcorn-gif is licensed under the PolyForm Shield License 1.0.0. See
+[LICENSE](./LICENSE) for details.

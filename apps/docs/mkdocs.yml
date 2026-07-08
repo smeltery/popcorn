@@ -1,5 +1,5 @@
 site_name: popcorn docs
-site_author: Marcin Kulik
+site_author: dotbrains
 
 repo_url: https://github.com/dotbrains/popcorn
 
@@ -50,8 +50,7 @@ nav:
     - how-it-works.md
     - community.md
     - integrations.md
-    - donations.md
-    - consulting.md
+    - support.md
   - getting-started.md
   - Manual:
     - manual/index.md
@@ -133,11 +132,5 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/dotbrains/popcorn
       name: popcorn on Github
-    - icon: fontawesome/brands/mastodon
-      link: https://fosstodon.org/@popcorn
-      name: popcorn on Mastodon
-    - icon: fontawesome/brands/twitter
-      link: https://twitter.com/popcorn
-      name: popcorn on X (Twitter)
 
-copyright: Copyright &copy; 2023 Marcin Kulik
+copyright: Copyright &copy; 2026 dotbrains

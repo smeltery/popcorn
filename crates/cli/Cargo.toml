@@ -2,11 +2,11 @@
 name = "popcorn"
 version = "3.2.1"
 edition = "2021"
-authors = ["Marcin Kulik <m@ku1ik.com>"]
+authors = ["dotbrains"]
 homepage = "https://popcorn.dotbrains.local"
 repository = "https://github.com/dotbrains/popcorn"
 description = "Terminal session recorder, streamer, and player"
-license = "GPL-3.0-or-later"
+license-file = "LICENSE"
 
 # MSRV
 rust-version = "1.82.0"

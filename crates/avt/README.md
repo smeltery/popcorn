@@ -58,26 +58,7 @@ To run the benchmarks:
 cargo bench
 ```
 
-## Donations
-
-Sustainability of popcorn development relies on donations and sponsorships.
-
-Please help the software project you use and love. Become a
-[supporter](https://docs.popcorn.org/donations/#individuals) or a [corporate
-sponsor](https://docs.popcorn.org/donations/#corporate-sponsorship).
-
-popcorn is sponsored by:
-
-- [Brightbox](https://www.brightbox.com/)
-
-## Consulting
-
-If you're interested in customization of popcorn-terminal or any other popcorn component
-to suit your corporate needs, check [popcorn consulting
-services](https://docs.popcorn.org/consulting/).
-
 ## License
 
-© 2019 Marcin Kulik.
-
-All code is licensed under the Apache License, Version 2.0. See LICENSE file for details.
+popcorn-terminal is licensed under the PolyForm Shield License 1.0.0. See
+[LICENSE](./LICENSE) for details.

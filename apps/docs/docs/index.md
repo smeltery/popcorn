@@ -24,9 +24,8 @@ pre.ascii-logo {
  \__,_|___/\___|_|_|_| |_|\___|_| |_| |_|\__,_|
 </pre>
 
-__Popcorn__ is a suite of tools for recording, streaming, and sharing
-terminal sessions. It is free and open-source software (FOSS), created by
-[Marcin Kulik](https://hachyderm.io/@ku1ik).
+__Popcorn__ is a dotbrains suite of tools for recording, streaming, playing,
+hosting, and sharing terminal sessions.
 
 Its typical use cases include creating tutorials, demonstrating command-line
 tools, live coding, and sharing reproducible bug reports. It focuses on
@@ -39,10 +38,9 @@ administrators.
 
     ---
 
-    Learn [how popcorn works](how-it-works.md), how to engage with [the
-    community](community.md), what [integrations](integrations.md) people have built
-    around the project, and last but not least, how to [support the
-    project](donations.md).
+    Learn [how popcorn works](how-it-works.md), what
+    [integrations](integrations.md) are available, and how to get
+    [support](support.md).
 
 -   __Get started__
 

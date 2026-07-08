@@ -9,11 +9,9 @@ This allows you to enrich a blog post or project documentation with minimal
 effort.
 
 When embedding with the methods presented below, all the assets are served from
-popcorn.local. This server has been operational since 2012 and hopefully isn't
-going anywhere (you can help by [donating](../../donations.md)). However, if you
-prefer not to depend on a third party, consider including the [standalone
-player](../player/index.md) on your website, or [self-hosting the
-server](../server/self-hosting/index.md).
+popcorn.local. If you prefer not to depend on a third party, consider including
+the [standalone player](../player/index.md) on your website, or
+[self-hosting the server](../server/self-hosting/index.md).
 
 ## Inline player
 

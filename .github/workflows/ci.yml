@@ -20,7 +20,7 @@ env:
 jobs:
   quality:
     name: Format, Lint, Test, Integration
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     timeout-minutes: 45
     steps:
       - name: Checkout
@@ -55,19 +55,19 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-24.04
+          - os: blacksmith-4vcpu-ubuntu-2404
             target: x86_64-unknown-linux-gnu
             use-cross: false
-          - os: ubuntu-24.04
+          - os: blacksmith-4vcpu-ubuntu-2404
             target: x86_64-unknown-linux-musl
             use-cross: false
-          - os: ubuntu-24.04
+          - os: blacksmith-4vcpu-ubuntu-2404
             target: aarch64-unknown-linux-gnu
             use-cross: true
-          - os: macos-15-intel
+          - os: blacksmith-6vcpu-macos-15
             target: x86_64-apple-darwin
             use-cross: false
-          - os: macos-14
+          - os: blacksmith-6vcpu-macos-15
             target: aarch64-apple-darwin
             use-cross: false
     env:
@@ -103,7 +103,7 @@ jobs:
 
   player:
     name: Player
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     timeout-minutes: 30
     steps:
       - name: Checkout
@@ -140,7 +140,7 @@ jobs:
 
   server:
     name: Server
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-4vcpu-ubuntu-2404
     timeout-minutes: 30
     services:
       postgres:
@@ -197,7 +197,7 @@ jobs:
 
   docs:
     name: Docs
-    runs-on: ubuntu-24.04
+    runs-on: blacksmith-2vcpu-ubuntu-2404
     timeout-minutes: 10
     steps:
       - name: Checkout

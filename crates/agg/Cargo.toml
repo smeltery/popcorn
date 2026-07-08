@@ -1,12 +1,12 @@
 [package]
 name = "popcorn-gif"
 version = "1.9.0"
-authors = ["Marcin Kulik <m@ku1ik.com>"]
+authors = ["dotbrains"]
 edition = "2021"
 homepage = "https://popcorn.dotbrains.local/docs/manual/popcorn-gif/"
 repository = "https://github.com/dotbrains/popcorn"
 description = "popcorn gif generator"
-license = "GPL-3.0-or-later"
+license-file = "LICENSE"
 
 include = [
     "/Cargo.lock",

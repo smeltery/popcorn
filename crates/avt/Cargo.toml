@@ -2,10 +2,10 @@
 name = "popcorn-terminal"
 version = "0.18.0"
 edition = "2021"
-authors = ["Marcin Kulik <m@ku1ik.com>"]
+authors = ["dotbrains"]
 repository = "https://github.com/dotbrains/popcorn"
 description = "popcorn virtual terminal"
-license = "Apache-2.0"
+license-file = "LICENSE"
 
 # MSRV
 rust-version = "1.82.0"

@@ -5,12 +5,10 @@ hide:
 
 # History
 
-The popcorn project was started by [Marcin Kulik](https://hachyderm.io/@ku1ik)
-in 2011.
+Popcorn descends from terminal session recording projects that began in 2011.
 
-While Marcin had been playing with the idea of sharing terminal session
-recordings on the web since 2010, the working prototype of what eventually
-became popcorn came to life a bit later.
+The earliest prototypes explored sharing terminal session recordings on the web
+with a lightweight text-based recording format and browser playback.
 
 Initially, all components of popcorn - [popcorn CLI](manual/cli/index.md)
 (the recorder), [popcorn player](manual/player/index.md), and [popcorn
