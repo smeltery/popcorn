@@ -65,7 +65,7 @@ defmodule Popcorn.MixProject do
       {:phoenix, "~> 1.7.11"},
       {:phoenix_ecto, "~> 4.5.1"},
       {:phoenix_view, "~> 2.0.3"},
-      {:phoenix_html, "~> 3.3.3"},
+      {:phoenix_html, "~> 4.3.0"},
       {:phoenix_live_dashboard, "~> 0.8.7"},
       {:phoenix_live_reload, "~> 1.6", only: :dev},
       {:phoenix_live_view, "~> 1.0.4"},
