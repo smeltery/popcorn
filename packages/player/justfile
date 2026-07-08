@@ -1,0 +1,12 @@
+default: build
+
+build:
+  rm -rf dist/*
+  bun run build
+
+test: build
+  bun run test
+
+format:
+  bun run format
+  cd src/vt && cargo fmt

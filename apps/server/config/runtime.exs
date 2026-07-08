@@ -1,0 +1,328 @@
+import Config
+
+# config/runtime.exs is executed for all environments, including
+# during releases. It is executed after compilation and before the
+# system starts, so it is typically used to load production configuration
+# and secrets from environment variables or elsewhere. Do not define
+# any compile-time configuration in here, as it won't be applied.
+
+env = &System.get_env/1
+
+# Parse a boolean env var: 1/true/yes/on -> true, 0/false/no/off -> false
+# (case-insensitive). Unset or unrecognised values use the default.
+bool_env = fn name, default ->
+  case env.(name) do
+    nil ->
+      default
+
+    value ->
+      case value |> String.trim() |> String.downcase() do
+        v when v in ~w(1 true yes on) -> true
+        v when v in ~w(0 false no off) -> false
+        _ -> default
+      end
+  end
+end
+
+if bool_env.("PHX_SERVER", false) do
+  config :popcorn, PopcornWeb.Endpoint, server: true
+  config :popcorn, PopcornAdmin.Endpoint, server: true
+end
+
+if config_env() == :prod do
+  database_url =
+    System.get_env("DATABASE_URL") ||
+      raise """
+      environment variable DATABASE_URL is missing.
+      For example: ecto://USER:PASS@HOST/DATABASE
+      """
+
+  config :popcorn, Popcorn.Repo, url: database_url
+end
+
+if config_env() in [:prod, :dev] do
+  if secret_key_base = env.("SECRET_KEY_BASE") do
+    config :popcorn, PopcornWeb.Endpoint, secret_key_base: secret_key_base
+    config :popcorn, PopcornAdmin.Endpoint, secret_key_base: secret_key_base
+    config :popcorn, Popcorn.Accounts, secret: secret_key_base
+  end
+
+  if port = env.("PORT") do
+    config :popcorn, PopcornWeb.Endpoint, http: [port: String.to_integer(port)]
+  end
+
+  if url_scheme = env.("URL_SCHEME") do
+    config :popcorn, PopcornWeb.Endpoint, url: [scheme: url_scheme]
+
+    case url_scheme do
+      "http" ->
+        config :popcorn, PopcornWeb.Endpoint, url: [port: 80]
+
+      "https" ->
+        config :popcorn, PopcornWeb.Endpoint, url: [port: 443]
+
+      _ ->
+        :ok
+    end
+  end
+
+  if bool_env.("BIND_ALL", false) do
+    config :popcorn, PopcornWeb.Endpoint, http: [ip: {0, 0, 0, 0}]
+  end
+
+  if url_host = env.("URL_HOST") do
+    config :popcorn, PopcornWeb.Endpoint, url: [host: url_host]
+  end
+
+  if url_path = env.("URL_PATH") do
+    config :popcorn, PopcornWeb.Endpoint, url: [path: url_path]
+    # this requires path prefix stripping at reverse proxy (nginx) level
+  end
+
+  if url_port = env.("URL_PORT") do
+    config :popcorn, PopcornWeb.Endpoint, url: [port: String.to_integer(url_port)]
+  end
+
+  if bool_env.("ADMIN_BIND_ALL", false) do
+    config :popcorn, PopcornAdmin.Endpoint, http: [ip: {0, 0, 0, 0}]
+  end
+
+  if port = env.("ADMIN_PORT") do
+    config :popcorn, PopcornAdmin.Endpoint, http: [port: String.to_integer(port)]
+  end
+
+  if url_scheme = env.("ADMIN_URL_SCHEME") do
+    config :popcorn, PopcornAdmin.Endpoint, url: [scheme: url_scheme]
+  end
+
+  if url_host = env.("ADMIN_URL_HOST") do
+    config :popcorn, PopcornAdmin.Endpoint, url: [host: url_host]
+  end
+
+  if url_port = env.("ADMIN_URL_PORT") do
+    config :popcorn, PopcornAdmin.Endpoint, url: [port: String.to_integer(url_port)]
+  end
+
+  if bool_env.("ADMIN_PANEL_ON_MAIN_ENDPOINT", false) do
+    config :popcorn, PopcornWeb.Plug.AdminGate, enabled: true
+  end
+
+  if data_dir = env.("DATA_DIR") do
+    config :popcorn, Popcorn.FileStore.Local, path: "#{data_dir}/uploads"
+  end
+
+  cache_path = env.("CACHE_PATH")
+
+  if cache_path do
+    config :popcorn, Popcorn.FileCache, path: cache_path
+  end
+
+  config :ex_aws,
+    region: [{:system, "S3_REGION"}, {:system, "AWS_REGION"}],
+    access_key_id: [
+      {:system, "S3_ACCESS_KEY_ID"},
+      {:system, "AWS_ACCESS_KEY_ID"},
+      :instance_role
+    ],
+    secret_access_key: [
+      {:system, "S3_SECRET_ACCESS_KEY"},
+      {:system, "AWS_SECRET_ACCESS_KEY"},
+      :instance_role
+    ]
+
+  if bucket = env.("S3_BUCKET") do
+    config :popcorn, Popcorn.FileStore, adapter: Popcorn.FileStore.S3
+
+    config :popcorn, Popcorn.FileStore.S3,
+      bucket: bucket,
+      path: "uploads/"
+
+    if endpoint = env.("S3_ENDPOINT") do
+      uri = URI.parse(endpoint)
+
+      config :ex_aws, :s3,
+        scheme: "#{uri.scheme}://",
+        host: uri.host,
+        port: uri.port
+    end
+  end
+
+  if db_pool_size = env.("DB_POOL_SIZE") do
+    config :popcorn, Popcorn.Repo, pool_size: String.to_integer(db_pool_size)
+  end
+
+  if search_work_mem = env.("SEARCH_WORK_MEM") do
+    config :popcorn, :search_work_mem, search_work_mem
+  end
+
+  if bool_env.("ECTO_IPV6", false) do
+    config :popcorn, Popcorn.Repo, socket_options: [:inet6]
+  end
+
+  if smtp_host = env.("SMTP_HOST") do
+    config :popcorn, Popcorn.Emails.Mailer,
+      adapter: Swoosh.Adapters.SMTP,
+      relay: smtp_host,
+      port: String.to_integer(env.("SMTP_PORT") || "587")
+
+    if username = env.("SMTP_USERNAME") do
+      config :popcorn, Popcorn.Emails.Mailer, username: username
+    end
+
+    if password = env.("SMTP_PASSWORD") do
+      config :popcorn, Popcorn.Emails.Mailer, password: password
+    end
+
+    if auth = env.("SMTP_AUTH") do
+      config :popcorn, Popcorn.Emails.Mailer, auth: auth
+    end
+
+    if tls = env.("SMTP_TLS") do
+      config :popcorn, Popcorn.Emails.Mailer, tls: tls
+    end
+
+    if versions = env.("SMTP_ALLOWED_TLS_VERSIONS") do
+      config :popcorn, Popcorn.Emails.Mailer, allowed_tls_versions: versions
+    end
+
+    if retries = env.("SMTP_RETRIES") do
+      config :popcorn, Popcorn.Emails.Mailer, retries: String.to_integer(retries)
+    end
+
+    if no_mx_lookups = env.("SMTP_NO_MX_LOOKUPS") do
+      config :popcorn, Popcorn.Emails.Mailer, no_mx_lookups: no_mx_lookups
+    end
+
+    # Default TLS options for OTP 26 compatibility
+    tls_options = [
+      cacerts: :public_key.cacerts_get(),
+      depth: 99,
+      customize_hostname_check: [
+        match_fun: :public_key.pkix_verify_hostname_match_fun(:https)
+      ]
+    ]
+
+    tls_options =
+      if bool_env.("SMTP_TLS_VERIFY_HOST", true) do
+        Keyword.put(tls_options, :server_name_indication, String.to_charlist(smtp_host))
+      else
+        Keyword.put(tls_options, :verify, :verify_none)
+      end
+
+    tls_options =
+      if bool_env.("SMTP_TLS_VERIFY_CERT", true) do
+        tls_options
+      else
+        Keyword.put(tls_options, :verify, :verify_none)
+      end
+
+    config :popcorn, Popcorn.Emails.Mailer, tls_options: tls_options
+  end
+
+  if rsvg_font_family = env.("RSVG_FONT_FAMILY") do
+    config :popcorn, PopcornWeb.PngGenerator, font_family: rsvg_font_family
+  end
+
+  if limit = env.("UPLOAD_SIZE_LIMIT") do
+    config :popcorn, PopcornWeb.Plug.Parsers.MULTIPART, length: String.to_integer(limit)
+  end
+
+  if ttls = env.("UNCLAIMED_RECORDING_TTL") do
+    ttls =
+      case String.split(ttls, ",", parts: 2) do
+        [delete_ttl] ->
+          [delete: String.to_integer(delete_ttl)]
+
+        [delete_ttl, delete_ttl] ->
+          [delete: String.to_integer(delete_ttl)]
+
+        [hide_ttl, delete_ttl] ->
+          [hide: String.to_integer(hide_ttl), delete: String.to_integer(delete_ttl)]
+      end
+
+    config :popcorn, :unclaimed_recording_ttl, ttls
+  end
+
+  if bool_env.("SIGN_UP_DISABLED", false) do
+    config :popcorn, Popcorn.Accounts, sign_up_enabled?: false
+  end
+
+  case env.("DEFAULT_AVATAR") do
+    "identicon" ->
+      config :popcorn, PopcornWeb.DefaultAvatar, adapter: PopcornWeb.DefaultAvatar.Identicon
+
+    "gravatar" ->
+      config :popcorn, PopcornWeb.DefaultAvatar, adapter: PopcornWeb.DefaultAvatar.Gravatar
+
+    nil ->
+      :ok
+  end
+
+  if limit = env.("DEFAULT_LIVE_STREAM_LIMIT") || env.("DEFAULT_STREAM_LIMIT") do
+    config :popcorn, Popcorn.Accounts, default_live_stream_limit: String.to_integer(limit)
+  end
+
+  unless bool_env.("DEFAULT_STREAMING_ENABLED", true) do
+    config :popcorn, Popcorn.Accounts, default_streaming_enabled: false
+  end
+
+  mode = env.("STREAM_RECORDING")
+
+  if mode in ["forced", "allowed", "disabled"] do
+    config :popcorn, Popcorn.Streaming.StreamServer, recording: String.to_atom(mode)
+  end
+
+  if bool_env.("UPLOAD_AUTH_REQUIRED", false) do
+    config :popcorn, Popcorn.Accounts, upload_auth_required: true
+  end
+
+  if limit = env.("UNREGISTERED_UPLOAD_COUNT_LIMIT") do
+    config :popcorn, Popcorn.Accounts,
+      unregistered_upload_count_limit: String.to_integer(limit)
+  end
+
+  if max_pages = env.("GUEST_PAGINATION_MAX_PAGES") do
+    case Integer.parse(max_pages) do
+      {max_pages, ""} when max_pages > 0 ->
+        config :popcorn, guest_pagination_max_pages: max_pages
+
+      _ ->
+        raise "GUEST_PAGINATION_MAX_PAGES must be a positive integer"
+    end
+  end
+
+  if max_pages = env.("AUTHENTICATED_PAGINATION_MAX_PAGES") do
+    case Integer.parse(max_pages) do
+      {max_pages, ""} when max_pages > 0 ->
+        config :popcorn, authenticated_pagination_max_pages: max_pages
+
+      _ ->
+        raise "AUTHENTICATED_PAGINATION_MAX_PAGES must be a positive integer"
+    end
+  end
+
+  if tpl = env.("UPLOAD_PATH_TPL") do
+    config :popcorn, Popcorn.Recordings.Paths, recording: tpl
+  end
+
+  if dsn = env.("SENTRY_DSN") do
+    config :sentry, dsn: dsn
+  end
+
+  if email = env.("CONTACT_EMAIL_ADDRESS") do
+    config :popcorn, contact_email_address: email
+  end
+
+  visibility = env.("DEFAULT_RECORDING_VISIBILITY")
+
+  if visibility in ~w[private unlisted public] do
+    config :popcorn, Popcorn.Accounts,
+      default_recording_visibility: String.to_atom(visibility)
+  end
+
+  visibility = env.("DEFAULT_STREAM_VISIBILITY")
+
+  if visibility in ~w[private unlisted public] do
+    config :popcorn, Popcorn.Accounts, default_stream_visibility: String.to_atom(visibility)
+  end
+end

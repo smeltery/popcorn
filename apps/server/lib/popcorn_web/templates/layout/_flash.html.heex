@@ -1,0 +1,25 @@
+<%= if message = Phoenix.Flash.get(@flash, :info) do %>
+  <section class="flash notice" id="flash-notice">
+    <div class="container">
+      <div class="flash-message">
+        {message}
+      </div>
+      <button type="button" class="flash-close" data-behavior="close" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+  </section>
+<% end %>
+
+<%= if message = Phoenix.Flash.get(@flash, :error) do %>
+  <section class="flash alert" id="flash-alert">
+    <div class="container">
+      <div class="flash-message">
+        {message}
+      </div>
+      <button type="button" class="flash-close" data-behavior="close" aria-label="Close">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+  </section>
+<% end %>

@@ -1,0 +1,126 @@
+:root {
+  --md-text-font: 'Fira Sans', sans-serif;
+  --md-code-font: 'Fira Mono', monospace;
+  --popcorn-red: #c81735;
+  --popcorn-red-dark: #8f1026;
+  --popcorn-cream: #fff4e5;
+  --popcorn-gold: #d39a45;
+  --popcorn-ink: #241617;
+  --popcorn-paper: #fffaf2;
+  --popcorn-line: #ead8c0;
+}
+
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--popcorn-red);
+  --md-primary-fg-color--light: #e64a60;
+  --md-primary-fg-color--dark: var(--popcorn-red-dark);
+  --md-accent-fg-color: var(--popcorn-gold);
+  --md-default-bg-color: var(--popcorn-paper);
+  --md-default-fg-color: var(--popcorn-ink);
+  --md-typeset-a-color: var(--popcorn-red-dark);
+  --md-code-bg-color: #f8eddf;
+  --md-footer-bg-color: var(--popcorn-ink);
+  --md-footer-bg-color--dark: #150c0d;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: var(--popcorn-red-dark);
+  --md-primary-fg-color--light: var(--popcorn-red);
+  --md-primary-fg-color--dark: #5f0918;
+  --md-accent-fg-color: var(--popcorn-gold);
+  --md-default-bg-color: #1b1213;
+  --md-default-fg-color: var(--popcorn-cream);
+  --md-typeset-a-color: #ff8c9b;
+  --md-code-bg-color: #2a1c1d;
+}
+
+.md-header {
+  background: linear-gradient(90deg, var(--popcorn-red-dark), var(--popcorn-red) 62%, #d84e4e);
+  box-shadow: 0 0 .35rem rgba(36, 22, 23, .2);
+}
+
+.md-tabs {
+  background-color: var(--popcorn-red-dark);
+}
+
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.md-typeset h1,
+.md-typeset h2 {
+  color: var(--popcorn-ink);
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  color: var(--popcorn-cream);
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  border-color: var(--popcorn-line);
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+  background-color: rgba(211, 154, 69, .14);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition-title,
+[data-md-color-scheme="slate"] .md-typeset summary {
+  background-color: rgba(211, 154, 69, .18);
+}
+
+article .player {
+  margin: 2em 0;
+}
+
+.ap-player .ap-overlay {
+  z-index: 2;
+}
+
+span.email {
+  font-weight: bold;
+}
+
+span.email b {
+  display: none;
+}
+
+a.btn-gh-sponsors {
+  background-color: #eee;
+  border-color: #ccc;
+  color: #333;
+  font-weight: 600;
+  border-radius: .2rem;
+  font-size: 90%;
+  line-height: 1.5;
+  padding: .25rem .5rem;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+a.btn-gh-sponsors:hover {
+  color: #000;
+}
+
+a.bitcoin-logo {
+  vertical-align: middle;
+  line-height: 1.5em;
+}
+
+a.bitcoin-logo img {
+  margin-right: 10px;
+  width: 32px;
+  vertical-align: middle;
+}
+
+main div.md-main__inner {
+  margin-bottom: 1.5rem;
+}

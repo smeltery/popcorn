@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="recording-index-layout">
+    <div class="content">
+      <%= if length(@live_streams.items) > 0 do %>
+        <div class="heading">
+          <h2>Live streams</h2>
+          <a :if={@live_streams.has_more} href={~p"/explore/streams/live"}>Browse all</a>
+        </div>
+
+        <div class="popcast-list">
+          <div :for={stream <- @live_streams.items}>
+            {live_render(@conn, PopcornWeb.LiveStreamCardLive,
+              session: %{"stream_id" => stream.id, "show_visibility_badge" => false}
+            )}
+          </div>
+        </div>
+      <% end %>
+
+      <%= if length(@upcoming_streams.items) > 0 do %>
+        <div class="heading">
+          <h2>Upcoming streams</h2>
+          <a :if={@upcoming_streams.has_more} href={~p"/explore/streams/upcoming"}>Browse all</a>
+        </div>
+
+        <div class="popcast-list">
+          <div :for={stream <- @upcoming_streams.items}>
+            {live_render(@conn, PopcornWeb.UpcomingStreamCardLive,
+              session: %{"stream_id" => stream.id, "show_visibility_badge" => false}
+            )}
+          </div>
+        </div>
+      <% end %>
+
+      <%= if length(@featured_popcasts.items) > 0 do %>
+        <div class="heading">
+          <h2>Featured recordings</h2>
+          <a :if={@featured_popcasts.has_more} href={~p"/explore/recordings/featured"}>
+            Browse all
+          </a>
+        </div>
+
+        <div class="popcast-list">
+          <div :for={popcast <- @featured_popcasts.items}>
+            <RecordingHTML.card popcast={popcast} no_created_at={true} />
+          </div>
+        </div>
+      <% end %>
+
+      <%= if length(@popular_popcasts.items) > 0 do %>
+        <div class="heading">
+          <h2>Popular recordings</h2>
+          <a :if={@popular_popcasts.has_more} href={~p"/explore/recordings/popular"}>
+            Browse all
+          </a>
+        </div>
+
+        <div class="popcast-list">
+          <div :for={popcast <- @popular_popcasts.items}>
+            <RecordingHTML.card popcast={popcast} no_created_at={true} />
+          </div>
+        </div>
+      <% end %>
+
+      <%= if length(@recent_popcasts.items) > 0 do %>
+        <div class="heading">
+          <h2>Recent recordings</h2>
+          <a :if={@recent_popcasts.has_more} href={~p"/explore/recordings/recent"}>
+            Browse all
+          </a>
+        </div>
+
+        <div class="popcast-list">
+          <div :for={popcast <- @recent_popcasts.items}>
+            <RecordingHTML.card popcast={popcast} />
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

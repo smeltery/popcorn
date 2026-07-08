@@ -1,0 +1,43 @@
+repos:
+  - repo: local
+    hooks:
+      - id: shellcheck
+        name: shellcheck
+        entry: scripts/check_shell.sh
+        language: system
+        pass_filenames: false
+        files: \.(sh|bash|zsh)$
+      - id: actionlint
+        name: actionlint
+        entry: actionlint
+        language: system
+        pass_filenames: false
+        files: ^\.github/(workflows/.*\.ya?ml|actionlint\.yaml)$
+      - id: markdown
+        name: markdown gate
+        entry: python3 scripts/check_markdown.py
+        language: system
+        pass_filenames: false
+        files: \.md$
+      - id: file-sizes
+        name: file size budgets
+        entry: python3 scripts/check_file_sizes.py
+        language: system
+        pass_filenames: false
+      - id: flat-directories
+        name: flat directory budgets
+        entry: python3 scripts/check_flat_directories.py
+        language: system
+        pass_filenames: false
+      - id: docs
+        name: docs strict build
+        entry: make docs
+        language: system
+        pass_filenames: false
+        files: ^(apps/docs/|mkdocs\.yml|README\.md|docs/)
+      - id: release-smoke
+        name: release workflow smoke
+        entry: python3 scripts/check_release_workflow.py
+        language: system
+        pass_filenames: false
+        files: ^(\.github/workflows/release\.yml|scripts/check_release_workflow\.py|Makefile)$

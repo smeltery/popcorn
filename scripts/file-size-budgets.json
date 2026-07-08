@@ -1,0 +1,28 @@
+{
+  "default_lines": 1000,
+  "files": {
+    "apps/server/assets/css/admin.css": 1200,
+    "apps/docs/docs/manual/player/api.md": 1500,
+    "apps/docs/docs/manual/player/options.md": 1500,
+    "apps/docs/docs/manual/server/api.md": 1500,
+    "apps/docs/docs/manual/server/streaming.md": 1500,
+    "apps/docs/docs/stylesheets/player-3.8.0.css": 3000,
+    "apps/docs/docs/stylesheets/player-3.9.0-83ce182.css": 3000,
+    "apps/server/lib/popcorn/recordings.ex": 1500,
+    "apps/server/lib/popcorn_web/router.ex": 1200,
+    "apps/server/test/popcorn/recordings_test.exs": 1500,
+    "apps/server/test/popcorn_web/controllers/api_controller_test.exs": 1200,
+    "apps/server/test/popcorn_web/controllers/recording_controller_test.exs": 1700,
+    "apps/server/test/popcorn_web/controllers/streaming_test.exs": 1400,
+    "crates/agg/src/main.rs": 1300,
+    "crates/agg/src/renderer.rs": 1200,
+    "crates/agg/src/renderer/swash.rs": 1500,
+    "crates/avt/src/parser.rs": 2400,
+    "crates/avt/src/terminal.rs": 3600,
+    "crates/cli/src/cmd/record.rs": 1200,
+    "packages/player/src/components/Terminal.js": 1900,
+    "packages/player/src/driver/recording.js": 1800,
+    "packages/player/tests/driver/recording.spec.js": 2200,
+    "packages/player/tests/player.spec.js": 1200
+  }
+}

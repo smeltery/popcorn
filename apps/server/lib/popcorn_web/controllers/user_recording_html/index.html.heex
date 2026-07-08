@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="recording-index-layout">
+    <div>
+      <div class="heading">
+        <h2 :if={@self}>Your recordings</h2>
+        <h2 :if={!@self}>Recordings by <.profile_link user={@user} /></h2>
+      </div>
+
+      <%= if @popcasts.total_entries > 0 do %>
+        <div class="popcast-list">
+          <div :for={popcast <- @popcasts}>
+            <RecordingHTML.card popcast={popcast} show_visibility_badge={@self} />
+          </div>
+        </div>
+
+        <.pagination_links page={@popcasts} />
+      <% else %>
+        <%= if @self do %>
+          <p>You have no recordings yet.</p>
+        <% else %>
+          <p>{username(@user)} has no public recordings yet.</p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

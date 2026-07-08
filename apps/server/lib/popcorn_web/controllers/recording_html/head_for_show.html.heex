@@ -1,0 +1,34 @@
+<!-- oEmbed -->
+<link
+  rel="alternate"
+  type="application/json+oembed"
+  href={popcast_oembed_url(@popcast, :json)}
+/>
+<link rel="alternate" type="text/xml+oembed" href={popcast_oembed_url(@popcast, :xml)} />
+<!-- Open Graph -->
+<meta property="og:title" content={title(@popcast)} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url(~p"/a/#{@popcast}")} />
+<meta property="og:image" content={url(~p"/a/#{@popcast}") <> ".png"} />
+<meta property="og:description" content={short_text_description(@popcast)} />
+<meta property="og:site_name" content="popcorn.local" />
+<!-- Twitter card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@popcorn" />
+<meta name="twitter:title" content={title(@popcast)} />
+<meta name="twitter:url" content={url(~p"/a/#{@popcast}")} />
+<meta name="twitter:description" content={short_text_description(@popcast)} />
+<meta name="twitter:image" content={url(~p"/a/#{@popcast}") <> ".png"} />
+<!-- application/x-popcast -->
+<link
+  rel="alternate"
+  type={alternate_link_type(@popcast)}
+  href={popcast_file_url(@popcast)}
+/>
+
+<%= if @popcast.visibility != :public do %>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="referrer" content="origin" />
+<% end %>
+
+<.theme_style theme={theme(@popcast)} />

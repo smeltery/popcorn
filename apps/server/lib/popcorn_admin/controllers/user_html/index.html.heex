@@ -1,0 +1,72 @@
+<.page title="Users">
+  <:actions>
+    <.button href={~p"/admin/users/new"} variant={:primary}>New user</.button>
+  </:actions>
+
+  <.query_form
+    index={@index}
+    action={~p"/admin/users"}
+    placeholder="Search users…"
+    return_to={~p"/admin/users?#{@filter_params}"}
+  />
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="num">id</th>
+          <th>username</th>
+          <th>email</th>
+          <th class="num">
+            <.link href={~p"/admin/users?#{sort_params(@index, "recordings.desc")}"}>
+              recordings{sort_arrow(@index, "recordings.desc")}
+            </.link>
+          </th>
+          <th class="num">
+            <.link href={~p"/admin/users?#{sort_params(@index, "streams.desc")}"}>
+              streams{sort_arrow(@index, "streams.desc")}
+            </.link>
+          </th>
+          <th>
+            <.link href={~p"/admin/users?#{sort_params(@index, "created.desc")}"}>
+              created{sort_arrow(@index, "created.desc")}
+            </.link>
+          </th>
+          <th>
+            <.link href={~p"/admin/users?#{sort_params(@index, "last-login.desc")}"}>
+              last login{sort_arrow(@index, "last-login.desc")}
+            </.link>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :for={u <- @users}>
+          <td class="num mono">
+            <.link href={~p"/admin/users/#{u.id}"}>{u.id}</.link>
+          </td>
+          <td>
+            <.user_link user={u} />
+          </td>
+          <td class="muted">{u.email}</td>
+          <td class="num mono">{u.recording_count || 0}</td>
+          <td class="num mono">{u.stream_count || 0}</td>
+          <td><.time_ago time={u.inserted_at} /></td>
+          <td>
+            <.time_ago :if={u.last_login_at} time={u.last_login_at} />
+            <span :if={!u.last_login_at} class="muted">never</span>
+          </td>
+          <td class="row-actions">
+            <.link href={~p"/admin/users/#{u.id}"}>view</.link>
+            <.link href={~p"/admin/users/#{u.id}/edit"}>edit</.link>
+          </td>
+        </tr>
+        <tr :if={@users == []}>
+          <td colspan="8" class="muted">No users match.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <.pagination page={@page} params={@filter_params} />
+</.page>

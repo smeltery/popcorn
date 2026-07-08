@@ -1,0 +1,175 @@
+<section
+  class="cinema"
+  id="cinema"
+  style={"height: #{cinema_height(@popcast)}vw; max-height: 75vh"}
+>
+</section>
+
+<section class="even info">
+  <div class="container">
+    <div class="content-sidebar-layout">
+      <div>
+        <span class="author-avatar">
+          <.link href={author_profile_path(@popcast)} title={author_username(@popcast)}>
+            <img src={author_avatar_url(@popcast)} class="avatar" />
+          </.link>
+        </span>
+
+        <h2>{title(@popcast)}</h2>
+
+        <small>
+          by
+          <.link href={author_profile_path(@popcast)}>
+            {author_username(@popcast)}
+          </.link>
+          <.time_ago time={@popcast.inserted_at} />
+          <.visibility_badge
+            :if={owned_by_current_user?(@popcast, @conn)}
+            visibility={@popcast.visibility}
+          />
+          <.featured_badge :if={@popcast.featured} />
+        </small>
+      </div>
+
+      <div class="text-right actions">
+        <div class="btn-group">
+          <div :if={@popcast.visibility != :private}>
+            <.link
+              href="#"
+              class="btn btn-sm btn-secondary"
+              id="share-link"
+              data-modal="share-modal"
+            >
+              <.share_mini_icon /> Share
+            </.link>
+          </div>
+
+          <details class="dropdown actions-dropdown">
+            <summary class="btn btn-sm btn-secondary">
+              <.download_mini_icon /> Download
+            </summary>
+
+            <div class="dropdown-menu">
+              <.link href="#" class="dropdown-item" id="download-link" data-modal="download-modal">
+                <strong>.{filename_ext(@popcast)}</strong> - original recording
+              </.link>
+              <.link href="#" class="dropdown-item" rel="nofollow" id="download-txt">
+                <strong>.txt</strong> - plain text version
+              </.link>
+              <.link href="#" class="dropdown-item" data-modal="gif-modal">
+                <strong>.gif</strong> - animated GIF
+              </.link>
+            </div>
+          </details>
+
+          <details :if={length(@actions) > 0} class="dropdown actions-dropdown">
+            <summary class="btn btn-sm btn-secondary">
+              <.cog_8_tooth_mini_icon />
+            </summary>
+
+            <div class="dropdown-menu">
+              <.link
+                :if={:edit in @actions}
+                href={~p"/a/#{@popcast}/edit"}
+                class="dropdown-item"
+              >
+                Settings
+              </.link>
+
+              <.link
+                :if={:delete in @actions}
+                href={~p"/a/#{@popcast}"}
+                class="dropdown-item text-danger"
+                method="delete"
+                data-confirm="Are you sure you want to delete this recording?"
+              >
+                Delete
+              </.link>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="odd meta">
+  <div class="container">
+    <div class="status-line">
+      <span class="status-line-item">
+        <.terminal_solid_icon /> <.env_info attrs={env_info_attrs(@popcast)} />
+      </span>
+
+      <span class="status-line-item" title="Total views">
+        <.eye_solid_icon /> {views_count(@popcast)} views
+      </span>
+    </div>
+
+    <%= if desc = render_markdown(@popcast.description) do %>
+      <hr />
+      <div class="description">{desc}</div>
+    <% end %>
+  </div>
+</section>
+
+<section :if={length(@other_popcasts.items) > 0} class="even more-by">
+  <div class="container">
+    <div class="heading">
+      <h2>
+        More recordings by
+        <a href={author_profile_path(@popcast)}>{author_username(@popcast)}</a>
+      </h2>
+      <a :if={@other_popcasts.has_more} href={~p"/~#{@popcast.user}/recordings"}>
+        Browse all
+      </a>
+    </div>
+
+    <div class="popcast-list">
+      <div :for={popcast <- @other_popcasts.items}>
+        <.card popcast={popcast} show_visibility_badge={@self} />
+      </div>
+    </div>
+  </div>
+</section>
+
+<.share_modal popcast={@popcast} />
+<.download_modal popcast={@popcast} />
+<.gif_modal popcast={@popcast} />
+
+<script>
+  // @license magnet:?xt=urn:btih:8e4f440f4c65981c5bf93c76d35135ba5064d8b7&dn=apache-2.0.txt Apache-2.0
+  window.addEventListener('load', async function() {
+    const container = document.getElementById('cinema');
+    const opts = <%= safe_json(player_opts(@popcast, @player_opts)) %>;
+    const viewCountUrl = <%= safe_json(@view_count_url) %>;
+
+    const player = await window.createPlayer(
+      <%= safe_json(player_src(@popcast)) %>,
+      container,
+      {
+        ...opts,
+        fit: 'both',
+        preload: true,
+        logger: console
+      }
+    );
+
+    player.addEventListener('metadata', ({ size }) => {
+      if (size !== undefined) {
+        container.style.height = window.cinemaHeight(size.cols, size.rows);
+      }
+    });
+
+    if (viewCountUrl) {
+      let counted = false;
+
+      player.addEventListener('playing', () => {
+        if (counted) return;
+
+        counted = true;
+        navigator.sendBeacon(viewCountUrl);
+      });
+    }
+  });
+  // @license-end
+</script>

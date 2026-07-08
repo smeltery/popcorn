@@ -1,0 +1,93 @@
+import Config
+
+# Configure your database
+config :popcorn, Popcorn.Repo,
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  database: "popcorn_dev",
+  stacktrace: true,
+  show_sensitive_data_on_connection_error: true,
+  pool_size: 10
+
+secret_key_base = "60BnXnzGGwwiZj91YA9XYKF9BCiM7lQ/1um8VXcWWLSdUp9OcPZV6YnQv7eFTYSY"
+
+# For development, we disable any cache and enable
+# debugging and code reloading.
+#
+# The watchers configuration can be used to run external
+# watchers to your application. For example, we can use it
+# to bundle .js and .css sources.
+config :popcorn, PopcornWeb.Endpoint,
+  # Binding to loopback ipv4 address prevents access from other machines.
+  # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
+  http: [ip: {127, 0, 0, 1}, port: 4000],
+  check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: secret_key_base,
+  watchers: [
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind_default: {Tailwind, :install_and_run, [:default, ~w(--watch)]},
+    tailwind_iframe: {Tailwind, :install_and_run, [:iframe, ~w(--watch)]}
+  ]
+
+config :popcorn, PopcornAdmin.Endpoint,
+  http: [ip: {127, 0, 0, 1}, port: 4002],
+  check_origin: false,
+  code_reloader: true,
+  debug_errors: true,
+  secret_key_base: secret_key_base,
+  watchers: [
+    esbuild_admin: {Esbuild, :install_and_run, [:admin, ~w(--sourcemap=inline --watch)]}
+  ]
+
+config :popcorn, PopcornWeb.Plug.AdminGate, enabled: true
+
+config :popcorn, Popcorn.Accounts, secret: secret_key_base
+
+# Watch static and templates for browser reloading.
+config :popcorn, PopcornWeb.Endpoint,
+  live_reload: [
+    interval: 1000,
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/popcorn_web/views/.*(ex)$",
+      ~r"lib/popcorn_web/templates/.*(eex|md)$",
+      ~r"lib/popcorn_web/(controllers|live|components)/.*(ex|heex)$",
+      ~r"lib/popcorn_admin/(controllers|live|components)/.*(ex|heex)$"
+    ]
+  ]
+
+config :popcorn, PopcornAdmin.Endpoint,
+  live_reload: [
+    patterns: [
+      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/gettext/.*(po)$",
+      ~r"lib/popcorn_admin/(controllers|live|components)/.*(ex|heex)$"
+    ]
+  ]
+
+# Enable dev routes for dashboard and mailbox
+config :popcorn, dev_routes: true
+
+# Do not include metadata nor timestamps in development logs
+config :logger, :console, format: "[$level] $message\n"
+
+# Set a higher stacktrace during development. Avoid configuring such
+# in production as building large stacktraces may be expensive.
+config :phoenix, :stacktrace_depth, 20
+
+# Initialize plugs at runtime for faster development compilation
+config :phoenix, :plug_init_mode, :runtime
+
+# Disable memory monitoring - supresses :system_memory_high_watermark noise
+config :os_mon, start_memsup: false
+
+config :popcorn, Popcorn.Telemetry, enabled: false
+
+# Import custom config.
+for config <- "custom*.exs" |> Path.expand(__DIR__) |> Path.wildcard() do
+  import_config config
+end
