@@ -1,45 +1,116 @@
 name: CI
 
 on:
-  push:
-    branches: ["develop"]
   pull_request:
-    branches: ["develop"]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest]
-        rust: [default, msrv]
-
+  quality:
+    name: Format, Lint, Test, Integration
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v34
-
-      - name: Setup Nix cache
-        uses: nix-community/cache-nix-action@v6
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
         with:
-          primary-key: nix-${{ runner.os }}-${{ matrix.rust }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
-          restore-prefixes-first-match: nix-${{ runner.os }}-${{ matrix.rust }}-
+          toolchain: 1.82.0
+          components: rustfmt, clippy
 
-      - name: Build
-        run: nix develop .#${{ matrix.rust }} --command cargo build --verbose
+      - name: Cache Cargo
+        uses: Swatinem/rust-cache@v3
 
-      - name: Run cargo tests
-        run: nix develop .#${{ matrix.rust }} --command cargo test --verbose
+      - name: Format
+        run: cargo fmt --all --check
 
-      - name: Run integration tests
-        run: nix develop .#${{ matrix.rust }} --command tests/integration.sh
+      - name: Lint
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
 
-      - name: Check formatting
-        run: nix develop .#${{ matrix.rust }} --command cargo fmt --check
+      - name: Test
+        run: cargo test --workspace --locked
 
-      - name: Lint with clippy
-        run: nix develop .#${{ matrix.rust }} --command cargo clippy
+      - name: Integration test
+        run: crates/cli/tests/integration.sh
+
+  platform_smoke:
+    name: Platform Smoke (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-gnu
+            use-cross: false
+          - os: ubuntu-24.04
+            target: x86_64-unknown-linux-musl
+            use-cross: false
+          - os: ubuntu-24.04
+            target: aarch64-unknown-linux-gnu
+            use-cross: true
+          - os: macos-15-intel
+            target: x86_64-apple-darwin
+            use-cross: false
+          - os: macos-14
+            target: aarch64-apple-darwin
+            use-cross: false
+    env:
+      CARGO: cargo
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.82.0
+          targets: ${{ matrix.target }}
+
+      - name: Install cross
+        if: matrix.use-cross
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cross
+
+      - name: Use cross
+        if: matrix.use-cross
+        run: echo "CARGO=cross" >> "$GITHUB_ENV"
+
+      - name: Install build dependencies
+        if: matrix.target == 'x86_64-unknown-linux-musl'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+
+      - name: Build target
+        run: ${{ env.CARGO }} build -p popcorn --locked --target ${{ matrix.target }}
+
+  release_smoke:
+    name: Release Smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Validate release workflow
+        run: |
+          test -f .github/workflows/release.yml
+          grep -q "aarch64-apple-darwin" .github/workflows/release.yml
+          grep -q "x86_64-unknown-linux-gnu" .github/workflows/release.yml

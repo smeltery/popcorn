@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: Forum
-    url: https://discourse.asciinema.org/
+    url: https://popcorn.dotbrains.local/discussions/
     about: Ideas, feature requests, help requests, questions and general discussions should be posted here.
   - name: GitHub discussions
-    url: https://github.com/orgs/asciinema/discussions
+    url: https://github.com/orgs/dotbrains/discussions
     about: Ideas, feature requests, help requests, questions and general discussions should be posted here.

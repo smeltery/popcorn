@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popcorn-player.css">
+  <style>
+    @font-face {
+      font-family: "Symbols Nerd Font";
+      src: local(SymbolsNerdFont-Regular),
+           url("/SymbolsNerdFont-Regular.woff2") format("woff2");
+    }
+
+    :root {
+      --term-color-background: black;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    html {
+      padding: 0;
+    }
+
+    body {
+      box-sizing: border-box;
+      padding: 40px;
+      background-color: color-mix(in oklab, var(--term-color-background) 90%, black);
+      transition: background-color 0.2s;
+    }
+
+    div.ap-wrapper:fullscreen {
+      background-color: inherit;
+    }
+
+    .ap-player {
+      margin: auto 0px;
+      opacity: 0;
+      box-shadow: color-mix(in oklab, var(--term-color-background) 50%, black) 0px 0px 60px 5px;
+    }
+  </style>
+</head>
+<body>
+  <script src="popcorn-player.min.js"></script>
+
+  <script>
+    const PopcornPlayer = AsciinemaPlayer;
+    const loc = window.location;
+    const params = new URLSearchParams(loc.hash.replace('#', '?'));
+
+    let bufferTime = params.get('bufferTime');
+
+    if (bufferTime !== null) {
+      bufferTime = parseFloat(bufferTime);
+    };
+
+    const src = {
+      driver: 'websocket',
+      url: loc.protocol.replace("http", "ws") + '//' + loc.host + '/ws',
+      bufferTime
+    };
+
+    const fit = params.get('fit');
+    const terminalLineHeight = params.get('terminalLineHeight');
+
+    const opts = {
+      logger: console,
+      fit: fit === null ? 'both' : fit,
+      theme: params.get('theme'),
+      autoPlay: params.get('autoPlay') !== 'false',
+      terminalFontFamily: params.get('terminalFontFamily'),
+      terminalLineHeight: terminalLineHeight === null ? undefined : parseFloat(terminalLineHeight)
+    };
+
+    console.debug('initializing the player', { src, opts });
+
+    window.player = PopcornPlayer.create(src, document.body, opts);
+
+    window.player.addEventListener('metadata', () => {
+      const el = window.player.el.getElementsByClassName('ap-player')[0];
+      const style = window.getComputedStyle(el);
+      const color = style.getPropertyValue("--term-color-background");
+      document.documentElement.style.setProperty('--term-color-background', color);
+      el.style.opacity = 1;
+    });
+  </script>
+</body>
+</html>

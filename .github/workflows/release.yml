@@ -1,63 +1,111 @@
-name: Release
-
-permissions:
-  contents: write
+name: Release CLI
 
 on:
   push:
     tags:
-      - v[0-9]+.*
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release version (for example 1.2.3 or v1.2.3)"
+        required: true
+        type: string
+
+permissions:
+  contents: write
 
 jobs:
-  create-release:
-    name: Create GH release draft
-    runs-on: ubuntu-latest
-
+  preflight:
+    name: Preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      version: ${{ steps.release_meta.outputs.version }}
+      tag: ${{ steps.release_meta.outputs.tag }}
+      is_prerelease: ${{ steps.release_meta.outputs.is_prerelease }}
+      make_latest: ${{ steps.release_meta.outputs.make_latest }}
+      ref: ${{ github.sha }}
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v7
 
-      - name: Create the release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create ${{ github.ref_name }} --draft --verify-tag --title ${{ github.ref_name }}
+      - id: release_meta
+        name: Resolve release version
+        shell: bash
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            raw="${{ github.event.inputs.version }}"
+          else
+            raw="${GITHUB_REF_NAME}"
+          fi
 
-  upload-binary:
-    needs: create-release
-    name: ${{ matrix.target }}
+          version="${raw#v}"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid release version: $raw" >&2
+            exit 1
+          fi
+
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=v$version" >> "$GITHUB_OUTPUT"
+          if [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "is_prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "make_latest=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "is_prerelease=true" >> "$GITHUB_OUTPUT"
+            echo "make_latest=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.82.0
+          components: rustfmt, clippy
+
+      - name: Format
+        run: cargo fmt --all --check
+
+      - name: Lint
+        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+
+      - name: Test
+        run: cargo test --workspace --locked
+
+  build:
+    name: Build ${{ matrix.target }}
+    needs: preflight
     runs-on: ${{ matrix.os }}
-
+    timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-22.04
             target: x86_64-unknown-linux-gnu
             use-cross: false
-
-          - os: ubuntu-latest
+          - os: ubuntu-24.04
             target: x86_64-unknown-linux-musl
             use-cross: false
-
-          - os: ubuntu-latest
+          - os: ubuntu-24.04
             target: aarch64-unknown-linux-gnu
             use-cross: true
-
-          - os: macos-latest
+          - os: macos-15-intel
             target: x86_64-apple-darwin
             use-cross: false
-
-          - os: macos-latest
+          - os: macos-14
             target: aarch64-apple-darwin
             use-cross: false
-
     env:
       CARGO: cargo
-
     steps:
-      - uses: actions/checkout@v5
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.preflight.outputs.ref }}
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
+          toolchain: 1.82.0
           targets: ${{ matrix.target }}
 
       - name: Install cross
@@ -66,25 +114,51 @@ jobs:
         with:
           tool: cross
 
-      - name: Overwrite build command env variable
+      - name: Use cross
         if: matrix.use-cross
-        shell: bash
-        run: echo "CARGO=cross" >> $GITHUB_ENV
+        run: echo "CARGO=cross" >> "$GITHUB_ENV"
 
-      - name: Install build deps
-        shell: bash
+      - name: Install build dependencies
+        if: matrix.target == 'x86_64-unknown-linux-musl'
         run: |
-          if [[ ${{ matrix.target }} == x86_64-unknown-linux-musl ]]; then
-              sudo apt-get update
-              sudo apt-get install -y musl-tools
-          fi
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
 
       - name: Build release binary
-        run: ${{ env.CARGO }} build --release --locked --target ${{ matrix.target }}
+        run: ${{ env.CARGO }} build -p popcorn --release --locked --target ${{ matrix.target }}
 
-      - name: Upload the binary to the release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Collect release asset
+        shell: bash
         run: |
-          mv target/${{ matrix.target }}/release/asciinema target/release/asciinema-${{ matrix.target }}
-          gh release upload ${{ github.ref_name }} target/release/asciinema-${{ matrix.target }}
+          mkdir -p release-publish
+          cp "target/${{ matrix.target }}/release/popcorn" "release-publish/popcorn-${{ matrix.target }}"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: popcorn-${{ matrix.target }}
+          path: release-publish/*
+          if-no-files-found: error
+
+  release:
+    name: Publish GitHub Release
+    needs: [preflight, build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Download release artifacts
+        uses: actions/download-artifact@v8
+        with:
+          pattern: popcorn-*
+          merge-multiple: true
+          path: release-assets
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ needs.preflight.outputs.tag }}
+          name: ${{ needs.preflight.outputs.tag }}
+          draft: true
+          prerelease: ${{ needs.preflight.outputs.is_prerelease }}
+          make_latest: ${{ needs.preflight.outputs.make_latest }}
+          files: release-assets/*
