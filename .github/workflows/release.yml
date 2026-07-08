@@ -27,7 +27,7 @@ jobs:
       ref: ${{ github.sha }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
 
       - id: release_meta
         name: Resolve release version
@@ -98,7 +98,7 @@ jobs:
       CARGO: cargo
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v4
         with:
           ref: ${{ needs.preflight.outputs.ref }}
 
@@ -134,7 +134,7 @@ jobs:
           cp "target/${{ matrix.target }}/release/popcorn" "release-publish/popcorn-${{ matrix.target }}"
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: popcorn-${{ matrix.target }}
           path: release-publish/*
@@ -147,14 +147,14 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Download release artifacts
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           pattern: popcorn-*
           merge-multiple: true
           path: release-assets
 
       - name: Publish release
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.preflight.outputs.tag }}
           name: ${{ needs.preflight.outputs.tag }}
