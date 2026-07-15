@@ -54,7 +54,7 @@ defmodule Popcorn.MixProject do
       {:hackney, "~> 1.18"},
       {:horde, "~> 0.8.7"},
       {:html_sanitize_ex, "~> 1.4"},
-      {:identicon_svg, "~> 0.9.2"},
+      {:identicon_svg, "~> 1.0.0"},
       {:inflex, "~> 2.0"},
       {:jason, "~> 1.2"},
       {:libcluster, "~> 3.3"},
