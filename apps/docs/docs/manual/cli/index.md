@@ -50,8 +50,8 @@ Notable features:
   of terminal sessions to multiple viewers in real-time,
 - upload and remote stream metadata, including titles, descriptions,
   visibility, and synchronized audio URLs,
-- [lightweight recording format](../popcast/v3.md), which is highly
-  compressible (8% of the original size with `gzip` on average),
+- [lightweight recording format](../popcast/v3.md), with native reading and
+  writing of zstd-compressed `.zst` recordings,
 - integration with [popcorn server](../server/index.md), e.g.
   [popcorn.example.com](https://popcorn.example.com), for easy recording hosting and live
   streaming.
