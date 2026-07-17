@@ -17,6 +17,21 @@ streams live sessions through a server, and renders recordings to GIFs.
 All user-facing commands, package names, file extensions, release artifacts, and
 docs should use Popcorn terminology.
 
+## Notable Features
+
+- Record terminal sessions to `.pop` files with optional keyboard input,
+  selected environment metadata, markers, and idle-time limits.
+- Replay recordings in a terminal with speed control, looping, stepping,
+  marker-aware pauses, and optional terminal resizing.
+- Stream sessions locally through the embedded web player or remotely through a
+  Popcorn server, with recording and streaming available in one command.
+- Convert popcast, ttyrec, stdin, local files, and HTTP(S) URLs into `.pop`,
+  text, raw terminal bytes, or zstd-compressed `.zst` files.
+- Concatenate multiple recordings while preserving timing and produce browser,
+  server, and GIF-rendered playback experiences from the same recording format.
+- Run scripted sessions in headless mode with explicit terminal dimensions and
+  exit-status propagation for CI-friendly workflows.
+
 ## Status
 
 Popcorn is early and private. The CLI, web player, server, docs site, virtual
