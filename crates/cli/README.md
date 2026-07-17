@@ -33,6 +33,21 @@ It also owns CLI configuration, local PTY management, server API clients,
 recording encoders, live stream protocol handling, and the embedded local web
 player used by local streaming.
 
+## Notable CLI Capabilities
+
+- Keyboard input and selected environment variables can be captured in recording
+  metadata when that context matters.
+- Recording and playback support idle-time limits so long pauses do not dominate
+  demos or CI-generated sessions.
+- Playback supports speed control, looping, step-by-step navigation, marker
+  pauses, and optional terminal resizing.
+- Recording, streaming, and combined sessions support headless operation,
+  explicit terminal dimensions, and command exit-status propagation for scripts.
+- Mid-session shortcuts can pause or resume capture and insert markers, with
+  key bindings configurable through the CLI config file.
+- Popcast conversion works with local files, standard input/output, HTTP(S)
+  URLs, ttyrec imports, text output, raw terminal bytes, and `.zst` compression.
+
 ## Command Flow
 
 ```mermaid
