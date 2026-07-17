@@ -13,6 +13,7 @@ concatenating, streaming, and uploading Popcorn terminal sessions.
 The CLI writes `.pop` recordings in the popcast format, can replay those
 recordings directly in a terminal, can run a local live stream server, and can
 talk to a self-hosted Popcorn server for upload and remote streaming workflows.
+Popcast files can be read from or written to zstd-compressed `.zst` files.
 
 ## What This Crate Owns
 
@@ -66,6 +67,12 @@ Record a session:
 
 ```sh
 popcorn rec demo.pop
+```
+
+Record a compressed session:
+
+```sh
+popcorn rec demo.pop.zst
 ```
 
 Record a command:
@@ -129,6 +136,8 @@ flowchart LR
 `convert` defaults to popcast input and popcast v3 output. Use
 `--input-format ttyrec` for ttyrec binary files and `--output-format` when the
 extension is not enough to infer the intended destination.
+For popcast inputs and outputs, add `.zst` to the path to read or write zstd
+compression.
 
 ## Source Map
 
