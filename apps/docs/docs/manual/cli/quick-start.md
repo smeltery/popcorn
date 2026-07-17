@@ -131,6 +131,16 @@ popcorn upload demo.pop
 The command uploads to your [Popcorn server](../server/index.md) and prints a
 secret link you can use to watch the recording in a web browser.
 
+You can set publishing metadata while uploading:
+
+```sh
+popcorn upload demo.pop \
+  --title "Release walkthrough" \
+  --description "Demo notes and links for viewers" \
+  --visibility unlisted \
+  --audio-url https://media.example.com/commentary.mp3
+```
+
 Run `popcorn upload --help` for all upload options.
 
 !!! note
@@ -145,10 +155,19 @@ To stream your terminal live to a Popcorn server:
 
 ```sh
 export POPCORN_SERVER_URL=https://popcorn.example.com
-popcorn stream -r
+popcorn stream -r --title "Live debugging"
 ```
 
 Use the server URL for your self-hosted instance.
+Remote streams can also include descriptions, visibility settings, and a live
+audio URL:
+
+```sh
+popcorn stream -r \
+  --description "Following the deploy and rollback plan" \
+  --visibility private \
+  --audio-url https://icecast.example.com/live.mp3
+```
 
 To stream locally:
 
@@ -168,7 +187,7 @@ Run `popcorn stream --help` for more streaming options.
 Finally, you can stream and record to a file at the same time:
 
 ```sh
-popcorn session -o demo.pop -r -l
+popcorn session -o demo.pop -r -l --title "Recorded live session"
 ```
 
 The session command is a more generic variant of `rec` and `stream`, that can

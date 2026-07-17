@@ -48,6 +48,8 @@ Notable features:
   output,
 - local and remote [live streaming](quick-start.md#stream-a-terminal-session)
   of terminal sessions to multiple viewers in real-time,
+- upload and remote stream metadata, including titles, descriptions,
+  visibility, and synchronized audio URLs,
 - [lightweight recording format](../popcast/v3.md), which is highly
   compressible (8% of the original size with `gzip` on average),
 - integration with [popcorn server](../server/index.md), e.g.
