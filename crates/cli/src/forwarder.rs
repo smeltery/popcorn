@@ -6,7 +6,7 @@ use anyhow::{anyhow, bail};
 use axum::http::Uri;
 use futures_util::stream::SplitSink;
 use futures_util::{SinkExt, Stream, StreamExt};
-use rand::Rng;
+use rand::RngExt;
 use tokio::net::TcpStream;
 use tokio::time;
 use tokio_stream::wrappers::errors::BroadcastStreamRecvError;
