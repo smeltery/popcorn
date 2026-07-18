@@ -62,7 +62,7 @@ pub fn open(header_line: &str) -> Result<Parser> {
     let header = serde_json::from_str::<V2Header>(header_line)?;
 
     if header.version != 2 {
-        bail!("not an popcast v2 file")
+        bail!("not a popcast v2 file")
     }
 
     Ok(Parser(header))

@@ -81,7 +81,7 @@ pub enum Commands {
       Streams via the local HTTP server listening on port 8080 on all network interfaces
 
   popcorn stream --remote
-      Streams via an popcorn server for public viewing
+      Streams via a popcorn server for public viewing
 
   popcorn stream -l -r
       Streams both locally and remotely simultaneously
@@ -111,7 +111,7 @@ pub enum Commands {
       Records a shell session to a file and streams it via the local HTTP server listening on an ephemeral port on 127.0.0.1
 
   popcorn session -o demo.pop --stream-remote
-      Records to a file and streams via an popcorn server for public viewing
+      Records to a file and streams via a popcorn server for public viewing
 
   popcorn session --stream-local --stream-remote
       Streams both locally and remotely simultaneously, without saving to a file
@@ -157,17 +157,17 @@ pub enum Commands {
     )]
     Play(Play),
 
-    /// Upload a recording to an popcorn server.
+    /// Upload a recording to a popcorn server.
     ///
-    /// Takes a local popcast file and uploads it to an popcorn server (either popcorn.example.com or a self-hosted server), returning a recording URL which can be shared publicly.
-    #[clap(about = "Upload a recording to an popcorn server", long_about)]
+    /// Takes a local popcast file and uploads it to a popcorn server (either popcorn.example.com or a self-hosted server), returning a recording URL which can be shared publicly.
+    #[clap(about = "Upload a recording to a popcorn server", long_about)]
     Upload(Upload),
 
-    /// Authenticate with an popcorn server.
+    /// Authenticate with a popcorn server.
     ///
-    /// Creates a user account link between your local CLI and an popcorn server account. Optional for uploading with the upload command, required for remote streaming with the stream and session commands.
+    /// Creates a user account link between your local CLI and a popcorn server account. Optional for uploading with the upload command, required for remote streaming with the stream and session commands.
     #[clap(
-        about = "Authenticate this CLI with an popcorn server account",
+        about = "Authenticate this CLI with a popcorn server account",
         long_about
     )]
     Auth(Auth),
@@ -320,7 +320,7 @@ pub struct Record {
 
 #[derive(Debug, Args)]
 pub struct Play {
-    /// The path to an popcast file or HTTP(S) URL to play back. Can be a local file path, HTTP(S) URL for remote files, or '-' to read from standard input. Remote URLs allow playing recordings directly from the web without need for manual downloading. Supported formats include popcast v1, v2, and v3, optionally compressed with zstd.
+    /// The path to a popcast file or HTTP(S) URL to play back. Can be a local file path, HTTP(S) URL for remote files, or '-' to read from standard input. Remote URLs allow playing recordings directly from the web without need for manual downloading. Supported formats include popcast v1, v2, and v3, optionally compressed with zstd.
     pub file: String,
 
     /// Control the playback speed as a multiplier of the original timing. Values greater than 1.0 make playback faster, while values less than 1.0 make it slower. For example, --speed 2.0 plays at double speed, while --speed 0.5 plays at half speed. The default is 1.0 (original speed). Can also be set via the config file option playback.speed.
@@ -476,7 +476,7 @@ pub struct Session {
     )]
     pub output_format: Option<Format>,
 
-    /// Start the local HTTP server to stream the session in real-time. Creates a web interface accessible via browser where viewers can watch the terminal session live. Optionally specify the bind address as IP:PORT (e.g., 0.0.0.0:8080 to allow external connections). If no address is provided, it listends on an automatically assigned ephemeral port on 127.0.0.1. Can be combined with remote streaming and file output.
+    /// Start the local HTTP server to stream the session in real-time. Creates a web interface accessible via browser where viewers can watch the terminal session live. Optionally specify the bind address as IP:PORT (e.g., 0.0.0.0:8080 to allow external connections). If no address is provided, it listens on an automatically assigned ephemeral port on 127.0.0.1. Can be combined with remote streaming and file output.
     #[arg(short = 'l', long, value_name = "IP:PORT", default_missing_value = DEFAULT_LISTEN_ADDR, num_args = 0..=1, help = "Stream via the local HTTP server", long_help)]
     pub stream_local: Option<SocketAddr>,
 

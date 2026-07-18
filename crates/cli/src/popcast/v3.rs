@@ -75,7 +75,7 @@ pub fn open(header_line: &str) -> Result<Parser> {
     let header = serde_json::from_str::<V3Header>(header_line)?;
 
     if header.version != 3 {
-        bail!("not an popcast v3 file")
+        bail!("not a popcast v3 file")
     }
 
     Ok(Parser {
