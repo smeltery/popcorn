@@ -2202,7 +2202,7 @@ span.ap-marker-container:hover span.ap-marker {
 .ap-terminal .bg-255 {
   --bg: #eeeeee;
 }
-.asciinema-player-theme-asciinema {
+.popcorn-player-theme-popcorn {
   --term-color-foreground: #cccccc;
   --term-color-background: #121314;
   --term-color-0: hsl(0, 0%, 0%);
@@ -2225,7 +2225,7 @@ span.ap-marker-container:hover span.ap-marker {
 /*
   Based on Dracula: https://draculatheme.com
  */
-.asciinema-player-theme-dracula {
+.popcorn-player-theme-dracula {
   --term-color-foreground: #f8f8f2;
   --term-color-background: #282a36;
   --term-color-0: #21222c;
@@ -2246,7 +2246,7 @@ span.ap-marker-container:hover span.ap-marker {
   --term-color-15: #ffffff;
 }
 /* Based on Monokai from base16 collection - https://github.com/chriskempson/base16 */
-.asciinema-player-theme-monokai {
+.popcorn-player-theme-monokai {
   --term-color-foreground: #f8f8f2;
   --term-color-background: #272822;
   --term-color-0: #272822;
@@ -2264,7 +2264,7 @@ span.ap-marker-container:hover span.ap-marker {
   Based on Nord: https://github.com/arcticicestudio/nord
   Via: https://github.com/neilotoole/asciinema-theme-nord
  */
-.asciinema-player-theme-nord {
+.popcorn-player-theme-nord {
   --term-color-foreground: #eceff4;
   --term-color-background: #2e3440;
   --term-color-0: #3b4252;
@@ -2276,7 +2276,7 @@ span.ap-marker-container:hover span.ap-marker {
   --term-color-6: #88c0d0;
   --term-color-7: #eceff4;
 }
-.asciinema-player-theme-seti {
+.popcorn-player-theme-seti {
   --term-color-foreground: #cacecd;
   --term-color-background: #111213;
   --term-color-0: #323232;
@@ -2292,7 +2292,7 @@ span.ap-marker-container:hover span.ap-marker {
 /*
   Based on Solarized Dark: https://ethanschoonover.com/solarized/
  */
-.asciinema-player-theme-solarized-dark {
+.popcorn-player-theme-solarized-dark {
   --term-color-foreground: #839496;
   --term-color-background: #002b36;
   --term-color-0: #073642;
@@ -2315,7 +2315,7 @@ span.ap-marker-container:hover span.ap-marker {
 /*
   Based on Solarized Light: https://ethanschoonover.com/solarized/
  */
-.asciinema-player-theme-solarized-light {
+.popcorn-player-theme-solarized-light {
   --term-color-foreground: #657b83;
   --term-color-background: #fdf6e3;
   --term-color-0: #073642;
@@ -2335,16 +2335,16 @@ span.ap-marker-container:hover span.ap-marker {
   --term-color-14: #93a1a1;
   --term-color-15: #fdf6e3;
 }
-.asciinema-player-theme-solarized-light .ap-overlay-start .ap-play-button svg .ap-play-btn-fill {
+.popcorn-player-theme-solarized-light .ap-overlay-start .ap-play-button svg .ap-play-btn-fill {
   fill: var(--term-color-1);
 }
-.asciinema-player-theme-solarized-light .ap-overlay-start .ap-play-button svg .ap-play-btn-stroke {
+.popcorn-player-theme-solarized-light .ap-overlay-start .ap-play-button svg .ap-play-btn-stroke {
   stroke: var(--term-color-1);
 }
 /*
   Based on Tango: https://en.wikipedia.org/wiki/Tango_Desktop_Project
  */
-.asciinema-player-theme-tango {
+.popcorn-player-theme-tango {
   --term-color-foreground: #cccccc;
   --term-color-background: #121314;
   --term-color-0: #000000;
