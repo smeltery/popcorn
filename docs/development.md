@@ -16,13 +16,13 @@ flox activate
 The environment provides Git/GitHub tooling, Rust bootstrap through `rustup`,
 Node 24, Python 3.12 for docs, Elixir tooling, `fd`, ImageMagick, `actionlint`,
 `pre-commit`, `shellcheck`, and shared command-line utilities. The activation
-hook installs the Rust 1.85 toolchain and prepares `apps/docs/.venv`.
+hook installs the Rust 1.87 toolchain and prepares `apps/docs/.venv`.
 
 ```mermaid
 flowchart TD
   Clone["Fresh clone"]
   Flox["flox activate"]
-  Rust["Rust toolchain\n1.85 with clippy and rustfmt"]
+  Rust["Rust toolchain\n1.87 with clippy and rustfmt"]
   Node["Node 24\nplayer and server assets"]
   Python["Python 3.12\nMkDocs virtualenv"]
   Elixir["Elixir and Hex tooling\nserver checks"]

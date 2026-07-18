@@ -3,7 +3,7 @@
 [![CI](https://github.com/dotbrains/popcorn/actions/workflows/ci.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/ci.yml)
 [![Release](https://github.com/dotbrains/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/release.yml)
 [![Latest Release](https://img.shields.io/github/v/release/dotbrains/popcorn?sort=semver)](https://github.com/dotbrains/popcorn/releases/latest)
-[![Rust](https://img.shields.io/badge/rust-1.85%2B-orange)](Cargo.toml)
+[![Rust](https://img.shields.io/badge/rust-1.87%2B-orange)](Cargo.toml)
 [![Node](https://img.shields.io/badge/node-24%2B-green)](packages/player/package.json)
 [![Elixir](https://img.shields.io/badge/elixir-1.19%2B-purple)](apps/server/mix.exs)
 [![Flox](https://img.shields.io/badge/flox-integrated-blue)](.flox/env/manifest.toml)
@@ -35,7 +35,7 @@ cargo run -p popcorn -- rec demo.pop
 cargo run -p popcorn -- play demo.pop
 ```
 
-Without Flox, install Rust 1.85+, Bun, Node 24+, Python 3.12+,
+Without Flox, install Rust 1.87+, Bun, Node 24+, Python 3.12+,
 Erlang/OTP 28.1+, Elixir, npm for server assets, and PostgreSQL tooling
 directly.
 

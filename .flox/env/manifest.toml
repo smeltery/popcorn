@@ -18,14 +18,14 @@ zstd.pkg-path = "zstd"
 
 [vars]
 POPCORN_PYTHON = "python3.12"
-POPCORN_RUST_TOOLCHAIN = "1.85.0"
+POPCORN_RUST_TOOLCHAIN = "1.87.0"
 
 [hook]
 on-activate = """
   cd "$FLOX_ENV_PROJECT" || exit 1
 
   if command -v rustup >/dev/null 2>&1; then
-    rustup toolchain install "${POPCORN_RUST_TOOLCHAIN:-1.85.0}" \
+    rustup toolchain install "${POPCORN_RUST_TOOLCHAIN:-1.87.0}" \
       --profile minimal \
       --component rustfmt \
       --component clippy >/dev/null
