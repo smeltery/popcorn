@@ -41,7 +41,14 @@ export interface DataSource {
   minFrameTime?: number;
 }
 
-export type Source = string | UrlSource | DataSource;
+export interface SegmentedSource {
+  format: "segmented";
+  url: string;
+  fetchOpts?: RequestInit;
+  minFrameTime?: number;
+}
+
+export type Source = string | UrlSource | DataSource | SegmentedSource;
 
 export type Marker = number | [time: number, label: string];
 

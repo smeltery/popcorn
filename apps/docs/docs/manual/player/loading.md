@@ -147,7 +147,7 @@ PopcornPlayer.create(
 );
 ```
 
-This is handy e.g. when you need to extract an popcast from a nested JSON
+This is handy e.g. when you need to extract a popcast from a nested JSON
 structure produced by HTTP API.
 
 !!! note
@@ -162,7 +162,7 @@ structure produced by HTTP API.
     ```
 
     However this has a downside: the player is not added to the page until the
-    data is loaded, resulting in the player poping up on the page out of nowhere
+    data is loaded, resulting in the player popping up on the page out of nowhere
     a moment after the page load.
 
     By using `{ data: () => ... }` (function variant) you can mount the player
@@ -188,6 +188,42 @@ PopcornPlayer.create({ url: url, parser: parser }, containerElement);
 
 See [Parsers](parsers.md) for information on available built-in parsers and how
 to implement a custom one.
+
+## Playing segmented recordings
+
+Large recordings can be split into segments and loaded on demand. Use a source
+object with `format: 'segmented'` and a URL pointing to the recording index:
+
+```javascript
+PopcornPlayer.create(
+  { format: 'segmented', url: '/recordings/demo/index.json' },
+  document.getElementById('demo')
+);
+```
+
+The index must include `version: 1`, `duration`, `term`, and a non-empty
+`segments` array. Segment URLs are resolved relative to the index URL:
+
+```json
+{
+  "version": 1,
+  "duration": 120,
+  "term": { "cols": 100, "rows": 30 },
+  "segments": [
+    { "start": 0, "url": "0.json" },
+    { "start": 60, "url": "1.json" }
+  ]
+}
+```
+
+Each segment file contains a terminal snapshot and events for that time range:
+
+```json
+{
+  "snapshot": { "cols": 100, "rows": 30, "init": "" },
+  "events": [[0, "o", "hello"]]
+}
+```
 
 ## Playing live streams
 
