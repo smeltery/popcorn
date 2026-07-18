@@ -18,7 +18,7 @@ const minify = terser({
 const esmPlugins = [
   babel({
     exclude: "node_modules/**",
-    babelHelpers: "runtime",
+    babelHelpers: "bundled",
     presets: ["solid", "@babel/preset-env"],
     plugins: [['@babel/transform-runtime']]
   }),
@@ -46,7 +46,6 @@ export default [
         format: "es"
       }
     ],
-    external: [/@babel\/runtime/],
     plugins: esmPlugins
   },
 
