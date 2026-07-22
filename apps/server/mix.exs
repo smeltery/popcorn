@@ -82,7 +82,7 @@ defmodule Popcorn.MixProject do
       {:stream_data, "~> 1.0", only: :test},
       {:swoosh, "~> 1.16"},
       {:tailwind, "~> 0.5.1", runtime: Mix.env() == :dev},
-      {:telemetry_metrics, "~> 0.6"},
+      {:telemetry_metrics, "~> 1.1"},
       {:telemetry_poller, "~> 1.0"},
       {:timex, "~> 3.7"},
       {:uuid, "~> 1.1"}
