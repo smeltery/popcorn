@@ -1,7 +1,7 @@
 # Support
 
-Popcorn is maintained by dotbrains in the
-[dotbrains/popcorn](https://github.com/dotbrains/popcorn) repository.
+Popcorn is maintained by smeltery in the
+[smeltery/popcorn](https://github.com/smeltery/popcorn) repository.
 
 Use the repository for:
 
@@ -29,6 +29,6 @@ Before sharing a recording:
 
 First-party Popcorn packages are licensed under the PolyForm Shield License
 1.0.0. See the repository
-[LICENSE](https://github.com/dotbrains/popcorn/blob/main/LICENSE) for details.
+[LICENSE](https://github.com/smeltery/popcorn/blob/main/LICENSE) for details.
 
 Third-party dependencies and bundled fonts keep their own licenses and notices.

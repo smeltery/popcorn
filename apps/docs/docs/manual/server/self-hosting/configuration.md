@@ -685,7 +685,7 @@ popcorn server to suit your needs.
 In special cases you may want to hook into [Phoenix
 framework](https://www.phoenixframework.org/) runtime configuration in order to
 override certain settings found in the [server's config
-directory](https://github.com/dotbrains/popcorn/tree/main/config).
+directory](https://github.com/smeltery/popcorn/tree/main/config).
 
 To do that, create `custom.exs` file containing configuration overrides, then
 bind-mount the file at `/opt/app/etc/custom.exs` in the container:

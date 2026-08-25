@@ -6,7 +6,7 @@ hide:
 
 # Popcorn
 
-Popcorn is a dotbrains toolkit for recording, playing, streaming, hosting, and
+Popcorn is a smeltery toolkit for recording, playing, streaming, hosting, and
 sharing terminal sessions. It stores recordings as lightweight `.pop` files
 instead of video, so terminal demos stay small, searchable, copyable, and easy
 to embed.

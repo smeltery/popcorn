@@ -18,7 +18,7 @@ The player is built from the ground up with JavaScript and
 [Rust](https://www.rust-lang.org/) ([WASM](https://webassembly.org/)), and is
 available as [npm package](https://www.npmjs.com/package/popcorn-player) and a
 [standalone JS
-bundle](https://github.com/dotbrains/popcorn/releases/latest).
+bundle](https://github.com/smeltery/popcorn/releases/latest).
 
 You can use it on any HTML page - in a project documentation, on a blog, or in a
 conference talk presentation.
@@ -63,4 +63,4 @@ Notable features:
 
 popcorn player is licensed under the PolyForm Shield License 1.0.0. Source code
 and license are available at
-[github.com/dotbrains/popcorn](https://github.com/dotbrains/popcorn).
+[github.com/smeltery/popcorn](https://github.com/smeltery/popcorn).

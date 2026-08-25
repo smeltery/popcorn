@@ -27,7 +27,7 @@ sudo mv popcorn-aarch64-apple-darwin /usr/local/bin/popcorn
 Install Rust 1.85 or newer, then build from the repository root:
 
 ```bash
-git clone https://github.com/dotbrains/popcorn.git
+git clone https://github.com/smeltery/popcorn.git
 cd popcorn
 cargo build -p popcorn --release --locked
 ```
@@ -39,7 +39,7 @@ The binary is written to `target/release/popcorn`.
 For repository development, use the checked-in Flox environment:
 
 ```bash
-git clone https://github.com/dotbrains/popcorn.git
+git clone https://github.com/smeltery/popcorn.git
 cd popcorn
 flox activate
 cargo build -p popcorn --locked

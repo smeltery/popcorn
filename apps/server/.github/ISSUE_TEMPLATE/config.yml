@@ -4,5 +4,5 @@ contact_links:
     url: https://discourse.popcorn.local/
     about: Ideas, feature requests, help requests, questions and general discussions should be posted here.
   - name: GitHub discussions
-    url: https://github.com/dotbrains/popcorn/discussions
+    url: https://github.com/smeltery/popcorn/discussions
     about: Ideas, feature requests, help requests, questions and general discussions should be posted here.

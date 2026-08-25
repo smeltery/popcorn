@@ -2,8 +2,8 @@
 
 First, if you're opening a Github issue make sure it goes to the correct repository:
 
-* [dotbrains/popcorn](https://github.com/dotbrains/popcorn/issues) - command-line recorder and player
-* [dotbrains/popcorn-server](https://github.com/dotbrains/popcorn-server/issues) - public website hosting recordings
+* [smeltery/popcorn](https://github.com/smeltery/popcorn/issues) - command-line recorder and player
+* [smeltery/popcorn-server](https://github.com/smeltery/popcorn-server/issues) - public website hosting recordings
 
 ## Reporting bugs
 

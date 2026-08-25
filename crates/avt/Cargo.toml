@@ -2,8 +2,8 @@
 name = "popcorn-terminal"
 version = "0.1.0"
 edition = "2021"
-authors = ["dotbrains"]
-repository = "https://github.com/dotbrains/popcorn"
+authors = ["smeltery"]
+repository = "https://github.com/smeltery/popcorn"
 description = "popcorn virtual terminal"
 license-file = "LICENSE"
 

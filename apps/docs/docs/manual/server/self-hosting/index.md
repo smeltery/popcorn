@@ -11,7 +11,7 @@ control over recordings, streams, accounts, and retention policy.
 Popcorn server can be deployed for public or internal/private use in a
 containerized environment. When an OCI image is published, it is available from
 GitHub Container Registry at
-[`ghcr.io/dotbrains/popcorn-server`](https://github.com/dotbrains/popcorn/pkgs/container/popcorn-server).
+[`ghcr.io/smeltery/popcorn-server`](https://github.com/smeltery/popcorn/pkgs/container/popcorn-server).
 
 On NixOS you can instead use the [NixOS module](nixos.md), which runs the server
 as a systemd service and can provision a PostgreSQL database for you.

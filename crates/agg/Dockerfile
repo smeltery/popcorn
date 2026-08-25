@@ -14,7 +14,7 @@ RUN --mount=type=cache,target=/usr/local/cargo/registry \
 FROM debian:trixie-slim
 
 LABEL org.opencontainers.image.authors="m@ku1ik.com, kayvan.sylvan@gmail.com"
-LABEL org.opencontainers.image.source="https://github.com/dotbrains/popcorn"
+LABEL org.opencontainers.image.source="https://github.com/smeltery/popcorn"
 
 # certs for HTTPS recordings; monospace fonts for text glyphs the renderer does not embed.
 RUN apt-get update \

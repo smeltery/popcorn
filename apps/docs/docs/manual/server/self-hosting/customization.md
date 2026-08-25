@@ -12,7 +12,7 @@ more quiet `:warning`.
 ## Clone the repository
 
 ```sh
-git clone https://github.com/dotbrains/popcorn.git
+git clone https://github.com/smeltery/popcorn.git
 ```
 
 ## Create a new branch
@@ -36,7 +36,7 @@ Then, commit the changes.
 ## Rebuild the image
 
 ```sh
-docker build -t ghcr.io/dotbrains/popcorn-server:custom .
+docker build -t ghcr.io/smeltery/popcorn-server:custom .
 ```
 
 ## Update the image tag
@@ -46,8 +46,8 @@ Update the `popcorn` container image tag to `custom`:
 ```diff title="docker-compose.yml"
 services:
   popcorn:
--   image: ghcr.io/dotbrains/popcorn-server:20250915
-+   image: ghcr.io/dotbrains/popcorn-server:custom
+-   image: ghcr.io/smeltery/popcorn-server:20250915
++   image: ghcr.io/smeltery/popcorn-server:custom
 ```
 
 ## Launch the new version

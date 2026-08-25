@@ -83,9 +83,9 @@ Recommended sequence:
 Useful commands:
 
 ```bash
-gh run list --repo dotbrains/popcorn --branch main --limit 5
-gh run view <run-id> --repo dotbrains/popcorn --json jobs
-gh run watch <run-id> --repo dotbrains/popcorn --interval 15 --exit-status
+gh run list --repo smeltery/popcorn --branch main --limit 5
+gh run view <run-id> --repo smeltery/popcorn --json jobs
+gh run watch <run-id> --repo smeltery/popcorn --interval 15 --exit-status
 ```
 
 ## Release Automation

@@ -6,7 +6,7 @@ The repository includes a Flox environment with the Rust toolchain, Node.js,
 Elixir, documentation tools, and CI helpers used by the project.
 
 ```bash
-git clone https://github.com/dotbrains/popcorn
+git clone https://github.com/smeltery/popcorn
 cd popcorn
 flox activate
 cargo build -p popcorn-gif --release --locked
@@ -20,7 +20,7 @@ Run `popcorn-gif --help` to confirm the binary is available.
 You can install the GIF renderer directly from the monorepo:
 
 ```bash
-cargo install --locked --git https://github.com/dotbrains/popcorn --package popcorn-gif
+cargo install --locked --git https://github.com/smeltery/popcorn --package popcorn-gif
 ```
 
 Make sure `$HOME/.cargo/bin` is in your shell's `$PATH`.
@@ -28,7 +28,7 @@ Make sure `$HOME/.cargo/bin` is in your shell's `$PATH`.
 ## Release artifacts
 
 When release artifacts are published, download the archive for your operating
-system from [GitHub releases](https://github.com/dotbrains/popcorn/releases),
+system from [GitHub releases](https://github.com/smeltery/popcorn/releases),
 extract `popcorn-gif`, make it executable, and move it somewhere in `$PATH`.
 
 ## Building from source
@@ -41,7 +41,7 @@ To download source code, build popcorn-gif binary and install it in `$HOME/.carg
 run:
 
 ```bash
-cargo install --locked --git https://github.com/dotbrains/popcorn --package popcorn-gif
+cargo install --locked --git https://github.com/smeltery/popcorn --package popcorn-gif
 ```
 
 You need to ensure `$HOME/.cargo/bin` is in your shell's `$PATH`.
@@ -49,7 +49,7 @@ You need to ensure `$HOME/.cargo/bin` is in your shell's `$PATH`.
 Alternatively, you can manually download source code and build popcorn-gif binary with:
 
 ```bash
-git clone https://github.com/dotbrains/popcorn
+git clone https://github.com/smeltery/popcorn
 cd popcorn
 cargo build -p popcorn-gif --release --locked
 ```

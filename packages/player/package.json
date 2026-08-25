@@ -2,11 +2,11 @@
   "name": "popcorn-player",
   "description": "Web player for terminal session recordings.",
   "version": "0.1.0",
-  "author": "dotbrains",
-  "homepage": "https://github.com/dotbrains/popcorn/tree/main/packages/player",
+  "author": "smeltery",
+  "homepage": "https://github.com/smeltery/popcorn/tree/main/packages/player",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dotbrains/popcorn.git"
+    "url": "https://github.com/smeltery/popcorn.git"
   },
   "license": "SEE LICENSE IN LICENSE",
   "main": "dist/index.js",

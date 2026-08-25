@@ -1,7 +1,7 @@
 # Community
 
 Popcorn is currently coordinated through the
-[dotbrains/popcorn](https://github.com/dotbrains/popcorn) repository.
+[smeltery/popcorn](https://github.com/smeltery/popcorn) repository.
 
 Use GitHub issues and discussions for bug reports, feature requests,
 documentation improvements, and integration notes. When reporting a problem,

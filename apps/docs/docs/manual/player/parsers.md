@@ -4,7 +4,7 @@ Parser is a function, which transforms a recording encoded in an arbitrary file
 format into a simple object representing a terminal recording. Once the player
 fetches a file, it runs its contents through a parser, which turns it into a
 recording object used by the player's [recording
-driver](https://github.com/dotbrains/popcorn/blob/develop/src/driver/recording.js).
+driver](https://github.com/smeltery/popcorn/blob/develop/src/driver/recording.js).
 
 Default parser used by the player is the [popcast](../popcast/v3.md) parser,
 however another [built-in](#built-in-parsers) or [custom
@@ -18,10 +18,10 @@ PopcornPlayer.create({ url: url, parser: parser }, containerElement);
 !!! note
 
     `parser` is a _driver option_. Driver options are options specific to each
-    [driver](https://github.com/dotbrains/popcorn/tree/develop/src/driver),
+    [driver](https://github.com/smeltery/popcorn/tree/develop/src/driver),
     and they must be passed in `create`'s first argument, together with a URL.
     `parser` is an option of the [recording
-    driver](https://github.com/dotbrains/popcorn/tree/develop/src/driver).
+    driver](https://github.com/smeltery/popcorn/tree/develop/src/driver).
 
     Concept of drivers is not fully finalized yet and is subject to change. Feel
     free to check the source code of currently available drivers for what
@@ -346,7 +346,7 @@ async function parseMyBinaryFormat(response) {
 ```
 
 See
-[ttyrec.js](https://github.com/dotbrains/popcorn/blob/develop/src/parser/ttyrec.js)
+[ttyrec.js](https://github.com/smeltery/popcorn/blob/develop/src/parser/ttyrec.js)
 or
-[typescript.js](https://github.com/dotbrains/popcorn/blob/develop/src/parser/typescript.js)
+[typescript.js](https://github.com/smeltery/popcorn/blob/develop/src/parser/typescript.js)
 for examples of binary parsers.

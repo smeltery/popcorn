@@ -32,7 +32,7 @@ services:
     build:
       context: ..
       dockerfile: Dockerfile.dev
-    image: dotbrains/popcorn:local
+    image: smeltery/popcorn:local
     container_name: popcorn_dev_phoenix
     entrypoint: env -u MIX_ENV -u PORT
     command: mix phx.server

@@ -17,7 +17,7 @@ guide](../../../getting-started.md).
 
 To keep this guide simple we'll use the official popcorn server container
 image,
-[ghcr.io/dotbrains/popcorn-server](https://github.com/dotbrains/popcorn/pkgs/container/popcorn-server),
+[ghcr.io/smeltery/popcorn-server](https://github.com/smeltery/popcorn/pkgs/container/popcorn-server),
 in a [docker-compose](https://docs.docker.com/compose/) based setup. If you
 prefer to use a different deployment solution it should be straightforward to
 adapt the configuration presented below to specifics of your environment.
@@ -30,7 +30,7 @@ a template.
     ```yaml title="docker-compose.yml"
     services:
       popcorn:
-        image: ghcr.io/dotbrains/popcorn-server:20251114
+        image: ghcr.io/smeltery/popcorn-server:20251114
         environment:
           - SECRET_KEY_BASE=  # <- see below
           - URL_HOST=popcorn.example.com
@@ -79,7 +79,7 @@ a template.
     ```yaml title="docker-compose.yml"
     services:
       popcorn:
-        image: ghcr.io/dotbrains/popcorn-server:20251114
+        image: ghcr.io/smeltery/popcorn-server:20251114
         ports:
           - '80:4000'
         environment:
@@ -116,7 +116,7 @@ Let's break it down.
 
 The `popcorn` container uses a server image version tagged `20251114`. This is
 merely an example; please check the
-[releases](https://github.com/dotbrains/popcorn/releases) page for the
+[releases](https://github.com/smeltery/popcorn/releases) page for the
 latest stable version number and use that instead.
 
 The `SECRET_KEY_BASE` environment variable is used for encryption/signing of

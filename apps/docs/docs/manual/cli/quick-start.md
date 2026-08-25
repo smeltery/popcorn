@@ -14,7 +14,7 @@ directly with Cargo, or use a GitHub release artifact when one is available.
 === "Flox"
 
     ```bash
-    git clone https://github.com/dotbrains/popcorn
+    git clone https://github.com/smeltery/popcorn
     cd popcorn
     flox activate
     cargo build -p popcorn --release --locked
@@ -24,13 +24,13 @@ directly with Cargo, or use a GitHub release artifact when one is available.
 === "Cargo"
 
     ```bash
-    cargo install --locked --git https://github.com/dotbrains/popcorn --package popcorn
+    cargo install --locked --git https://github.com/smeltery/popcorn --package popcorn
     ```
 
 === "Release artifact"
 
     Download the archive for your operating system from
-    [GitHub releases](https://github.com/dotbrains/popcorn/releases), extract
+    [GitHub releases](https://github.com/smeltery/popcorn/releases), extract
     the `popcorn` binary, and place it somewhere in `$PATH`.
 
 Check the [Installation](installation.md) section for additional details.

@@ -24,7 +24,7 @@ package](https://www.npmjs.com/package/popcorn-player).
 ### Standalone player bundle
 
 Download latest version of the player bundle from
-[releases page](https://github.com/dotbrains/popcorn/releases/latest). You
+[releases page](https://github.com/smeltery/popcorn/releases/latest). You
 only need `popcorn-player.min.js` and `popcorn-player.css` files.
 
 First, add `popcorn-player.min.js`, `popcorn-player.css` and the `.pop` file of

@@ -1,6 +1,6 @@
 # Agent Instructions for popcorn
 
-popcorn is a private dotbrains monorepo for terminal session recording,
+popcorn is a private smeltery monorepo for terminal session recording,
 playback, streaming, and hosting tools.
 
 ## Project Layout

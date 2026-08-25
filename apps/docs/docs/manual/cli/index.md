@@ -60,4 +60,4 @@ Notable features:
 
 popcorn CLI is licensed under the PolyForm Shield License 1.0.0. Source code
 and license are available at
-[github.com/dotbrains/popcorn](https://github.com/dotbrains/popcorn).
+[github.com/smeltery/popcorn](https://github.com/smeltery/popcorn).

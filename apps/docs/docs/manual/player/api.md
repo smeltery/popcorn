@@ -260,10 +260,10 @@ Below is the result. Make sure your audio is not on mute.
 
     `inputOffset` is a _driver option_. Driver options are options specific to
     each
-    [driver](https://github.com/dotbrains/popcorn/tree/develop/src/driver),
+    [driver](https://github.com/smeltery/popcorn/tree/develop/src/driver),
     and they must be passed in `create`'s first argument, together with a URL.
     `inputOffset` is an option of the [recording
-    driver](https://github.com/dotbrains/popcorn/tree/develop/src/driver).
+    driver](https://github.com/smeltery/popcorn/tree/develop/src/driver).
 
     Concept of drivers is not fully finalized yet and is subject to change. Feel
     free to check the source code of currently available drivers for what

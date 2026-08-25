@@ -1,7 +1,7 @@
 site_name: popcorn docs
-site_author: dotbrains
+site_author: smeltery
 
-repo_url: https://github.com/dotbrains/popcorn
+repo_url: https://github.com/smeltery/popcorn
 
 theme:
   name: material
@@ -101,7 +101,7 @@ nav:
       - manual/popcast/v2.md
       - manual/popcast/v1.md
   - FAQ: faq.md
-  - Code: https://github.com/dotbrains/popcorn
+  - Code: https://github.com/smeltery/popcorn
 
 markdown_extensions:
   - attr_list
@@ -129,7 +129,7 @@ extra_javascript:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/dotbrains/popcorn
+      link: https://github.com/smeltery/popcorn
       name: popcorn on Github
 
-copyright: Copyright &copy; 2026 dotbrains
+copyright: Copyright &copy; 2026 smeltery

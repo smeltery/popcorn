@@ -1,8 +1,8 @@
 # Popcorn server
 
-[![CI](https://github.com/dotbrains/popcorn/actions/workflows/ci.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/ci.yml)
-[![Release](https://github.com/dotbrains/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/release.yml)
-[![Latest Release](https://img.shields.io/github/v/release/dotbrains/popcorn?sort=semver)](https://github.com/dotbrains/popcorn/releases/latest)
+[![CI](https://github.com/smeltery/popcorn/actions/workflows/ci.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/ci.yml)
+[![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
+[![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![Elixir](https://img.shields.io/badge/elixir-1.19%2B-purple)](mix.exs)
 [![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](../../LICENSE)
 
@@ -15,7 +15,7 @@ and managing recordings and streams. This includes an HTTP API used by the
 
 The server is built with [Elixir language](https://elixir-lang.org/) and
 [Phoenix framework](https://www.phoenixframework.org/). It embeds popcorn's
-virtual terminal, [avt](https://github.com/dotbrains/popcorn/tree/main/crates/avt), which is utilized by
+virtual terminal, [avt](https://github.com/smeltery/popcorn/tree/main/crates/avt), which is utilized by
 tasks such as preview generation, recording analysis and live stream state
 bookkeeping.
 

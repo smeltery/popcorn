@@ -11,7 +11,7 @@ use uuid::Uuid;
 
 use crate::status;
 
-const DEFAULT_SERVER_URL: &str = "https://popcorn.dotbrains.local";
+const DEFAULT_SERVER_URL: &str = "https://popcorn.smeltery.local";
 const INSTALL_ID_FILENAME: &str = "install-id";
 
 pub type Key = Option<Vec<u8>>;

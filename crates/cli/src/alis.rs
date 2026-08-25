@@ -2,7 +2,7 @@
 // protocol built on top of WebSocket binary messages, used by popcorn CLI, popcorn player and
 // popcorn server.
 
-// See more at: https://popcorn.dotbrains.local/docs/manual/server/streaming/
+// See more at: https://popcorn.smeltery.local/docs/manual/server/streaming/
 
 use std::future;
 use std::time::Duration;

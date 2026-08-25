@@ -41,7 +41,7 @@ the heavy lifting.
 However, playback in a web browser is another story. To do that we need
 something that can interpret ANSI sequences and produce visual representation of
 a terminal window. Therefore, [popcorn player](manual/player/index.md) is
-powered by a bespoke terminal emulator, [popcorn-terminal](https://github.com/dotbrains/popcorn),
+powered by a bespoke terminal emulator, [popcorn-terminal](https://github.com/smeltery/popcorn),
 based on [Paul Williams' parser for ANSI-compatible video
 terminals](https://vt100.net/emu/dec_ansi_parser). This emulator is specifically
 tailored to replicate the display aspect of terminal emulation, handling color
@@ -51,6 +51,6 @@ underline, inverse, are perfectly rendered, creating a faithful viewing
 experience.
 
 For implementation details check out [popcorn CLI source
-code](https://github.com/dotbrains/popcorn), [popcorn server source
-code](https://github.com/dotbrains/popcorn) and [popcorn player
-source code](https://github.com/dotbrains/popcorn).
+code](https://github.com/smeltery/popcorn), [popcorn server source
+code](https://github.com/smeltery/popcorn) and [popcorn player
+source code](https://github.com/smeltery/popcorn).

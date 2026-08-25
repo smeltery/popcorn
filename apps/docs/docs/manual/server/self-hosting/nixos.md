@@ -96,7 +96,7 @@ the configured URL to verify it's up and running.
     released version. For reproducible deployments pin a specific release
     instead, e.g.
     `popcorn-server.url = "github:popcorn/popcorn-server/<tag>";`. See the
-    [releases](https://github.com/dotbrains/popcorn/releases) page for
+    [releases](https://github.com/smeltery/popcorn/releases) page for
     available tags. Don't use the bare `github:popcorn/popcorn-server` URL:
     it resolves to the default (`develop`) branch, which isn't always
     release-ready.

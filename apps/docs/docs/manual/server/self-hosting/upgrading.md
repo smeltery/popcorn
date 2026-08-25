@@ -2,7 +2,7 @@
 
 To upgrade your instance of popcorn server to the latest version:
 
-- check the [releases](https://github.com/dotbrains/popcorn/releases)
+- check the [releases](https://github.com/smeltery/popcorn/releases)
   for the latest version number,
 - check the release notes of _all_ versions between the one you're running and
   the one you're upgrading to, and look for manual upgrade steps and breaking
@@ -22,8 +22,8 @@ Update the `popcorn` container image tag to the latest number:
 ```diff title="docker-compose.yml"
  services:
    popcorn:
--    image: ghcr.io/dotbrains/popcorn-server:20260616
-+    image: ghcr.io/dotbrains/popcorn-server:20260626
+-    image: ghcr.io/smeltery/popcorn-server:20260616
++    image: ghcr.io/smeltery/popcorn-server:20260626
      # ...
 ```
 

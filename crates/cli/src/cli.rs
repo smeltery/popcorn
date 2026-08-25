@@ -149,7 +149,7 @@ pub enum Commands {
   popcorn play --idle-time-limit 2 demo.pop
       Plays back with idle time capped at 2 seconds
 
-  popcorn play https://popcorn.dotbrains.local/a/569727
+  popcorn play https://popcorn.smeltery.local/a/569727
       Plays back directly from a URL
 
   popcorn play --pause-on-markers demo.pop
@@ -186,7 +186,7 @@ pub enum Commands {
   popcorn cat demo1.pop demo2.pop demo3.pop > combined.pop
       Combines local recordings into one file
 
-  popcorn cat https://popcorn.dotbrains.local/a/569727 part2.pop > combined.pop
+  popcorn cat https://popcorn.smeltery.local/a/569727 part2.pop > combined.pop
       Combines a remote and a local recording into one file"
     )]
     Cat(Cat),
@@ -211,7 +211,7 @@ pub enum Commands {
   popcorn convert -f txt demo.pop -
       Exports as plain text to stdout
 
-  popcorn convert https://popcorn.dotbrains.local/a/569727 starwars.pop
+  popcorn convert https://popcorn.smeltery.local/a/569727 starwars.pop
       Downloads a remote recording and converts it to the latest popcast format (v3)"
     )]
     Convert(Convert),
@@ -672,10 +672,10 @@ pub struct Auth {
 
 #[derive(Clone, Copy, Debug, PartialEq, ValueEnum)]
 pub enum Format {
-    /// Full-featured session format, with timing and metadata (current generation) - https://popcorn.dotbrains.local/docs/manual/popcast/v3/
+    /// Full-featured session format, with timing and metadata (current generation) - https://popcorn.smeltery.local/docs/manual/popcast/v3/
     #[value(alias = "asciicast-v3")]
     PopcastV3,
-    /// Full-featured session format, with timing and metadata (previous generation) - https://popcorn.dotbrains.local/docs/manual/popcast/v2/
+    /// Full-featured session format, with timing and metadata (previous generation) - https://popcorn.smeltery.local/docs/manual/popcast/v2/
     #[value(alias = "asciicast-v2")]
     PopcastV2,
     /// Raw terminal output, including control sequences, without timing and metadata

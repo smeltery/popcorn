@@ -14,7 +14,7 @@ server.
 The recommended development setup is Flox:
 
 ```bash
-git clone https://github.com/dotbrains/popcorn.git
+git clone https://github.com/smeltery/popcorn.git
 cd popcorn
 flox activate
 ```

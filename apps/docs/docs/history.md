@@ -60,13 +60,13 @@ many new features.
 Another milestone was achieved in May 2022 with the release of popcorn player
 3.0, in which the terminal emulation part was implemented in
 [Rust](https://www.rust-lang.org/) (as the
-[popcorn-terminal](https://github.com/dotbrains/popcorn) library) and compiled to
+[popcorn-terminal](https://github.com/smeltery/popcorn) library) and compiled to
 [WebAssembly](https://webassembly.org/), resulting in a smaller and faster
 player.
 
 Outside of popcorn's core components, a new, ultra-fast popcorn GIF
 generator, [popcorn-gif](manual/popcorn-gif/index.md), was released in August 2022. The creation
-of popcorn-gif was, to a degree, sparked by [popcorn-terminal](https://github.com/dotbrains/popcorn). In
+of popcorn-gif was, to a degree, sparked by [popcorn-terminal](https://github.com/smeltery/popcorn). In
 fact, popcorn-terminal has also been integrated into the popcorn server, where it's used
 for thumbnail generation and recording analysis since 2020.
 

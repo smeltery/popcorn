@@ -55,7 +55,7 @@ transmission.
 
 The server maintains comprehensive state for each active stream by running the
 whole stream through [popcorn's own virtual terminal
-emulator](https://github.com/dotbrains/popcorn). This enables new consumers to
+emulator](https://github.com/smeltery/popcorn). This enables new consumers to
 connect mid-stream and immediately receive the current terminal view, ensuring
 a seamless viewing experience regardless of when viewers join the session.
 

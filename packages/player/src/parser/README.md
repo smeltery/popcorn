@@ -1,7 +1,7 @@
 # Parsers
 
-[![Release](https://github.com/dotbrains/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/release.yml)
-[![Latest Release](https://img.shields.io/github/v/release/dotbrains/popcorn?sort=semver)](https://github.com/dotbrains/popcorn/releases/latest)
+[![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
+[![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](../../LICENSE)
 
 Parser is a function, which transforms a recording encoded in an arbitrary file
@@ -64,13 +64,13 @@ PopcornPlayer.create({ url: url, parser: 'built-in-parser-name' }, containerElem
 ### popcast
 
 `popcast` parser handles [popcast
-v1](https://github.com/dotbrains/popcorn/blob/develop/doc/popcast-v1.md),
+v1](https://github.com/smeltery/popcorn/blob/develop/doc/popcast-v1.md),
 [popcast
-v2](https://github.com/dotbrains/popcorn/blob/develop/doc/popcast-v2.md)
+v2](https://github.com/smeltery/popcorn/blob/develop/doc/popcast-v2.md)
 and [popcast
-v3](https://github.com/dotbrains/popcorn/blob/develop/doc/popcast-v3.md)
+v3](https://github.com/smeltery/popcorn/blob/develop/doc/popcast-v3.md)
 file formats produced by [popcorn
-recorder](https://github.com/dotbrains/popcorn).
+recorder](https://github.com/smeltery/popcorn).
 
 This parser is the default and does not have to be explicitly selected.
 

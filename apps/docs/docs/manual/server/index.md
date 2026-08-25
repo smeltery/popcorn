@@ -14,7 +14,7 @@ used by the [popcorn CLI](../cli/index.md).
 
 The server is built with [Elixir language](https://elixir-lang.org/) and
 [Phoenix framework](https://www.phoenixframework.org/). It embeds Popcorn's
-virtual terminal library, [popcorn-terminal](https://github.com/dotbrains/popcorn/tree/main/crates/avt),
+virtual terminal library, [popcorn-terminal](https://github.com/smeltery/popcorn/tree/main/crates/avt),
 which is used for preview generation, recording analysis, and live stream state
 bookkeeping.
 
@@ -47,4 +47,4 @@ Notable features:
 
 popcorn server is licensed under the PolyForm Shield License 1.0.0. Source code
 and license are available at
-[github.com/dotbrains/popcorn](https://github.com/dotbrains/popcorn).
+[github.com/smeltery/popcorn](https://github.com/smeltery/popcorn).

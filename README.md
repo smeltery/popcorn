@@ -1,15 +1,15 @@
 # <img src="apps/docs/docs/assets/logo.png" alt="" width="32" height="32" /> Popcorn
 
-[![CI](https://github.com/dotbrains/popcorn/actions/workflows/ci.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/ci.yml)
-[![Release](https://github.com/dotbrains/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/popcorn/actions/workflows/release.yml)
-[![Latest Release](https://img.shields.io/github/v/release/dotbrains/popcorn?sort=semver)](https://github.com/dotbrains/popcorn/releases/latest)
+[![CI](https://github.com/smeltery/popcorn/actions/workflows/ci.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/ci.yml)
+[![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
+[![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![Rust](https://img.shields.io/badge/rust-1.87%2B-orange)](Cargo.toml)
 [![Node](https://img.shields.io/badge/node-24%2B-green)](packages/player/package.json)
 [![Elixir](https://img.shields.io/badge/elixir-1.19%2B-purple)](apps/server/mix.exs)
 [![Flox](https://img.shields.io/badge/flox-integrated-blue)](.flox/env/manifest.toml)
 [![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](LICENSE)
 
-Popcorn is a dotbrains monorepo for terminal session recording, playback,
+Popcorn is a smeltery monorepo for terminal session recording, playback,
 streaming, hosting, documentation, and rendering tools. It records terminal
 sessions as lightweight `.pop` files, plays them back in a terminal or browser,
 streams live sessions through a server, and renders recordings to GIFs.

@@ -2,9 +2,9 @@
 name = "popcorn"
 version = "0.1.0"
 edition = "2021"
-authors = ["dotbrains"]
-homepage = "https://popcorn.dotbrains.local"
-repository = "https://github.com/dotbrains/popcorn"
+authors = ["smeltery"]
+homepage = "https://popcorn.smeltery.local"
+repository = "https://github.com/smeltery/popcorn"
 description = "Terminal session recorder, streamer, and player"
 license-file = "LICENSE"
 
