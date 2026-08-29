@@ -16,7 +16,10 @@ flox activate
 The environment provides Git/GitHub tooling, Rust bootstrap through `rustup`,
 Node 24, Python 3.12 for docs, Elixir tooling, `fd`, ImageMagick, `actionlint`,
 `pre-commit`, `shellcheck`, and shared command-line utilities. The activation
-hook installs the Rust 1.87 toolchain and prepares `apps/docs/.venv`.
+hook installs the Rust 1.87 toolchain, installs
+[`mbx`](https://mr-boxington.jdx.dev) when missing, and prepares
+`apps/docs/.venv`. Use `mbx` for compiling Cargo commands (`build`, `clippy`,
+`test`); leave `cargo fmt` as `cargo`.
 
 ```mermaid
 flowchart TD
@@ -81,7 +84,7 @@ stateDiagram-v2
 
 | Change area | Minimum focused check | Before push |
 | --- | --- | --- |
-| Rust CLI or shared Rust crates | `cargo test -p <crate>` or targeted test | Full Rust workspace checks and CLI integration when behavior changes. |
+| Rust CLI or shared Rust crates | `mbx test -p <crate>` or targeted test | Full Rust workspace checks and CLI integration when behavior changes. |
 | Terminal parser behavior | Targeted parser tests or fixtures | Full Rust workspace tests and any affected renderer checks. |
 | Browser player | Targeted package test | `bun run build` and `bun run test` in `packages/player`. |
 | Server code | Targeted `mix test` file | Server compile and full `mix test` with PostgreSQL. |
@@ -101,18 +104,18 @@ Common Rust checks:
 
 ```bash
 cargo fmt --all --check
-cargo clippy --workspace --all-targets --locked -- -D warnings
-cargo test --workspace --locked
+mbx clippy --workspace --all-targets --locked -- -D warnings
+mbx test --workspace --locked
 crates/cli/tests/integration.sh
 ```
 
 Useful targeted commands:
 
 ```bash
-cargo test -p popcorn
-cargo test -p popcorn-terminal
-cargo test -p popcorn-gif
-cargo clippy -p popcorn --all-targets --locked -- -D warnings
+mbx test -p popcorn
+mbx test -p popcorn-terminal
+mbx test -p popcorn-gif
+mbx clippy -p popcorn --all-targets --locked -- -D warnings
 ```
 
 When changing CLI behavior, update command help, examples, fixtures, and product

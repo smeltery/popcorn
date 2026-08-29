@@ -31,10 +31,10 @@ rust-format:
 	cargo fmt --all --check
 
 rust-lint:
-	cargo clippy --workspace --all-targets --locked -- -D warnings
+	mbx clippy --workspace --all-targets --locked -- -D warnings
 
 rust-test:
-	cargo test --workspace --locked
+	mbx test --workspace --locked
 
 integration:
 	crates/cli/tests/integration.sh
