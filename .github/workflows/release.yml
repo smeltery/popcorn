@@ -72,14 +72,17 @@ jobs:
           toolchain: 1.87.0
           components: rustfmt, clippy
 
+      - name: Install mr boxington
+        uses: jdx/mr-boxington-action@v1
+
       - name: Format
         run: cargo fmt --all --check
 
       - name: Lint
-        run: cargo clippy --workspace --all-targets --locked -- -D warnings
+        run: mbx clippy --workspace --all-targets --locked -- -D warnings
 
       - name: Test
-        run: cargo test --workspace --locked
+        run: mbx test --workspace --locked
 
   build:
     name: Build ${{ matrix.target }}
@@ -106,7 +109,7 @@ jobs:
             target: aarch64-apple-darwin
             use-cross: false
     env:
-      CARGO: cargo
+      CARGO: mbx
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -118,6 +121,10 @@ jobs:
         with:
           toolchain: 1.87.0
           targets: ${{ matrix.target }}
+
+      - name: Install mr boxington
+        if: ${{ !matrix.use-cross }}
+        uses: jdx/mr-boxington-action@v1
 
       - name: Install cross
         if: matrix.use-cross

@@ -45,20 +45,21 @@ Use the checked-in Flox environment:
 
 ```bash
 flox activate
-cargo build -p popcorn --locked
+mbx build -p popcorn --locked
 cargo run -p popcorn -- rec demo.pop
 cargo run -p popcorn -- play demo.pop
 ```
 
 Without Flox, install Rust 1.87+, Bun, Node 24+, Python 3.12+,
 Erlang/OTP 28.1+, Elixir, npm for server assets, and PostgreSQL tooling
-directly.
+directly. Compiling Cargo commands should be prefixed with
+[`mbx`](https://mr-boxington.jdx.dev) (`cargo fmt` stays as `cargo`).
 
 Build and test the main CLI:
 
 ```bash
-cargo build -p popcorn --locked
-cargo test --workspace --locked
+mbx build -p popcorn --locked
+mbx test --workspace --locked
 crates/cli/tests/integration.sh
 ```
 
@@ -96,8 +97,8 @@ python3 -m venv .venv
 
 ```bash
 cargo fmt --all --check
-cargo clippy --workspace --all-targets --locked -- -D warnings
-cargo test --workspace --locked
+mbx clippy --workspace --all-targets --locked -- -D warnings
+mbx test --workspace --locked
 crates/cli/tests/integration.sh
 
 make check
