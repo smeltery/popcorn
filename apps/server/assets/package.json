@@ -9,6 +9,6 @@
     "popcorn-player": "file:../../../packages/player",
     "phoenix": "1.7.21",
     "phoenix_html": "3.3.4",
-    "phoenix_live_view": "1.2.7"
+    "phoenix_live_view": "1.2.11"
   }
 }
