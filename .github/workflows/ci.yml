@@ -30,7 +30,7 @@ jobs:
         uses: flox/install-flox-action@v2
 
       - name: Run hygiene gates
-        uses: flox/activate-action@v1
+        uses: flox/activate-action@v2
         with:
           command: make check PYTHON=python3
 
