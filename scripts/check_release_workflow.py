@@ -16,9 +16,8 @@ EXPECTED_TARGETS = {
     "aarch64-apple-darwin",
 }
 EXPECTED_RUNNERS = {
-    "blacksmith-2vcpu-ubuntu-2404",
-    "blacksmith-4vcpu-ubuntu-2404",
-    "blacksmith-6vcpu-macos-15",
+    "ubuntu-24.04",
+    "macos-15",
 }
 
 
@@ -36,7 +35,7 @@ def main() -> int:
 
     failures: list[str] = []
     targets = set(re.findall(r"target: ([A-Za-z0-9_-]+(?:-[A-Za-z0-9_]+)+)", text))
-    runners = set(re.findall(r"(blacksmith-[A-Za-z0-9_-]+)", text))
+    runners = set(re.findall(r"(?:runs-on|os): ([A-Za-z0-9_.-]+)", text))
 
     require("tags:" in text and '"v*.*.*"' in text, "release workflow must run for v*.*.* tags", failures)
     require("workflow_dispatch:" in text, "release workflow must support manual dispatch", failures)
