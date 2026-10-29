@@ -1,4 +1,6 @@
 <div class="container">
+  <img class="brand-mascot" src={~p"/images/brand/mascot.png"} alt="Popcorn mascot with a laptop" />
+  <p>Make your terminal sessions pop.</p>
   <h2>About {@server_name}</h2>
 
   <p>
@@ -6,8 +8,7 @@
     is a platform for hosting and sharing
     terminal session recordings, powered by
     <%= if @server_version do %>
-      <a href="https://docs.popcorn.local/manual/server/">popcorn server</a>
-      ({@server_version}).
+      <a href="https://docs.popcorn.local/manual/server/">popcorn server</a> ({@server_version}).
     <% else %>
       <a href="https://docs.popcorn.local/manual/server/">popcorn server</a>.
     <% end %>
@@ -41,8 +42,11 @@
   <h2>About popcorn</h2>
 
   <p>
-    <strong>popcorn</strong> is a suite of tools
-    for recording, replaying, and sharing terminal sessions. It is free and open-source software (FOSS), created by <a href="https://hachyderm.io/@ku1ik">Marcin Kulik</a>.
+    <strong>popcorn</strong>
+    is a suite of tools
+    for recording, replaying, and sharing terminal sessions, maintained by smeltery.
+    It builds on the open-source work of <a href="https://hachyderm.io/@ku1ik">Marcin Kulik</a>
+    and the asciinema contributors.
   </p>
 
   <p>

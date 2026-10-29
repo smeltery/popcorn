@@ -414,7 +414,7 @@ defmodule PopcornWeb.RecordingSvgTest do
 
   defp rgb_at_cell(png, x, y), do: rgb_at(png, x * 8, y * 24)
 
-  defp logo_present(svg), do: svg =~ "small-triangle-mask"
+  defp logo_present(svg), do: svg =~ ~s(aria-label="Popcorn")
 
   defp snapshot(lines) do
     {:ok, snapshot} = EctoSnapshot.cast({lines, nil})

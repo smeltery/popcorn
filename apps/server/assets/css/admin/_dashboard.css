@@ -6,6 +6,8 @@
   gap: 1rem;
 }
 
+.dash-grid > * { min-width: 0; }
+
 .dash-stat {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,34 @@
+// Interface colors are independent of recording-supplied terminal colors.
+div.ap-player {
+  --ap-control-background: var(--popcorn-midnight);
+  --ap-control-foreground: var(--popcorn-cream);
+  --ap-control-accent: var(--popcorn-gold);
+
+  div.ap-control-bar {
+    background: var(--ap-control-background);
+    color: var(--ap-control-foreground);
+    border-top-color: var(--popcorn-silver);
+
+    svg.ap-icon path { fill: currentColor; }
+
+    .ap-progressbar .ap-bar {
+      .ap-gutter-empty { background: var(--popcorn-muted); }
+      .ap-gutter-full { background: var(--ap-control-accent); }
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--ap-control-accent);
+      outline-offset: -2px;
+    }
+  }
+
+  .ap-overlay-start .ap-play-button {
+    color: var(--popcorn-gold);
+    svg { filter: drop-shadow(0 0 4px var(--popcorn-midnight)); }
+  }
+}
+
+div.ap-wrapper:focus-visible {
+  outline: 3px solid var(--popcorn-red);
+  outline-offset: 3px;
+}

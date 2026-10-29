@@ -1,0 +1,18 @@
+/* Canonical palette. Run scripts/sync_brand.py after changing this file. */
+:root {
+  --popcorn-red: #f43f4f;
+  --popcorn-gold: #ffcc4d;
+  --popcorn-cream: #fff4d6;
+  --popcorn-midnight: #15151b;
+  --popcorn-silver: #a6a6b3;
+  --popcorn-action: #b91c35;
+  --popcorn-action-hover: #97152b;
+  --popcorn-action-active: #781023;
+  --popcorn-link-dark: #ff8c98;
+  --popcorn-muted: #62626f;
+  --popcorn-paper: #fffcf5;
+  --popcorn-surface-dark: #23232d;
+  --popcorn-border: #767683;
+  --popcorn-font-ui: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --popcorn-font-code: 'JetBrains Mono', ui-monospace, monospace;
+}

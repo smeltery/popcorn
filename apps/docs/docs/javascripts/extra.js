@@ -199,9 +199,9 @@ function createPlayer(src, containerId, opts, setup) {
   opts = { theme: 'dracula', ...opts };
 
   if (container !== null) {
-    document.fonts.load("1em Fira Mono").then(() => {
+    document.fonts.load("1em JetBrains Mono").then(() => {
       const player = PopcornPlayer.create(src, container, {
-        terminalFontFamily: "'Fira Mono', monospace",
+        terminalFontFamily: "'JetBrains Mono', monospace",
         ...opts
       });
 

@@ -3,19 +3,19 @@
 :root {
   color-scheme: light dark;
 
-  --bg: #fafafa;
+  --bg: var(--popcorn-paper);
   --surface: #ffffff;
   --surface-2: #f3f4f6;
-  --text: #1f2328;
+  --text: var(--popcorn-midnight);
   --muted: #6b7280;
   --border: #e5e7eb;
   --border-strong: #d1d5db;
-  --link: #2f6f44;
-  --accent: #86c997;
-  --accent-strong: #5fae73;
-  --accent-text: #11331c;
-  /* focus ring: deeper than --accent to clear the 3:1 non-text contrast bar */
-  --focus: #4f9b63;
+  --link: var(--popcorn-action);
+  --accent: var(--popcorn-action);
+  --accent-strong: var(--popcorn-action-hover);
+  --accent-text: #ffffff;
+  /* Focus follows the high-contrast action color in light mode. */
+  --focus: var(--popcorn-action);
   --danger: #b54545;
   --danger-strong: #8c3232;
   --danger-bg: #fdecec;
@@ -28,18 +28,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #15171a;
-    --surface: #1d2024;
+    --bg: var(--popcorn-midnight);
+    --surface: var(--popcorn-surface-dark);
     --surface-2: #23272c;
-    --text: #e8eaed;
-    --muted: #9aa0a6;
+    --text: var(--popcorn-cream);
+    --muted: var(--popcorn-silver);
     --border: #2b2f35;
     --border-strong: #3a3f47;
-    --link: #a5d4b3;
-    --accent: #7fbf90;
-    --accent-strong: #99d0a8;
-    --accent-text: #0e1f15;
-    --focus: #7fbf90;
+    --link: var(--popcorn-link-dark);
+    --accent: var(--popcorn-gold);
+    --accent-strong: var(--popcorn-cream);
+    --accent-text: var(--popcorn-midnight);
+    --focus: var(--popcorn-gold);
     --danger: #d77272;
     --danger-strong: #e69191;
     --danger-bg: #2a1818;

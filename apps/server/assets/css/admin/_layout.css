@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: .5rem;
   height: 44px;
   /* left-pad aligns with the sidebar nav text; right-pad matches the content's right edge */
   padding: 0 1.5rem 0 1.25rem;
@@ -12,12 +13,13 @@
 }
 
 .brand-name {
+  margin-right: auto;
   font-weight: 600;
   letter-spacing: -0.005em;
 }
 
 .brand-env {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: var(--popcorn-font-code);
   font-size: 0.8rem;
   color: var(--muted);
 }
@@ -97,5 +99,19 @@
   flex: 1;
   min-width: 0;
   padding: 1.25rem 1.5rem 3rem;
+}
+
+@media (max-width: 760px) {
+  .shell { flex-direction: column; }
+  .sidebar {
+    width: 100%;
+    flex: none;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-list { display: flex; flex-wrap: wrap; }
+  .nav-group { margin-top: .5rem; }
+  .sidebar-footer { padding-bottom: 0; }
+  .content { padding: 1rem; }
 }
 

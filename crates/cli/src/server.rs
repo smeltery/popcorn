@@ -198,6 +198,7 @@ fn mime_from_path(path: &str) -> &'static str {
         Some("js") => "text/javascript",
         Some("css") => "text/css",
         Some("woff2") => "font/woff2",
+        Some("png") => "image/png",
         Some(_) | None => "application/octet-stream",
     }
 }

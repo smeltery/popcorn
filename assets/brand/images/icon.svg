@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Popcorn" role="img" fill="none">
+  <path d="M13 35C6 31 8 20 16 18C14 8 26 4 32 12C39 4 52 10 49 20C58 23 57 33 51 36Z" fill="#FFF4D6" stroke="#15151B" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="24" cy="25" r="3" fill="#15151B"/>
+  <circle cx="40" cy="25" r="3" fill="#15151B"/>
+  <path d="M27 32Q32 37 37 32" stroke="#15151B" stroke-width="3" stroke-linecap="round"/>
+  <path d="M13 39H51L46 57H18Z" fill="#F43F4F" stroke="#15151B" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M24 41L26 55M39 41L37 55" stroke="#FFF4D6" stroke-width="5"/>
+</svg>

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href={~p"/images/brand/favicon.png"} />
     <meta name="color-scheme" content="light dark" />
     <meta name="csrf-token" content={Plug.CSRFProtection.get_csrf_token()} />
     <link rel="stylesheet" href={~p"/assets/admin.css"} />
@@ -17,7 +18,8 @@
     <% active_saved_id =
       if assigns[:index] && @index.active_saved_query, do: @index.active_saved_query.id %>
     <header class="brand">
-      <span class="brand-name mono">popcorn admin</span>
+      <img src={~p"/images/brand/icon.svg"} width="32" height="32" alt="" />
+      <span class="brand-name">popcorn admin</span>
       <span class="brand-env">env: {PopcornAdmin.Layouts.env_name()}</span>
     </header>
 

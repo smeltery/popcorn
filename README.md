@@ -1,4 +1,10 @@
-# <img src="apps/docs/docs/assets/logo.png" alt="" width="32" height="32" /> Popcorn
+# <img src="assets/brand/images/icon.svg" alt="" width="40" height="40" /> Popcorn
+
+<img src="assets/brand/images/mascot.png" alt="Popcorn mascot with a laptop" width="240" />
+
+**Make your terminal sessions pop.**
+
+Record, replay, and share terminal sessions.
 
 [![CI](https://github.com/smeltery/popcorn/actions/workflows/ci.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/ci.yml)
 [![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
@@ -124,6 +130,8 @@ in [docs](docs):
 1. [docs/development.md](docs/development.md)
 1. [docs/operations.md](docs/operations.md)
 1. [docs/security.md](docs/security.md)
+
+Brand assets and usage guidance live in [assets/brand](assets/brand/README.md).
 
 Agent-facing repo instructions live in [AGENTS.md](AGENTS.md).
 

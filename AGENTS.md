@@ -31,6 +31,9 @@ repositories unless there is a strong release or ownership reason.
 - User-facing recording format name: `popcast`.
 - Environment variables use `POPCORN_`.
 - Config/state paths use `popcorn`.
+- Canonical brand assets, fonts, and color tokens live in `assets/brand`.
+- Run `python3 scripts/sync_brand.py` after changing canonical assets; use
+  `--player` after rebuilding the player to update docs and CLI bundles together.
 
 Internal compatibility code may still read historical asciinema/asciicast
 payloads when that preserves interoperability, but new user-facing examples and

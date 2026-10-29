@@ -40,8 +40,8 @@ theme:
     - content.code.annotation
     - content.code.copy
   language: en
-  logo: assets/logo.png
-  favicon: assets/logo.png
+  logo: assets/brand/icon.svg
+  favicon: assets/brand/favicon.png
 
 nav:
   - index.md
@@ -118,12 +118,13 @@ markdown_extensions:
       alternate_style: true
 
 extra_css:
-  - stylesheets/player-3.9.0-83ce182.css
+  - stylesheets/brand-tokens.css
+  - stylesheets/popcorn-player.css
   - stylesheets/extra.css
-  - stylesheets/fira.css
+  - stylesheets/brand-fonts.css
 
 extra_javascript:
-  - javascripts/player-3.9.0-83ce182.min.js
+  - javascripts/popcorn-player.min.js
   - javascripts/extra.js
 
 extra:

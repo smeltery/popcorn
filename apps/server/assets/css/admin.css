@@ -1,6 +1,6 @@
 @import "../node_modules/popcorn-player/dist/bundle/popcorn-player.css";
 @import "./fonts/fira-code.css";
-@import "./fonts/jetbrains-mono.css";
+@import "./fonts/brand.css";
 @import "./fonts/symbols-nerd-font.css";
 
 @import "./admin/_base.css";

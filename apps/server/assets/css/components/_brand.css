@@ -1,0 +1,31 @@
+header nav a.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+header nav a.brand img.brand-icon {
+  width: 40px;
+  height: 40px;
+}
+
+header nav a.brand img.brand-wordmark {
+  width: 130px;
+  height: 34px;
+}
+
+:is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--popcorn-action);
+  outline-offset: 3px;
+}
+
+header :is(a, button, summary):focus-visible {
+  outline-color: var(--popcorn-gold);
+}
+
+.brand-mascot {
+  display: block;
+  width: min(100%, 280px);
+  padding: 28px;
+  margin-inline: auto;
+}

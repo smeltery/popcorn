@@ -6,6 +6,23 @@ hide:
 
 # Popcorn
 
+<div class="brand-hero" markdown>
+<div markdown>
+<p class="brand-tagline">Make your terminal sessions pop.</p>
+
+Record, replay, and share terminal sessions.
+
+```sh
+popcorn rec demo.pop
+popcorn play demo.pop
+```
+
+</div>
+<div class="brand-art">
+<img src="assets/brand/mascot.png" alt="Popcorn mascot recording a terminal session on a laptop" width="1280" height="1200">
+</div>
+</div>
+
 Popcorn is a smeltery toolkit for recording, playing, streaming, hosting, and
 sharing terminal sessions. It stores recordings as lightweight `.pop` files
 instead of video, so terminal demos stay small, searchable, copyable, and easy

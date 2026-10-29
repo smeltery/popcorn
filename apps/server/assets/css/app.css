@@ -6,6 +6,7 @@
 
 /* == Foundation: tokens/reset == */
 
+@import "./foundation/brand-tokens.css";
 @import "./foundation/_variables.css";
 @import "./foundation/_reset.css";
 
@@ -52,9 +53,11 @@
 
 @import "./fonts/fira-sans.css";
 @import "./fonts/fira-code.css";
-@import "./fonts/jetbrains-mono.css";
+@import "./fonts/brand.css";
 @import "./fonts/symbols-nerd-font.css";
 
 /* == Embedded player bundle == */
 
 @import "../node_modules/popcorn-player/dist/bundle/popcorn-player.css";
+
+@import "./components/_brand.css";

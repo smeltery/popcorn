@@ -5,23 +5,23 @@
 
 :root {
   /* == Colors: brand == */
-  --color-primary: #06989a;
-  --color-primary-hover: #055759;
-  --color-primary-active: #044f51;
-  --color-primary-light: #7dd3d4;
-  --color-primary-alpha: rgba(6, 152, 154, 0.5);
-  --color-primary-alpha-soft: rgba(6, 152, 154, 0.25);
+  --color-primary: var(--popcorn-action);
+  --color-primary-hover: var(--popcorn-action-hover);
+  --color-primary-active: var(--popcorn-action-active);
+  --color-primary-light: var(--popcorn-link-dark);
+  --color-primary-alpha: rgba(185, 28, 53, 0.5);
+  --color-primary-alpha-soft: rgba(185, 28, 53, 0.25);
 
   /* -- Link colors -- */
-  --color-link: #06989a;
-  --color-link-hover: #055759;
+  --color-link: var(--popcorn-action);
+  --color-link-hover: var(--popcorn-action-hover);
 
   /* == Colors: background == */
-  --color-bg-body: #f7f7f7;           /* Main body background */
+  --color-bg-body: var(--popcorn-paper);           /* Main body background */
   --color-bg-white: #ffffff;          /* White sections */
-  --color-bg-dark: #222222;           /* Dark sections */
-  --color-bg-dark-alt: #222230;       /* Alternate dark */
-  --color-bg-black: #000000;          /* Header background */
+  --color-bg-dark: var(--popcorn-midnight);           /* Dark sections */
+  --color-bg-dark-alt: var(--popcorn-surface-dark);       /* Alternate dark */
+  --color-bg-black: var(--popcorn-midnight);          /* Header background */
   --color-bg-code-inline: #eee;       /* Inline code background */
   --color-bg-code-block: #eee;        /* Code block background */
 
@@ -34,14 +34,14 @@
   --color-border-darkest: #bbbbbb;    /* Darkest borders */
 
   /* == Colors: text == */
-  --color-text-primary: #333333;      /* Primary text */
-  --color-text-secondary: #959fa7;    /* Secondary/placeholder */
+  --color-text-primary: var(--popcorn-midnight);      /* Primary text */
+  --color-text-secondary: var(--popcorn-muted);    /* Secondary/placeholder */
   --color-text-dark: #212529;         /* Darker text */
   --color-text-muted: #6c757d;        /* Muted text */
   --color-text-white: #ffffff;        /* White text */
 
   /* == Colors: functional == */
-  --color-success: #06989a;           /* Success (using brand teal) */
+  --color-success: #23754d;           /* Success stays distinct from brand red. */
   --color-warning: #c4a000;           /* Warning/alert */
   --color-danger: #dc3545;            /* Error/danger */
   --color-danger-hover: #c82333;
@@ -72,7 +72,7 @@
   /* == Typography == */
 
   /* -- Font families -- */
-  --font-family-base: 'Fira Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-base: var(--popcorn-font-ui);
   --font-family-mono: 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, 'DejaVu Sans Mono', monospace, 'Symbols Nerd Font';
 
   /* -- Font sizes -- */

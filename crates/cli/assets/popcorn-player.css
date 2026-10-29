@@ -1,3 +1,21 @@
+/* Canonical palette. Run scripts/sync_brand.py after changing this file. */
+:root {
+  --popcorn-red: #f43f4f;
+  --popcorn-gold: #ffcc4d;
+  --popcorn-cream: #fff4d6;
+  --popcorn-midnight: #15151b;
+  --popcorn-silver: #a6a6b3;
+  --popcorn-action: #b91c35;
+  --popcorn-action-hover: #97152b;
+  --popcorn-action-active: #781023;
+  --popcorn-link-dark: #ff8c98;
+  --popcorn-muted: #62626f;
+  --popcorn-paper: #fffcf5;
+  --popcorn-surface-dark: #23232d;
+  --popcorn-border: #767683;
+  --popcorn-font-ui: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --popcorn-font-code: 'JetBrains Mono', ui-monospace, monospace;
+}
 .ap-default-term-ff {
   --term-font-family: "Cascadia Code", "Source Code Pro", Menlo, Consolas, "DejaVu Sans Mono", monospace, "Symbols Nerd Font";
 }
@@ -759,4 +777,37 @@ span.ap-marker-container:hover span.ap-marker {
   --term-color-13: #d3869b;
   --term-color-14: #8ec07c;
   --term-color-15: #fbf1c7;
+}
+div.ap-player {
+  --ap-control-background: var(--popcorn-midnight);
+  --ap-control-foreground: var(--popcorn-cream);
+  --ap-control-accent: var(--popcorn-gold);
+}
+div.ap-player div.ap-control-bar {
+  background: var(--ap-control-background);
+  color: var(--ap-control-foreground);
+  border-top-color: var(--popcorn-silver);
+}
+div.ap-player div.ap-control-bar svg.ap-icon path {
+  fill: currentColor;
+}
+div.ap-player div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-empty {
+  background: var(--popcorn-muted);
+}
+div.ap-player div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-full {
+  background: var(--ap-control-accent);
+}
+div.ap-player div.ap-control-bar button:focus-visible {
+  outline: 2px solid var(--ap-control-accent);
+  outline-offset: -2px;
+}
+div.ap-player .ap-overlay-start .ap-play-button {
+  color: var(--popcorn-gold);
+}
+div.ap-player .ap-overlay-start .ap-play-button svg {
+  filter: drop-shadow(0 0 4px var(--popcorn-midnight));
+}
+div.ap-wrapper:focus-visible {
+  outline: 3px solid var(--popcorn-red);
+  outline-offset: 3px;
 }

@@ -2,11 +2,24 @@
   <nav>
     <div class="container">
       <div class="header-row">
-        <a class="brand" href={~p"/"}>
-          <img src={Routes.static_path(@conn, "/images/logo-red.svg")} />
+        <a class="brand" href={~p"/"} aria-label="Popcorn home">
+          <img
+            class="brand-icon"
+            src={Routes.static_path(@conn, "/images/brand/icon.svg")}
+            alt=""
+            width="40"
+            height="40"
+          />
+          <img
+            class="brand-wordmark"
+            src={Routes.static_path(@conn, "/images/brand/wordmark.svg")}
+            alt="Popcorn"
+            width="130"
+            height="34"
+          />
         </a>
-        
-<!-- Accessible mobile navigation toggle button -->
+
+        <!-- Accessible mobile navigation toggle button -->
         <button
           type="button"
           class="nav-toggle"

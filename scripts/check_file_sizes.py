@@ -55,7 +55,7 @@ EXCLUDED_FILENAMES = {
 }
 EXCLUDED_PATHS = {
     "apps/docs/docs/stylesheets/player-3.8.0.css",
-    "apps/docs/docs/stylesheets/player-3.9.0-83ce182.css",
+    "apps/docs/docs/stylesheets/popcorn-player.css",
 }
 
 

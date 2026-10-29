@@ -31,7 +31,7 @@ th {
 tbody tr:hover { background: var(--row-hover); }
 
 td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-td.mono, th.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+td.mono, th.mono { font-family: var(--popcorn-font-code); }
 
 /* one font, one baseline — mono next to sans sits visibly off in Firefox */
 .list-table td.mono, .list-table th.mono,

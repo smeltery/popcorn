@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Popcorn · Live terminal session</title>
+  <meta name="theme-color" content="#15151b">
+  <link rel="icon" href="favicon.png" type="image/png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="popcorn-player.css">
   <style>
@@ -27,7 +30,7 @@
 
     body {
       box-sizing: border-box;
-      padding: 40px;
+      padding: clamp(8px, 4vw, 40px);
       background-color: color-mix(in oklab, var(--term-color-background) 90%, black);
       transition: background-color 0.2s;
     }

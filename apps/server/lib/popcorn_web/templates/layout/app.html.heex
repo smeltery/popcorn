@@ -8,9 +8,23 @@
     <title>{page_title(@conn)}</title>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
     <link rel="shortcut icon" href={Routes.static_path(@conn, "/images/favicon.png")} />
+    <link
+      rel="apple-touch-icon"
+      href={Routes.static_path(@conn, "/images/brand/apple-touch-icon.png")}
+    />
+    <meta name="theme-color" content="#15151b" />
 
     <%= if function_exported?(view_module(@conn), :head, 2) do %>
       {view_module(@conn).head(view_template(@conn), assigns)}
+    <% else %>
+      <meta
+        name="description"
+        content="Record, replay, and share terminal sessions with Popcorn."
+      />
+      <meta
+        property="og:image"
+        content={Routes.static_url(@conn, "/images/brand/social-preview.png")}
+      />
     <% end %>
   </head>
 

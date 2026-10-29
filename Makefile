@@ -4,7 +4,7 @@ SHELL := bash
 .PHONY: check shellcheck actionlint markdown file-sizes flat-directories docs release-smoke \
 	rust-format rust-lint rust-test integration player server
 
-check: shellcheck actionlint markdown file-sizes flat-directories docs release-smoke
+check: brand-check shellcheck actionlint markdown file-sizes flat-directories docs release-smoke
 
 shellcheck:
 	scripts/check_shell.sh
@@ -44,3 +44,10 @@ player:
 
 server:
 	cd apps/server && mix deps.get --locked && mix test
+
+.PHONY: brand-sync brand-check
+brand-sync:
+	$(PYTHON) scripts/sync_brand.py
+
+brand-check:
+	$(PYTHON) scripts/sync_brand.py --check
