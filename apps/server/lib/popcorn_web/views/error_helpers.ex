@@ -3,7 +3,9 @@ defmodule PopcornWeb.ErrorHelpers do
   Conveniences for translating and building error messages.
   """
 
-  use Phoenix.HTML
+  import Phoenix.HTML
+  import Phoenix.HTML.Form
+  use PhoenixHTMLHelpers
 
   def error_class(form, field) do
     if form.errors[field] do

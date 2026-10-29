@@ -48,7 +48,7 @@ def main() -> int:
     require(re.search(r"uses: actions/upload-artifact@v[0-9]+\b", text) is not None, "release workflow must upload per-target artifacts", failures)
     require(re.search(r"uses: actions/download-artifact@v[0-9]+\b", text) is not None, "release workflow must download build artifacts", failures)
     require("shasum -a 256 popcorn-* > SHA256SUMS" in text, "release workflow must generate SHA256SUMS", failures)
-    require("softprops/action-gh-release@v2" in text, "release workflow must publish a GitHub release", failures)
+    require(re.search(r"uses: softprops/action-gh-release@v[0-9]+\b", text) is not None, "release workflow must publish a GitHub release", failures)
     require("echo \"draft=false\" >> \"$GITHUB_OUTPUT\"" in text, "tag releases must publish visibly by default", failures)
     require("draft: ${{ needs.preflight.outputs.draft }}" in text, "release workflow must use preflight draft metadata", failures)
     require("prerelease: ${{ needs.preflight.outputs.is_prerelease }}" in text, "release workflow must preserve prerelease metadata", failures)

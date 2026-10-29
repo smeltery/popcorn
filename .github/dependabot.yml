@@ -31,6 +31,8 @@ updates:
     directory: /packages/player
     # Solid's JSX compiler currently requires Babel 7.
     ignore:
+      - dependency-name: "@babel/preset-env"
+        update-types: ["version-update:semver-major"]
       - dependency-name: "@babel/core"
         update-types: ["version-update:semver-major"]
     schedule:
