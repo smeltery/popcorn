@@ -7,7 +7,7 @@
 [![Node](https://img.shields.io/badge/node-24%2B-green)](packages/player/package.json)
 [![Elixir](https://img.shields.io/badge/elixir-1.19%2B-purple)](apps/server/mix.exs)
 [![Flox](https://img.shields.io/badge/flox-integrated-blue)](.flox/env/manifest.toml)
-[![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-component--specific-blue)](LICENSE)
 
 Popcorn is a smeltery monorepo for terminal session recording, playback,
 streaming, hosting, documentation, and rendering tools. It records terminal
@@ -34,7 +34,7 @@ docs should use Popcorn terminology.
 
 ## Status
 
-Popcorn is early and private. The CLI, web player, server, docs site, virtual
+Popcorn is early in development. The CLI, web player, server, docs site, virtual
 terminal, and GIF renderer are in the monorepo. CLI release artifacts are
 published on GitHub Releases. Prefer self-hosted server URLs until public hosted
 infrastructure is announced.
@@ -129,4 +129,4 @@ Agent-facing repo instructions live in [AGENTS.md](AGENTS.md).
 
 ## License
 
-PolyForm Shield License 1.0.0. See [LICENSE](LICENSE).
+Component-specific upstream licenses apply. See [LICENSE](LICENSE).

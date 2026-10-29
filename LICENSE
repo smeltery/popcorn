@@ -1,27 +1,27 @@
-PolyForm Shield License 1.0.0
+Popcorn component licenses
+==========================
 
-Copyright (c) 2026 smeltery
+Popcorn is derived from projects by Marcin Kulik and the asciinema contributors.
+The original licenses and copyrights continue to apply. Popcorn modifications
+are copyright 2026 smeltery and distributed under each component's license.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to use,
-copy, modify, and distribute the Software, subject to the following conditions:
+Component          Upstream project                 License
+crates/cli         asciinema/asciinema               GPL-3.0-or-later
+crates/agg         asciinema/agg                     GPL-3.0-or-later
+crates/avt         asciinema/avt                     Apache-2.0
+packages/player    asciinema/asciinema-player        Apache-2.0
+apps/server        asciinema/asciinema-server        Apache-2.0
 
-1. You may not use the Software to provide a product or service that competes
-   with the Software or any product or service offered by the Licensor that
-   includes the Software.
+Each component contains the full license in its LICENSE file. Source projects
+are available at https://github.com/asciinema/<upstream-project-name>.
 
-2. You may not remove or obscure any licensing, copyright, or other notices
-   included in the Software.
+The documentation in apps/docs derives from asciinema/asciinema.github.io,
+copyright 2023 Marcin Kulik. No blanket license is asserted over upstream
+documentation or artwork. Existing third-party licenses, including the player
+virtual terminal's MIT/Apache notices and bundled font licenses, remain in force.
 
-3. If you distribute the Software or any derivative works, you must include a
-   copy of this license.
+Repository-specific build scripts and original repository documentation are
+licensed under Apache-2.0; see crates/avt/LICENSE for the full text.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-For more information, see https://polyformproject.org/licenses/shield/1.0.0
+The previous PolyForm Shield notices were incorrect and do not replace the
+upstream licenses.

@@ -45,6 +45,6 @@ Notable features:
 
 ---
 
-popcorn server is licensed under the PolyForm Shield License 1.0.0. Source code
+popcorn server is licensed under the Apache-2.0. Source code
 and license are available at
 [github.com/smeltery/popcorn](https://github.com/smeltery/popcorn).

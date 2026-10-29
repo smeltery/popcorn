@@ -51,6 +51,6 @@ Notable features:
 
 ---
 
-popcorn-gif is licensed under the PolyForm Shield License 1.0.0. Source code
+popcorn-gif is licensed under the GPL-3.0-or-later. Source code
 and license are available at
 [github.com/smeltery/popcorn](https://github.com/smeltery/popcorn).

@@ -2,11 +2,11 @@
 name = "popcorn"
 version = "0.1.0"
 edition = "2021"
-authors = ["smeltery"]
+authors = ["Marcin Kulik <m@ku1ik.com>", "smeltery"]
 homepage = "https://popcorn.smeltery.local"
 repository = "https://github.com/smeltery/popcorn"
 description = "Terminal session recorder, streamer, and player"
-license-file = "LICENSE"
+license = "GPL-3.0-or-later"
 
 # MSRV
 rust-version = "1.82.0"

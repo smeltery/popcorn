@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![npm](https://img.shields.io/badge/npm-popcorn--player-red)](package.json)
 [![Node](https://img.shields.io/badge/node-24%2B-green)](package.json)
-[![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache-2.0-blue)](LICENSE)
 
 `popcorn-player` is the browser player for Popcorn terminal session recordings.
 It renders lightweight `.pop` files as interactive terminal playback instead of
@@ -281,5 +281,9 @@ Full user documentation lives in the Popcorn docs:
 
 ## License
 
-`popcorn-player` is licensed under the PolyForm Shield License 1.0.0. See
+`popcorn-player` is licensed under the Apache-2.0. See
 [LICENSE](./LICENSE) for details.
+
+Derived from [asciinema-player](https://github.com/asciinema/asciinema-player).
+Copyright Marcin Kulik and contributors. Popcorn modifications copyright
+2026 smeltery, distributed under the same license.
