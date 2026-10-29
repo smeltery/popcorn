@@ -1,0 +1,65 @@
+name: Auto Release
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types: [completed]
+
+concurrency:
+  group: auto-release-main
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  cut-release:
+    if: >-
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout main with release history
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Check tested commit is still main
+        id: candidate
+        env:
+          TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          if [[ "$(git rev-parse HEAD)" == "$TESTED_SHA" ]]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Skipping superseded CI run for $TESTED_SHA"
+            echo "current=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Select next stable patch tag
+        if: steps.candidate.outputs.current == 'true'
+        id: version
+        run: python3 scripts/next_release_tag.py >> "$GITHUB_OUTPUT"
+
+      - name: Push release tag
+        if: steps.candidate.outputs.current == 'true' && steps.version.outputs.created == 'true'
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+          TESTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          git tag "$RELEASE_TAG" "$TESTED_SHA"
+          git push origin "refs/tags/$RELEASE_TAG"
+
+      # GITHUB_TOKEN tag pushes do not trigger another workflow. Dispatch explicitly,
+      # including on retries, so a failed release can recover using the same tag.
+      - name: Dispatch release build at tested tag
+        if: steps.candidate.outputs.current == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ steps.version.outputs.tag }}
+        run: gh workflow run release.yml --ref "$RELEASE_TAG" -f version="$RELEASE_TAG" -f draft=false

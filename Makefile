@@ -26,6 +26,7 @@ docs:
 
 release-smoke:
 	$(PYTHON) scripts/check_release_workflow.py
+	$(PYTHON) -B scripts/test_next_release_tag.py
 
 rust-format:
 	cargo fmt --all --check

@@ -54,6 +54,22 @@ def main() -> int:
     require("prerelease: ${{ needs.preflight.outputs.is_prerelease }}" in text, "release workflow must preserve prerelease metadata", failures)
     require("make_latest: ${{ needs.preflight.outputs.make_latest }}" in text, "release workflow must set latest metadata from preflight", failures)
 
+    auto_path = WORKFLOW.with_name("auto-release.yml")
+    auto = auto_path.read_text(encoding="utf-8") if auto_path.exists() else ""
+    for required, message in (
+        ('workflows: ["CI"]', "auto-release must wait for the CI workflow"),
+        ("branches: [main]", "auto-release must be limited to main"),
+        ("github.event.workflow_run.conclusion == 'success'", "auto-release must require green CI"),
+        ("github.event.workflow_run.event == 'push'", "auto-release must exclude pull-request runs"),
+        ("github.event.workflow_run.head_repository.full_name == github.repository",
+         "auto-release must exclude fork runs"),
+        ('git tag "$RELEASE_TAG" "$TESTED_SHA"', "auto-release must tag the tested commit"),
+        ('--ref "$RELEASE_TAG" -f version="$RELEASE_TAG" -f draft=false',
+         "auto-release must dispatch a published release at the tested tag"),
+        ("cancel-in-progress: false", "auto-release must serialize tag allocation without cancellation"),
+    ):
+        require(required in auto, message, failures)
+
     if failures:
         print("Release workflow check failed:", file=sys.stderr)
         for failure in failures:

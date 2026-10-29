@@ -98,24 +98,39 @@ The release workflow builds CLI binaries for:
 - `x86_64-apple-darwin`
 - `aarch64-apple-darwin`
 
-Tags must use `vMAJOR.MINOR.PATCH` or a prerelease suffix. The workflow creates
-a draft GitHub release and uploads `popcorn-<target>` artifacts.
+Following [smeltery/hab's auto-release pattern](https://github.com/smeltery/hab/blob/main/.github/workflows/auto-release.yml),
+`auto-release.yml` waits for a successful **CI** push run on `main`. It skips
+failed, pull-request, and superseded runs. It tags the tested commit with the
+next stable patch version and explicitly dispatches `release.yml` at that tag
+with `draft=false`. Explicit dispatch is necessary because tags pushed with
+`GITHUB_TOKEN` do not trigger another workflow.
+
+Version selection ignores prerelease and malformed tags, compares versions
+numerically, and starts at `v0.1.0` if there are no stable tags. Existing history
+is retained (for example, `v3.2.0` advances to `v3.2.1`). Rerunning CI for the
+current commit reuses its existing stable tag and redispatches the release,
+allowing recovery after a failed build without allocating another version.
+Automatic tag creation is serialized and only needs the built-in token with
+`contents: write` and `actions: write`; repository rules must permit tag creation.
+
+Manual `vMAJOR.MINOR.PATCH` and prerelease tag pushes remain supported. Tag
+releases publish immediately. Manual workflow dispatch accepts `version` and
+`draft` inputs and defaults to a draft. To retry a specific tag, run:
+
+```bash
+gh workflow run release.yml --ref v3.2.1 -f version=v3.2.1 -f draft=false
+```
+
+The workflow uploads `popcorn-<target>` binaries plus `SHA256SUMS`. Automatic
+releases advance Git tags; they do not rewrite Cargo package versions.
 
 ```mermaid
-sequenceDiagram
-  autonumber
-  participant Maintainer
-  participant Git as GitHub
-  participant CI as Release workflow
-  participant Release as Draft release
-
-  Maintainer->>Git: push tag vMAJOR.MINOR.PATCH
-  Git->>CI: trigger release workflow
-  CI->>CI: build target binaries
-  CI->>CI: package artifacts
-  CI->>Release: create draft release
-  CI->>Release: upload popcorn-target artifacts
-  Maintainer->>Release: review notes and publish
+flowchart LR
+  CI[Green CI push on main] --> Auto[Select stable patch tag]
+  Auto --> Tag[Tag tested commit]
+  Tag --> Dispatch[Dispatch release at tag]
+  Dispatch --> Build[Validate and build five targets]
+  Build --> Publish[Publish binaries and checksums]
 ```
 
 Do not document package channels as official unless this repository contains
