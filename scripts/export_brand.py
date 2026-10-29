@@ -44,26 +44,46 @@ def text_svg(text: str, x: int, y: int, size: int, color: str, weight: int = 800
     return f'<g transform="translate({x} {y}) scale({size / 1000} {-size / 1000})" fill="{color}">{paths}</g>'
 
 
+def raster_export(svg: str, name: str) -> None:
+    with tempfile.TemporaryDirectory(prefix="popcorn-brand-") as temp:
+        source = Path(temp) / "layout.svg"
+        source.write_text(svg)
+        subprocess.run(["rsvg-convert", str(source), "-o", str(IMAGES / name)], check=True)
+
+
 def main() -> None:
     font = TTFont(BRAND / "fonts/PlusJakartaSans.ttf", recalcTimestamp=False)
     font.flavor = "woff2"
     font.save(BRAND / "fonts/PlusJakartaSans.woff2")
-    paths, width = lettering("popcorn")
-    (IMAGES / "wordmark.svg").write_text(
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-120 -120 {width + 240} 1060">'
-        '<g transform="translate(0 700) scale(1 -1)" fill="#FFF4D6" stroke="#B91C35" '
-        f'stroke-width="65" stroke-linejoin="round" paint-order="stroke">{paths}</g></svg>\n'
-    )
     for size, name in ((16, "favicon-16.png"), (32, "favicon-32.png"),
                        (64, "favicon.png"), (180, "apple-touch-icon.png"), (512, "avatar.png")):
-        subprocess.run(["rsvg-convert", "-w", str(size), "-h", str(size),
-                        str(IMAGES / "icon.svg"), "-o", str(IMAGES / name)], check=True)
+        if size <= 32:
+            source = IMAGES / "icon.svg"
+            subprocess.run(["rsvg-convert", "-w", str(size), "-h", str(size),
+                            str(source), "-o", str(IMAGES / name)], check=True)
+        else:
+            raster_export(
+                '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+                f'width="{size}" height="{size}"><image width="{size}" height="{size}" '
+                f'xlink:href="{image_data("app-icon.png")}"/></svg>', name
+            )
+    # This is an SVG layout of raster masters, not a vector tracing of the artwork.
+    lockup = (
+        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+        'width="1200" height="850" viewBox="0 0 1200 850">'
+        '<defs><clipPath id="mascot-crop"><rect width="1200" height="625"/></clipPath></defs>'
+        f'<image x="110" y="10" width="980" height="896" clip-path="url(#mascot-crop)" '
+        f'xlink:href="{image_data("mascot.png")}"/>'
+        f'<image x="0" y="470" width="1200" height="400" xlink:href="{image_data("wordmark.png")}"/>'
+        '</svg>'
+    )
+    raster_export(lockup, "full-logo.png")
     social = (
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
         'width="1280" height="640" viewBox="0 0 1280 640">'
         '<rect width="1280" height="640" fill="#15151B"/>'
         '<rect x="64" y="68" width="64" height="8" rx="4" fill="#FFCC4D"/>'
-        f'<image x="60" y="115" width="600" height="155" xlink:href="{image_data("wordmark.svg")}"/>'
+        f'<image x="60" y="115" width="600" height="155" xlink:href="{image_data("wordmark.png")}"/>'
         + text_svg("Make your terminal", 72, 325, 40, "#FFF4D6")
         + text_svg("sessions pop.", 72, 380, 40, "#FFF4D6")
         + text_svg("Record, replay, and share.", 72, 440, 26, "#A6A6B3", 500)
@@ -79,7 +99,7 @@ def main() -> None:
     checksums = {
         str(path.relative_to(BRAND)): hashlib.sha256(path.read_bytes()).hexdigest()
         for directory in ("source", "fonts", "images")
-        for path in sorted((BRAND / directory).iterdir())
+        for path in sorted((BRAND / directory).rglob("*"))
         if path.is_file()
     }
     (BRAND / "checksums.json").write_text(json.dumps(checksums, indent=2) + "\n")

@@ -1,3 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <path fill="currentColor" fill-rule="evenodd" d="M13 35C6 31 8 20 16 18C14 8 26 4 32 12C39 4 52 10 49 20C58 23 57 33 51 36H13ZM21 25a3 3 0 1 0 6 0a3 3 0 1 0-6 0ZM37 25a3 3 0 1 0 6 0a3 3 0 1 0-6 0ZM26 31Q32 41 38 31H34Q32 34 30 31ZM13 40H51L46 58H18ZM23 43L25 55H29L27 43ZM37 43L35 55H39L41 43Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 39C5 37 5 29 11 26C3 19 9 9 19 14C19 3 32 1 39 8C49 4 56 13 51 22C60 25 58 35 52 39"/>
+  <path d="M9 36Q12 32 16 39Q20 33 24 40Q28 34 32 41Q37 34 41 40Q46 33 49 38Q53 32 56 36L50 57Q32 62 15 57Z"/>
+  <path d="M17 40L21 56M28 42L29 58M41 41L39 58M51 39L47 56" stroke-width="4"/>
+  <ellipse cx="21" cy="25" rx="3" ry="3.4" fill="currentColor" stroke="none"/>
+  <ellipse cx="42" cy="22" rx="3" ry="3.4" fill="currentColor" stroke="none"/>
+  <path d="M28 29Q33 30 37 27Q39 34 33 35Q28 35 28 29Z" fill="currentColor" stroke="none"/>
 </svg>

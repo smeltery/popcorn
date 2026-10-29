@@ -1,6 +1,6 @@
-# <img src="assets/brand/images/icon.svg" alt="" width="40" height="40" /> Popcorn
+# <img src="assets/brand/images/app-icon.png" alt="" width="40" height="40" /> Popcorn
 
-<img src="assets/brand/images/mascot.png" alt="Popcorn mascot with a laptop" width="240" />
+<img src="assets/brand/images/full-logo.png" alt="Popcorn mascot and wordmark" width="360" />
 
 **Make your terminal sessions pop.**
 

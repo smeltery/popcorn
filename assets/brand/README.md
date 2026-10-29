@@ -6,12 +6,16 @@ Popcorn helps you record, replay, stream, host, share, and render terminal
 sessions. The recording format is **popcast**; its file extension is **`.pop`**.
 Use “Record, replay, and share terminal sessions.” as the short description.
 
+[Preview all four logo variants](preview.html).
+
 ## Assets
 
 - `images/mascot.png`: full-color mascot for README and landing-page artwork.
-- `images/icon.svg`: simplified face/tub mark for navigation and small icons.
-- `images/wordmark.svg`: lowercase outlined lettering; no installed font required.
-- `images/monochrome.svg`: single-color mark using `currentColor` when inline.
+- `images/app-icon.png`: shaded mascot on a red tile, matching the reference board.
+- `images/icon.svg`: matching simplified vector tile for tiny icons and SVG previews.
+- `images/wordmark.png`: custom cream bubble lettering with red edging and gold rays.
+- `images/full-logo.png`: mascot and wordmark combined, for README and larger branding.
+- `images/monochrome.svg`: single-color outlined face/tub mark using `currentColor` when inline.
 - `images/avatar.png`: square 512px avatar.
 - `images/favicon*.png`: 16px, 32px, and 64px icons.
 - `images/apple-touch-icon.png`: 180px icon.
@@ -19,7 +23,7 @@ Use “Record, replay, and share terminal sessions.” as the short description.
 - `source/`: unchanged supplied concepts and proposed guidelines, for reference.
 
 Leave at least 10% clear space around the mascot. Preserve its proportions,
-colors, and face. Use the simplified mark below 64px; omit floating decorations
+colors, and face. Use the simplified mark for 16px and 32px favicons; omit floating decorations
 in small icons. Use transparent artwork on plain backgrounds with good contrast.
 The source brand board is a visual reference, not a sheet of production logos.
 
@@ -55,10 +59,15 @@ python3 scripts/sync_brand.py --player
 python3 scripts/sync_brand.py --player --check
 ```
 
-To regenerate font outlines, WOFF2, icons, and the social preview, install
+The full-color icon and wordmark are high-resolution raster artwork, not vector
+tracings. Plus Jakarta Sans remains the interface font, not the logo lettering.
+The approved visual references are preserved in `source/references/`.
+
+To regenerate WOFF2, icon sizes, the combined logo, and the social preview, install
 `assets/brand/requirements.txt` in a temporary Python environment and provide
 `rsvg-convert` on PATH, then run `python scripts/export_brand.py`. This does
-not regenerate the mascot. The raster master is preserved independently.
+not regenerate the mascot, app icon, or wordmark. Their raster masters are
+preserved independently.
 The export command also records SHA-256 hashes in `checksums.json`.
 
 See [PROVENANCE.md](PROVENANCE.md) for source and licensing information.

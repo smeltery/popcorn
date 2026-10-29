@@ -1,5 +1,27 @@
 # Brand integration validation
 
+## Reference-matching revision
+
+The revised logo family follows the supplied board: shaded red app tile,
+cream bubble wordmark with red extrusion and gold rays, composed full logo,
+and outlined monochrome mark. Review all four in [preview.html](preview.html).
+
+The revision passed `cargo fmt --all --check`, workspace Clippy with warnings
+denied, all 315 workspace Rust tests, all 66 CLI integration checks,
+`make check` (including strict docs build), and `mix assets.build`.
+Recording SVG and admin controller tests passed: 23 tests.
+Brand synchronization and all 26 current source/font/export hashes were checked.
+The previously recorded 195-player-test result applies to the unchanged player
+code; this revision changes image assets and their references.
+
+Full-color icon and wordmark masters are PNGs. The full logo is composed from
+transparent masters; rejected generated variants with background glow are not
+distributed. Tiny favicons and recording SVG previews use the revised vector
+icon. This is a close recreation of the supplied concept, not a claim of
+pixel-exact reproduction or recovered original vector artwork.
+
+## Initial integration record
+
 Reviewed locally on 2026-10-29. Changes are grouped into canonical assets and
 standards, README/docs, and server/player integration.
 

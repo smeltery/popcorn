@@ -40,7 +40,7 @@ theme:
     - content.code.annotation
     - content.code.copy
   language: en
-  logo: assets/brand/icon.svg
+  logo: assets/brand/app-icon.png
   favicon: assets/brand/favicon.png
 
 nav:

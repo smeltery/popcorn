@@ -28,8 +28,30 @@ Clear space is supplied by presentation layout; the raster itself is tightly
 cropped. An additional cleanup edit was evaluated but not selected.
 
 The simplified SVG marks are new project artwork following the supplied
-face/tub concept. The wordmark uses outlined Plus Jakarta Sans ExtraBold.
-`scripts/export_brand.py` produces the typography and export sizes.
+face/tub concept. The original Plus Jakarta Sans wordmark was replaced following
+the user’s request to match the concept board more closely. The new wordmark
+and red app tile are raster artwork recreated with the built-in image tool.
+`scripts/export_brand.py` preserves those masters and produces the combined
+logo, export sizes, and social card. The monochrome mark is an editable SVG.
+
+## Reference-matching revision
+
+The user supplied the full board and cropped logo/icon references, now in
+`source/references/`. The selected generation prompts requested:
+
+- App icon: recreate only the red rounded-square app icon, matching its glossy
+  shading, asymmetrical butter-yellow head, dark eyes with white glints, open
+  red smile, and scalloped red-white tub. No laptop, decorations, or text;
+  transparent outer margin and rounded corners.
+- Wordmark: exact lowercase `popcorn`, tightly packed inflated cream bubble
+  letters, small circular counters, thick cinema-red edging, darker lower
+  extrusion, and two gold rays above the final `n`. Match the middle wordmark
+  panel; transparent background and no mascot or labels.
+
+Generated combined-logo candidates added an unwanted background glow and were
+rejected. The production full logo is composed from the existing transparent
+mascot and the selected wordmark through an SVG layout, then exported as PNG.
+These are close visual recreations, not original vector sources from the board.
 
 ## Fonts
 

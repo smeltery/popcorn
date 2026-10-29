@@ -10,8 +10,9 @@ header nav a.brand img.brand-icon {
 }
 
 header nav a.brand img.brand-wordmark {
-  width: 130px;
-  height: 34px;
+  width: 144px;
+  height: 48px;
+  object-fit: contain;
 }
 
 :is(a, button, input, select, textarea, summary):focus-visible {

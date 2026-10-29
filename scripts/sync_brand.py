@@ -15,7 +15,7 @@ def outputs(player: bool = False) -> dict[Path, bytes]:
     docs = ROOT / "apps/docs/docs"
     server = ROOT / "apps/server"
     cli = ROOT / "crates/cli/assets"
-    for name in ("icon.svg", "wordmark.svg", "mascot.png", "favicon.png",
+    for name in ("icon.svg", "app-icon.png", "wordmark.png", "full-logo.png", "mascot.png", "favicon.png",
                  "apple-touch-icon.png", "social-preview.png"):
         data = (BRAND / "images" / name).read_bytes()
         files[docs / "assets/brand" / name] = data
@@ -23,7 +23,6 @@ def outputs(player: bool = False) -> dict[Path, bytes]:
     files[cli / "favicon.png"] = (BRAND / "images/favicon.png").read_bytes()
     files[docs / "assets/logo.png"] = (BRAND / "images/favicon.png").read_bytes()
     files[server / "priv/static/images/favicon.png"] = (BRAND / "images/favicon.png").read_bytes()
-    files[server / "priv/static/images/logo-red.svg"] = (BRAND / "images/wordmark.svg").read_bytes()
     files[server / "lib/popcorn_web/controllers/recording_svg/logo.svg.heex"] = (
         BRAND / "images/icon.svg"
     ).read_bytes()

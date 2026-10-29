@@ -1,8 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Popcorn" role="img" fill="none">
-  <path d="M13 35C6 31 8 20 16 18C14 8 26 4 32 12C39 4 52 10 49 20C58 23 57 33 51 36Z" fill="#FFF4D6" stroke="#15151B" stroke-width="3" stroke-linejoin="round"/>
-  <circle cx="24" cy="25" r="3" fill="#15151B"/>
-  <circle cx="40" cy="25" r="3" fill="#15151B"/>
-  <path d="M27 32Q32 37 37 32" stroke="#15151B" stroke-width="3" stroke-linecap="round"/>
-  <path d="M13 39H51L46 57H18Z" fill="#F43F4F" stroke="#15151B" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M24 41L26 55M39 41L37 55" stroke="#FFF4D6" stroke-width="5"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-label="Popcorn" role="img">
+  <defs>
+    <linearGradient id="popcorn-tile" x2=".5" y2="1"><stop stop-color="#ff454b"/><stop offset="1" stop-color="#bd151f"/></linearGradient>
+    <radialGradient id="popcorn-kernel" cx=".6" cy=".15" r=".9"><stop stop-color="#fffef0"/><stop offset=".6" stop-color="#fff0b6"/><stop offset="1" stop-color="#ffc950"/></radialGradient>
+    <clipPath id="popcorn-tile-clip"><rect x="2" y="2" width="60" height="60" rx="12"/></clipPath>
+  </defs>
+  <g clip-path="url(#popcorn-tile-clip)">
+    <rect x="2" y="2" width="60" height="60" rx="12" fill="url(#popcorn-tile)"/>
+    <path d="M13 44C6 42 7 33 12 30C5 22 12 14 22 19C22 8 35 5 44 10C53 14 54 22 50 28C59 30 59 41 53 45L45 52L20 52Z" fill="url(#popcorn-kernel)"/>
+    <ellipse cx="23" cy="33" rx="3.6" ry="4.1" fill="#30100d"/>
+    <ellipse cx="43" cy="29" rx="3.6" ry="4.1" fill="#30100d"/>
+    <circle cx="24" cy="31.5" r="1.3" fill="#fff"/>
+    <circle cx="44" cy="27.5" r="1.3" fill="#fff"/>
+    <path d="M29 37Q34 38 39 35Q43 35 40 42Q35 48 30 43Q27 40 29 37Z" fill="#8e120b"/>
+    <path d="M30 42Q35 38 40 41Q36 47 32 44Z" fill="#f43f4f"/>
+    <path d="M9 45Q12 40 16 47Q20 41 24 48Q28 42 32 49Q37 42 41 48Q46 41 49 46Q54 39 57 43L51 64H15Z" fill="#fff8e8"/>
+    <path d="M9 45Q12 40 16 47L20 64H15ZM24 48Q28 42 32 49L32 64H26ZM41 48Q46 41 49 46L45 64H39ZM57 43L51 64H49L53 44Q56 40 57 43Z" fill="#ef2635"/>
+  </g>
 </svg>
