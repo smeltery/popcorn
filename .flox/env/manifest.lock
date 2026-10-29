@@ -46,10 +46,10 @@
     },
     "vars": {
       "POPCORN_PYTHON": "python3.12",
-      "POPCORN_RUST_TOOLCHAIN": "1.87.0"
+      "POPCORN_RUST_TOOLCHAIN": "1.95.0"
     },
     "hook": {
-      "on-activate": "  cd \"$FLOX_ENV_PROJECT\" || exit 1\n\n  if command -v rustup >/dev/null 2>&1; then\n    rustup toolchain install \"${POPCORN_RUST_TOOLCHAIN:-1.87.0}\" --profile minimal --component rustfmt --component clippy >/dev/null\n    rustup target add wasm32-unknown-unknown >/dev/null\n  fi\n\n  if [ ! -x apps/docs/.venv/bin/python ]; then\n    \"${POPCORN_PYTHON:-python3.12}\" -m venv apps/docs/.venv\n  fi\n  apps/docs/.venv/bin/python -m pip install --upgrade pip >/dev/null\n  apps/docs/.venv/bin/python -m pip install -r apps/docs/requirements.txt >/dev/null\n\n  export VIRTUAL_ENV=\"$FLOX_ENV_PROJECT/apps/docs/.venv\"\n  export PATH=\"$VIRTUAL_ENV/bin:$PATH\"\n"
+      "on-activate": "  cd \"$FLOX_ENV_PROJECT\" || exit 1\n\n  if command -v rustup >/dev/null 2>&1; then\n    rustup toolchain install \"${POPCORN_RUST_TOOLCHAIN:-1.95.0}\" --profile minimal --component rustfmt --component clippy >/dev/null\n    rustup target add wasm32-unknown-unknown >/dev/null\n  fi\n\n  if ! command -v mbx >/dev/null 2>&1; then\n    mkdir -p \"$HOME/.local/bin\"\n    case \"$(uname -s)-$(uname -m)\" in\n      Darwin-arm64) archive=mbx-aarch64-apple-darwin.tar.gz ;;\n      Linux-x86_64) archive=mbx-x86_64-unknown-linux-gnu.tar.gz ;;\n      Linux-aarch64|Linux-arm64) archive=mbx-aarch64-unknown-linux-gnu.tar.gz ;;\n      *) archive=\"\" ;;\n    esac\n    if [ -n \"$archive\" ]; then\n      tmp=\"$(mktemp -d)\"\n      if curl -fsSL \"https://github.com/jdx/mr-boxington/releases/latest/download/$archive\" | tar -xzf - -C \"$tmp\" && [ -f \"$tmp/mbx\" ]; then\n        mv \"$tmp/mbx\" \"$HOME/.local/bin/mbx\"\n        chmod +x \"$HOME/.local/bin/mbx\"\n      fi\n      rm -rf \"$tmp\"\n    fi\n  fi\n  case \":$PATH:\" in *\":$HOME/.local/bin:\"*) ;; *) export PATH=\"$HOME/.local/bin:$PATH\" ;; esac\n\n  if [ ! -x apps/docs/.venv/bin/python ]; then\n    \"${POPCORN_PYTHON:-python3.12}\" -m venv apps/docs/.venv\n  fi\n  apps/docs/.venv/bin/python -m pip install --upgrade pip >/dev/null\n  apps/docs/.venv/bin/python -m pip install -r apps/docs/requirements.txt >/dev/null\n\n  export VIRTUAL_ENV=\"$FLOX_ENV_PROJECT/apps/docs/.venv\"\n  export PATH=\"$VIRTUAL_ENV/bin:$PATH\"\n"
     },
     "options": {
       "systems": [
