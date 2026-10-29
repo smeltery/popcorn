@@ -63,7 +63,7 @@ defmodule Popcorn.MixProject do
       {:oban_web, "~> 2.11"},
       {:ok, "~> 2.3"},
       {:phoenix, "~> 1.8.15"},
-      {:phoenix_ecto, "~> 4.5.1"},
+      {:phoenix_ecto, "~> 4.7.0"},
       {:phoenix_view, "~> 2.0.3"},
       {:phoenix_html, "~> 3.3.3"},
       {:phoenix_live_dashboard, "~> 0.8.7"},
