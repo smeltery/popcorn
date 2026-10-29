@@ -26,7 +26,7 @@ which = "8.0"
 tempfile = "3.23"
 avt = { package = "popcorn-terminal", path = "../avt" }
 axum = { version = "0.8", default-features = false, features = ["http1", "ws"] }
-tokio = { version = "1.40", features = ["rt-multi-thread", "net", "sync", "time", "fs", "process"] }
+tokio = { version = "1.54.1", features = ["rt-multi-thread", "net", "sync", "time", "fs", "process"] }
 futures-util = { version = "0.3", default-features = false, features = ["sink"] }
 tokio-stream = { version = "0.1", default-features = false, features = ["sync", "time"] }
 rust-embed = "8.8"
@@ -47,7 +47,7 @@ zstd = "0.13.3"
 [build-dependencies]
 clap = { version = "4.0", features = ["derive", "wrap_help"] }
 clap_complete = "4.0"
-clap_mangen = "0.2"
+clap_mangen = "0.3"
 url = "2.5"
 
 [features]

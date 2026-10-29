@@ -25,7 +25,8 @@ impl DevTty {
             .custom_flags(libc::O_NONBLOCK)
             .open("/dev/tty")?;
 
-        let file = AsyncFd::new(file)?;
+        // SAFETY: AsyncFd owns this open descriptor; it is never replaced or closed early.
+        let file = unsafe { AsyncFd::register(file) }?;
         let settings = super::make_raw(&file)?;
 
         Ok(Self { file, settings })
