@@ -1,12 +1,12 @@
 [package]
 name = "popcorn-gif"
 version = "0.1.0"
-authors = ["smeltery"]
+authors = ["Marcin Kulik <m@ku1ik.com>", "smeltery"]
 edition = "2021"
 homepage = "https://popcorn.smeltery.local/docs/manual/popcorn-gif/"
 repository = "https://github.com/smeltery/popcorn"
 description = "popcorn gif generator"
-license-file = "LICENSE"
+license = "GPL-3.0-or-later"
 
 include = [
     "/Cargo.lock",

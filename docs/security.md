@@ -206,7 +206,7 @@ Security expectations:
 
 ## Dependency Security
 
-First-party code is licensed under PolyForm Shield 1.0.0. Third-party crates,
+Popcorn components retain their upstream licenses; see the root LICENSE. Third-party crates,
 npm packages, Hex dependencies, Python packages, fonts, and runtime images keep
 their own licenses and security update cadence.
 

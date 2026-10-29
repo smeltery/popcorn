@@ -2,7 +2,7 @@
 
 [![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
 [![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
-[![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](../../LICENSE)
+[![License](https://img.shields.io/badge/license-component--specific-blue)](../../LICENSE)
 
 Parser is a function, which transforms a recording encoded in an arbitrary file
 format into a simple object representing terminal recording. Once the player

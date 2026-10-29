@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![Crate](https://img.shields.io/badge/crate-popcorn--gif-orange)](Cargo.toml)
 [![Rust](https://img.shields.io/badge/rust-1.85%2B-orange)](Cargo.toml)
-[![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-GPL-3.0-or-later-blue)](LICENSE)
 
 `popcorn-gif` renders animated GIF files from Popcorn terminal session
 recordings.
@@ -242,5 +242,9 @@ Full user documentation lives in the Popcorn docs:
 
 ## License
 
-`popcorn-gif` is licensed under the PolyForm Shield License 1.0.0. See
+`popcorn-gif` is licensed under the GPL-3.0-or-later. See
 [LICENSE](./LICENSE) for details.
+
+Derived from [agg](https://github.com/asciinema/agg).
+Copyright Marcin Kulik and contributors. Popcorn modifications copyright
+2026 smeltery, distributed under the same license.

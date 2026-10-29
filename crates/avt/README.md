@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![Crate](https://img.shields.io/badge/crate-popcorn--terminal-orange)](Cargo.toml)
 [![Rust](https://img.shields.io/badge/rust-1.82%2B-orange)](Cargo.toml)
-[![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](LICENSE)
+[![License](https://img.shields.io/badge/license-Apache-2.0-blue)](LICENSE)
 
 `popcorn-terminal` is Popcorn's virtual terminal engine. It parses terminal
 control sequences, maintains screen state, and exposes a stable model that the
@@ -182,5 +182,9 @@ cargo test --workspace --locked
 
 ## License
 
-`popcorn-terminal` is licensed under the PolyForm Shield License 1.0.0. See
+`popcorn-terminal` is licensed under the Apache-2.0. See
 [LICENSE](./LICENSE) for details.
+
+Derived from [avt](https://github.com/asciinema/avt).
+Copyright Marcin Kulik and contributors. Popcorn modifications copyright
+2026 smeltery, distributed under the same license.

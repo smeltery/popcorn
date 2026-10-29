@@ -2,10 +2,10 @@
 name = "popcorn-terminal"
 version = "0.1.0"
 edition = "2021"
-authors = ["smeltery"]
+authors = ["Marcin Kulik <m@ku1ik.com>", "smeltery"]
 repository = "https://github.com/smeltery/popcorn"
 description = "popcorn virtual terminal"
-license-file = "LICENSE"
+license = "Apache-2.0"
 
 # MSRV
 rust-version = "1.82.0"

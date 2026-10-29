@@ -27,8 +27,7 @@ Before sharing a recording:
 
 ## Licensing
 
-First-party Popcorn packages are licensed under the PolyForm Shield License
-1.0.0. See the repository
+Popcorn packages retain their upstream GPL-3.0-or-later or Apache-2.0 licenses. See the repository
 [LICENSE](https://github.com/smeltery/popcorn/blob/main/LICENSE) for details.
 
 Third-party dependencies and bundled fonts keep their own licenses and notices.

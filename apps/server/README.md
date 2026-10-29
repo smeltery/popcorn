@@ -4,7 +4,7 @@
 [![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
 [![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![Elixir](https://img.shields.io/badge/elixir-1.19%2B-purple)](mix.exs)
-[![License](https://img.shields.io/badge/license-PolyForm%20Shield%201.0.0-blue)](../../LICENSE)
+[![License](https://img.shields.io/badge/license-Apache-2.0-blue)](../../LICENSE)
 
 Popcorn server is the server-side component of the Popcorn ecosystem.
 
@@ -46,5 +46,9 @@ further details.
 
 ## License
 
-Popcorn server is licensed under the PolyForm Shield License 1.0.0. See
+Popcorn server is licensed under the Apache-2.0. See
 [LICENSE](./LICENSE) for details.
+
+Derived from [asciinema-server](https://github.com/asciinema/asciinema-server).
+Copyright Marcin Kulik and contributors. Popcorn modifications copyright
+2026 smeltery, distributed under the same license.
