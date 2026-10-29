@@ -8,7 +8,7 @@ defmodule PopcornWeb.FallbackController do
   defp error(conn, status) do
     conn =
       conn
-      |> put_layout(:simple)
+      |> put_layout(html: :simple)
       |> put_status(status)
 
     case get_format(conn) do

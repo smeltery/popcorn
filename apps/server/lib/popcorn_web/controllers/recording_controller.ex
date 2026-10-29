@@ -206,7 +206,7 @@ defmodule PopcornWeb.RecordingController do
       send_resp(conn, 410, "")
     else
       conn
-      |> put_layout("simple.html")
+      |> put_layout(html: :simple)
       |> render("gif.html",
         file_url: popcast_file_url(popcast),
         popcast_id: popcast.id
@@ -476,7 +476,7 @@ defmodule PopcornWeb.RecordingController do
   def iframe(conn, params) do
     conn =
       conn
-      |> put_layout("iframe.html")
+      |> put_layout(html: :iframe)
       |> delete_resp_header("x-frame-options")
 
     if conn.assigns.popcast.archived_at do
