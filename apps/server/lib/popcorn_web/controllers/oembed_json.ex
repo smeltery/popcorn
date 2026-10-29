@@ -1,7 +1,7 @@
 defmodule PopcornWeb.OembedJSON do
   use PopcornWeb, :json
   alias PopcornWeb.UserHTML
-  alias Phoenix.HTML.Tag
+  alias PhoenixHTMLHelpers.Tag
 
   def show(%{popcast: popcast, max_width: mw, max_height: mh}) do
     attrs(popcast, mw, mh)

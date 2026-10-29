@@ -1,5 +1,5 @@
 defmodule PopcornWeb.ApplicationView do
-  import Phoenix.HTML.Tag, only: [content_tag: 3]
+  import PhoenixHTMLHelpers.Tag, only: [content_tag: 3]
   alias Popcorn.Accounts
 
   def present?([]), do: false
