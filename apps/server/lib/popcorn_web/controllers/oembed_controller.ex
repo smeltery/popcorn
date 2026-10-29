@@ -3,7 +3,7 @@ defmodule PopcornWeb.OembedController do
   alias Popcorn.Recordings
   alias PopcornWeb.Authorization
 
-  plug :put_layout, nil
+  plug :put_layout, false
 
   def show(conn, params) do
     with {:ok, path} <- parse_url(params["url"] || ""),

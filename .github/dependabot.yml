@@ -20,6 +20,10 @@ updates:
 
   - package-ecosystem: bun
     directory: /packages/player
+    # Solid's JSX compiler currently requires Babel 7.
+    ignore:
+      - dependency-name: "@babel/core"
+        update-types: ["version-update:semver-major"]
     schedule:
       interval: weekly
     open-pull-requests-limit: 5

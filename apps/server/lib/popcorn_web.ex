@@ -22,7 +22,8 @@ defmodule PopcornWeb do
   def controller do
     quote do
       use Phoenix.Controller,
-        formats: [:html, :json, :svg, :xml, :text]
+        formats: [:html, :json, :svg, :xml, :text],
+        layouts: [html: {PopcornWeb.LayoutView, :app}]
 
       import Plug.Conn
       import PopcornWeb.UrlHelpers
