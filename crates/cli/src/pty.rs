@@ -74,7 +74,8 @@ pub fn spawn<S: AsRef<str>>(
     match result {
         ForkptyResult::Parent { child, master } => {
             master.set_nonblocking()?;
-            let master = AsyncFd::new(master)?;
+            // SAFETY: AsyncFd owns this open descriptor; it is never replaced or closed early.
+            let master = unsafe { AsyncFd::register(master) }?;
 
             Ok(Pty { child, master })
         }

@@ -46,11 +46,13 @@ impl DevTty {
 
         let (read_r_fd, read_w_fd) = unistd::pipe()?;
         read_r_fd.set_nonblocking()?;
-        let read_r_fd = AsyncFd::new(read_r_fd)?;
+        // SAFETY: AsyncFd owns this open descriptor; it is never replaced or closed early.
+        let read_r_fd = unsafe { AsyncFd::register(read_r_fd) }?;
 
         let (write_r_fd, write_w_fd) = unistd::pipe()?;
         write_w_fd.set_nonblocking()?;
-        let write_w_fd = AsyncFd::new(write_w_fd)?;
+        // SAFETY: AsyncFd owns this open descriptor; it is never replaced or closed early.
+        let write_w_fd = unsafe { AsyncFd::register(write_w_fd) }?;
 
         // Note about unsafe borrow below: This is on purpose. We can't move proper BorrowedFd to a
         // thread (does not live long enough), and we also don't want to use Arc because the
