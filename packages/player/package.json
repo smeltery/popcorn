@@ -40,7 +40,7 @@
     "printWidth": 100
   },
   "dependencies": {
-    "@babel/runtime": "^7.29.7",
+    "@babel/runtime": "^8.0.0",
     "solid-js": "^1.9.14",
     "solid-transition-group": "^0.2.3"
   },
