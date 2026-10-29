@@ -9,7 +9,7 @@ description = "Terminal session recorder, streamer, and player"
 license = "GPL-3.0-or-later"
 
 # MSRV
-rust-version = "1.82.0"
+rust-version = "1.95.0"
 
 [dependencies]
 anyhow = "1.0"
@@ -20,7 +20,7 @@ clap = { version = "4.0", features = ["derive", "wrap_help"] }
 signal-hook = { version = "0.3", default-features = false }
 uuid = { version = "1.6", features = ["v4"] }
 reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls-native-roots", "multipart", "gzip", "json", "stream"] }
-rustyline = { version = "17.0", default-features = false }
+rustyline = { version = "19.0", default-features = false }
 config = { version = "0.15", default-features = false, features = ["toml"] }
 which = "8.0"
 tempfile = "3.23"

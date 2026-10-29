@@ -16,7 +16,7 @@ flox activate
 The environment provides Git/GitHub tooling, Rust bootstrap through `rustup`,
 Node 24, Python 3.12 for docs, Elixir tooling, `fd`, ImageMagick, `actionlint`,
 `pre-commit`, `shellcheck`, and shared command-line utilities. The activation
-hook installs the Rust 1.87 toolchain, installs
+hook installs the Rust 1.95 toolchain, installs
 [`mbx`](https://mr-boxington.jdx.dev) when missing, and prepares
 `apps/docs/.venv`. Use `mbx` for compiling Cargo commands (`build`, `clippy`,
 `test`); leave `cargo fmt` as `cargo`.
@@ -25,7 +25,7 @@ hook installs the Rust 1.87 toolchain, installs
 flowchart TD
   Clone["Fresh clone"]
   Flox["flox activate"]
-  Rust["Rust toolchain\n1.87 with clippy and rustfmt"]
+  Rust["Rust toolchain\n1.95 with clippy and rustfmt"]
   Node["Node 24\nplayer and server assets"]
   Python["Python 3.12\nMkDocs virtualenv"]
   Elixir["Elixir and Hex tooling\nserver checks"]

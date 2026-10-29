@@ -176,6 +176,7 @@ test("powerline rounded symbols render as SVG shapes", async ({ page }) => {
   await playerApi.events.waitFor("ended");
 
   const expectedCodepoints = [0xe0b4, 0xe0b5, 0xe0b6, 0xe0b7];
+  await expect(page.locator(".ap-term-symbols symbol")).toHaveCount(expectedCodepoints.length);
 
   const renderedSymbols = await page.locator(".ap-term-symbols").evaluate((node) => {
     return {
@@ -221,6 +222,7 @@ test("powerline extra symbols render as SVG shapes", async ({ page }) => {
   await playerApi.events.waitFor("ended");
 
   const expectedCodepoints = [0xe0b8, 0xe0b9, 0xe0ba, 0xe0bb, 0xe0bc, 0xe0bd, 0xe0be, 0xe0bf];
+  await expect(page.locator(".ap-term-symbols symbol")).toHaveCount(expectedCodepoints.length);
 
   const renderedSymbols = await page.locator(".ap-term-symbols").evaluate((node) => {
     return {

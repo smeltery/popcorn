@@ -264,11 +264,9 @@ fn parse_key<S: AsRef<str>>(key: S) -> Result<Key> {
             return Ok(Some(str.as_bytes().into()));
         }
 
-        2 => {
-            if chars[0] == '^' {
-                if let Some(key) = parse_control_key(chars[1]) {
-                    return Ok(Some(vec![key]));
-                }
+        2 if chars[0] == '^' => {
+            if let Some(key) = parse_control_key(chars[1]) {
+                return Ok(Some(vec![key]));
             }
         }
 
