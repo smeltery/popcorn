@@ -76,7 +76,7 @@ defmodule Popcorn.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:process_tree, "~> 0.3.0", only: :test},
       {:remote_ip, "~> 1.1"},
-      {:rustler, "~> 0.37.1"},
+      {:rustler, "~> 0.38.0"},
       {:scrivener_ecto, "~> 2.4"},
       {:sentry, "~> 13.3"},
       {:stream_data, "~> 1.0", only: :test},
