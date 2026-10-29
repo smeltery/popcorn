@@ -6,9 +6,9 @@
     "defaults"
   ],
   "dependencies": {
-    "popcorn-player": "file:../../../packages/player",
     "phoenix": "1.8.15",
     "phoenix_html": "3.3.4",
-    "phoenix_live_view": "1.2.12"
+    "phoenix_live_view": "1.2.13",
+    "popcorn-player": "file:../../../packages/player"
   }
 }
