@@ -4,7 +4,7 @@
 [![Release](https://github.com/smeltery/popcorn/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/popcorn/actions/workflows/release.yml)
 [![Latest Release](https://img.shields.io/github/v/release/smeltery/popcorn?sort=semver)](https://github.com/smeltery/popcorn/releases/latest)
 [![Crate](https://img.shields.io/badge/crate-popcorn-orange)](Cargo.toml)
-[![Rust](https://img.shields.io/badge/rust-1.82%2B-orange)](Cargo.toml)
+[![Rust](https://img.shields.io/badge/rust-1.95%2B-orange)](Cargo.toml)
 [![License](https://img.shields.io/badge/license-GPL-3.0-or-later-blue)](LICENSE)
 
 `popcorn` is the command-line application for recording, replaying, converting,

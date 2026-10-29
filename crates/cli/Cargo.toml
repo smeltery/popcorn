@@ -9,7 +9,7 @@ description = "Terminal session recorder, streamer, and player"
 license = "GPL-3.0-or-later"
 
 # MSRV
-rust-version = "1.82.0"
+rust-version = "1.95.0"
 
 [dependencies]
 anyhow = "1.0"

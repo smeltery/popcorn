@@ -2,10 +2,6 @@ version: 2
 updates:
   - package-ecosystem: cargo
     directory: /
-    # Rustyline 19 requires language features newer than our Rust 1.87 baseline.
-    ignore:
-      - dependency-name: rustyline
-        update-types: ["version-update:semver-major"]
     schedule:
       interval: weekly
     groups:
