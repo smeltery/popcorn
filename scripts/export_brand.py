@@ -18,8 +18,9 @@ BRAND = Path(__file__).resolve().parents[1] / "assets/brand"
 IMAGES = BRAND / "images"
 
 
-def lettering(text: str, weight: int = 800) -> tuple[str, int]:
-    font = instantiateVariableFont(TTFont(BRAND / "fonts/PlusJakartaSans.ttf"), {"wght": weight})
+def lettering(text: str, weight: int = 800, mono: bool = False) -> tuple[str, int]:
+    font = (TTFont(BRAND / "fonts/JetBrainsMono-Regular.woff2") if mono else
+            instantiateVariableFont(TTFont(BRAND / "fonts/PlusJakartaSans.ttf"), {"wght": weight}))
     glyphs = font.getGlyphSet()
     cmap = font.getBestCmap()
     x = 0
@@ -39,8 +40,8 @@ def image_data(name: str) -> str:
     return f"data:{mime};base64," + base64.b64encode(path.read_bytes()).decode()
 
 
-def text_svg(text: str, x: int, y: int, size: int, color: str, weight: int = 800) -> str:
-    paths, _ = lettering(text, weight)
+def text_svg(text: str, x: int, y: int, size: int, color: str, weight: int = 800, mono: bool = False) -> str:
+    paths, _ = lettering(text, weight, mono)
     return f'<g transform="translate({x} {y}) scale({size / 1000} {-size / 1000})" fill="{color}">{paths}</g>'
 
 
@@ -78,24 +79,41 @@ def main() -> None:
         '</svg>'
     )
     raster_export(lockup, "full-logo.png")
-    social = (
+    horizontal = (
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
-        'width="1280" height="640" viewBox="0 0 1280 640">'
-        '<rect width="1280" height="640" fill="#15151B"/>'
-        '<rect x="64" y="68" width="64" height="8" rx="4" fill="#FFCC4D"/>'
-        f'<image x="60" y="115" width="600" height="155" xlink:href="{image_data("wordmark.png")}"/>'
-        + text_svg("Make your terminal", 72, 325, 40, "#FFF4D6")
-        + text_svg("sessions pop.", 72, 380, 40, "#FFF4D6")
-        + text_svg("Record, replay, and share.", 72, 440, 26, "#A6A6B3", 500)
-        + '<rect x="72" y="475" width="480" height="65" rx="12" fill="#23232D"/>'
-        + text_svg("$ popcorn rec demo.pop", 95, 517, 25, "#FFCC4D", 600)
-        + f'<image x="710" y="70" width="500" height="500" xlink:href="{image_data("mascot.png")}"/>'
-        + '</svg>'
+        'width="800" height="200">'
+        f'<image x="0" y="0" width="200" height="200" xlink:href="{image_data("mascot-bust.png")}"/>'
+        f'<image x="190" y="0" width="600" height="200" xlink:href="{image_data("wordmark.png")}"/>'
+        '</svg>'
     )
-    with tempfile.TemporaryDirectory(prefix="popcorn-brand-") as temp:
-        source = Path(temp) / "social.svg"
-        source.write_text(social)
-        subprocess.run(["rsvg-convert", str(source), "-o", str(IMAGES / "social-preview.png")], check=True)
+    raster_export(horizontal, "horizontal-logo.png")
+    for surface, color in (("light", "#FFFCF5"), ("dark", "#15151B")):
+        raster_export(horizontal.replace('<image', f'<rect width="800" height="200" fill="{color}"/><image', 1),
+                      f"horizontal-logo-{surface}.png")
+    for name, height in (("social-banner.png", 400), ("social-preview.png", 640)):
+        offset = (height - 400) // 2
+        social = (
+            '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" '
+            f'width="1280" height="{height}">'
+            '<defs><radialGradient id="glow"><stop stop-color="#574031"/>'
+            '<stop offset="1" stop-color="#15151B"/></radialGradient></defs>'
+            f'<rect width="1280" height="{height}" fill="url(#glow)"/>'
+            f'<g transform="translate(0 {offset})">'
+            f'<image x="-65" y="-40" width="510" height="510" xlink:href="{image_data("mascot.png")}"/>'
+            f'<image x="420" y="70" width="520" height="173" xlink:href="{image_data("wordmark.png")}"/>'
+            + text_svg("Make your terminal sessions", 455, 270, 23, "#FFF4D6")
+            + text_svg("pop.", 630, 310, 30, "#FFCC4D")
+            + text_svg("Record, replay,", 960, 142, 17, "#FFF4D6", mono=True)
+            + text_svg("stream, host", 960, 172, 17, "#FFF4D6", mono=True)
+            + text_svg("and render", 960, 202, 17, "#FFF4D6", mono=True)
+            + text_svg(".pop files.", 960, 232, 17, "#FFCC4D", mono=True)
+            + text_svg("$ popcorn rec demo.pop", 490, 362, 19, "#FFF4D6", mono=True)
+            + f'<image x="1170" y="-25" width="130" height="130" xlink:href="{image_data("popcorn-kernel.png")}"/>'
+            + f'<image x="1110" y="290" width="170" height="170" xlink:href="{image_data("popcorn-kernel.png")}"/>'
+            + f'<image x="390" y="-55" width="110" height="110" xlink:href="{image_data("popcorn-kernel.png")}"/>'
+            + '</g></svg>'
+        )
+        raster_export(social, name)
     checksums = {
         str(path.relative_to(BRAND)): hashlib.sha256(path.read_bytes()).hexdigest()
         for directory in ("source", "fonts", "images")

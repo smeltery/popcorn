@@ -72,3 +72,19 @@ The export command also records SHA-256 hashes in `checksums.json`.
 
 See [PROVENANCE.md](PROVENANCE.md) for source and licensing information.
 See [VALIDATION.md](VALIDATION.md) for the integration review and checks.
+
+## Hero and supporting assets
+
+Use `horizontal-logo.png` for navigation: it combines the standalone mascot
+bust and approved wordmark without an app tile. The `-light` and `-dark` exports
+show background usage. `popcorn-kernel.png` and `gold-rays.svg` are reusable
+transparent decorations; mark decorative instances with empty alt text.
+`social-banner.png` is 1280 × 400; `social-preview.png` is 1280 × 640. Both keep
+the mascot left and the wordmark central. The latter remains the server's
+default social image. Repository social-preview settings are managed separately.
+
+`ui.css` supplies primary/secondary buttons to docs and server. Dark text on
+bright red preserves contrast; gold focus rings have a dark separating edge.
+Player progress uses cinema red independently of its gold focus cues and the
+recording's terminal palette. The docs homepage uses a real, downloadable
+10-second recording with no autoplay. Play, pause and seek use the shared player.

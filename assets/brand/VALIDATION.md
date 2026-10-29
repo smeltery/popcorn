@@ -1,5 +1,38 @@
 # Brand integration validation
 
+## Homepage and supporting artwork revision
+
+Reviewed on 2026-10-29. The homepage now uses the cinematic hero, cropped
+mascot, gold emphasis, working CTAs, and a real terminal player inside the
+rounded traffic-light window. Navigation uses the standalone bust/wordmark.
+Both social sizes use the left-mascot composition and JetBrains Mono command
+text. Decorative kernels, rays, transparent lockup and light/dark usage samples
+are in the canonical asset library and synchronized to docs/server.
+
+- Required Rust formatting and Clippy checks passed; all 315 Rust tests and
+  66 CLI integration checks passed.
+- Player build and all 195 tests passed, including Chromium and Firefox.
+- Server asset build and all 24 affected server tests passed.
+- Strict docs build, repository hygiene, brand sync and checksum checks passed.
+- Browser review at 1440px and 390px: no horizontal page overflow, missing
+  images or docs page errors. Reviewed light/dark homepage, public server
+  navigation, horizontal lockups, and both social layouts.
+- Get Started reaches the local guide; GitHub points to the repository.
+  Play/pause work and seeking reaches 00:07. The terminal scales to the mobile
+  container and uses JetBrains Mono. Red progress is independent of terminal
+  theme and font options, covered by the player regression suite.
+- Keyboard focus is a visible 3px gold outline with a dark separating edge.
+  Midnight labels on the darkest primary-button gradient stop measure 4.91:1;
+  cream on the dark secondary button measures 16.59:1. Hero decorations have
+  empty alt text and the demo does not autoplay.
+- New raster masters retain alpha channels and render without visible boxes
+  on light/dark surfaces; light/dark usage exports intentionally have backgrounds.
+  The generated masters have near-transparent edge pixels (including 1/255
+  alpha), rather than uniformly zero alpha at every outside pixel.
+
+This remains a close visual recreation of the board. GitHub's repository
+social-preview setting is not changed by committing the provided image.
+
 ## Reference-matching revision
 
 The revised logo family follows the supplied board: shaded red app tile,

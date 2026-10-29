@@ -782,6 +782,7 @@ div.ap-player {
   --ap-control-background: var(--popcorn-midnight);
   --ap-control-foreground: var(--popcorn-cream);
   --ap-control-accent: var(--popcorn-gold);
+  --ap-control-progress: var(--popcorn-red);
 }
 div.ap-player div.ap-control-bar {
   background: var(--ap-control-background);
@@ -795,7 +796,7 @@ div.ap-player div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-empty {
   background: var(--popcorn-muted);
 }
 div.ap-player div.ap-control-bar .ap-progressbar .ap-bar .ap-gutter-full {
-  background: var(--ap-control-accent);
+  background: var(--ap-control-progress);
 }
 div.ap-player div.ap-control-bar button:focus-visible {
   outline: 2px solid var(--ap-control-accent);

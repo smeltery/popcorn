@@ -4,24 +4,27 @@ hide:
   - toc
 ---
 
-# Popcorn
+<section class="brand-hero" aria-labelledby="brand-heading">
+  <div class="brand-copy">
+    <h1 id="brand-heading">Make your terminal sessions <em>pop.</em></h1>
+    <p>Record, replay, stream, host and render terminal sessions in <strong>.pop</strong> files.</p>
+    <div class="brand-actions">
+      <a class="popcorn-button popcorn-button-primary" href="getting-started/">Get Started <span aria-hidden="true">→</span></a>
+      <a class="popcorn-button popcorn-button-secondary" href="https://github.com/smeltery/popcorn">View on GitHub</a>
+    </div>
+  </div>
+  <div class="brand-art" aria-hidden="true">
+    <img class="brand-rays" src="assets/brand/gold-rays.svg" alt="" width="160" height="120">
+    <img class="brand-hero-mascot" src="assets/brand/mascot.png" alt="" width="1280" height="1200">
+    <img class="brand-kernel" src="assets/brand/popcorn-kernel.png" alt="" width="1024" height="1024">
+  </div>
+</section>
 
-<div class="brand-hero" markdown>
-<div markdown>
-<p class="brand-tagline">Make your terminal sessions pop.</p>
-
-Record, replay, and share terminal sessions.
-
-```sh
-popcorn rec demo.pop
-popcorn play demo.pop
-```
-
-</div>
-<div class="brand-art">
-<img src="assets/brand/mascot.png" alt="Popcorn mascot recording a terminal session on a laptop" width="1280" height="1200">
-</div>
-</div>
+<section class="brand-demo" aria-label="Popcorn terminal demo">
+  <div class="brand-window-bar"><span class="brand-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>demo.pop</span></div>
+  <div id="player-home" class="brand-terminal"></div>
+  <noscript>Enable JavaScript to play the terminal demo, or <a href="assets/casts/brand-demo.pop">download the recording</a>.</noscript>
+</section>
 
 Popcorn is a smeltery toolkit for recording, playing, streaming, hosting, and
 sharing terminal sessions. It stores recordings as lightweight `.pop` files

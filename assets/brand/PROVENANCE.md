@@ -66,3 +66,23 @@ These are close visual recreations, not original vector sources from the board.
 
 Both font license notices accompany the distributed webfont copies.
 Existing upstream software attribution remains in the component licenses.
+
+## Homepage and banner revision
+
+`mascot-bust.png` and `popcorn-kernel.png` were recreated with the built-in
+image tool using the approved board as reference. The bust prompt requested
+the icon character without its red tile, laptop, wordmark, rays or background:
+asymmetrical ivory head, glossy brown eyes, open red smile, striped scalloped
+tub and transparent margins. The kernel prompt requested a single four-lobed
+ivory/butter-gold popcorn piece with soft 3D shading, no face, glow or shadow,
+and a transparent background. These are visual recreations, not extracted
+original artwork. Existing approved mascot, wordmark and app-icon masters
+remain unchanged.
+
+Gold rays are native SVG. Horizontal lockups and both social layouts are
+reproducible SVG compositions exported by `scripts/export_brand.py`. Social
+commands and supporting text use outlines from JetBrains Mono; the headline
+uses Plus Jakarta Sans. Light/dark usage exports intentionally include their
+surface backgrounds; `horizontal-logo.png` is the transparent production asset.
+The homepage demo is a short authored popcast fixture, not a captured user
+session.

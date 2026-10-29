@@ -4,13 +4,8 @@ header nav a.brand {
   gap: .5rem;
 }
 
-header nav a.brand img.brand-icon {
-  width: 40px;
-  height: 40px;
-}
-
-header nav a.brand img.brand-wordmark {
-  width: 144px;
+header nav a.brand img.brand-lockup {
+  width: 192px;
   height: 48px;
   object-fit: contain;
 }

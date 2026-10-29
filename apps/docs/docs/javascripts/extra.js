@@ -1,4 +1,9 @@
 document$.subscribe(function() {
+  createPlayer('assets/casts/brand-demo.pop', 'player-home', {
+    poster: 'npt:5', controls: true, fit: 'width', terminalFontSize: 18,
+    theme: 'auto/popcorn',
+  });
+
   // manual -> cli
 
   createPlayer('../../../assets/casts/intro.pop', 'player-manual-cli-intro', { poster: 'npt:1:17' });

@@ -1,0 +1,8 @@
+{"version": 2, "width": 64, "height": 10, "title": "Popcorn quick demo", "theme": {"fg": "#fff4d6", "bg": "#15151b", "palette": "#15151b:#f43f4f:#72da6b:#ffcc4d:#7ab7ff:#d399ee:#7edbd5:#fff4d6:#62626f:#ff8c98:#9bea96:#ffe89a:#a9d1ff:#e2baf4:#a8e9e5:#ffffff"}}
+[0, "o", "$ \u001b[31mpopcorn\u001b[0m rec demo.pop\r\n"]
+[0.6, "o", "  \u001b[31m\u25cf\u001b[0m Recording terminal session...\r\n"]
+[2, "o", "  Saved to demo.pop\r\n\r\n"]
+[3, "o", "$ \u001b[31mpopcorn\u001b[0m play demo.pop\r\n"]
+[4, "o", "  \u001b[32m\u25b6\u001b[0m Replaying terminal session...\r\n"]
+[7, "o", "\r\n  Make your terminal sessions \u001b[33mpop.\u001b[0m\r\n"]
+[10, "o", "\r\n$ "]
