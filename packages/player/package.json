@@ -40,8 +40,8 @@
     "printWidth": 100
   },
   "dependencies": {
-    "@babel/runtime": "^8.0.8",
-    "solid-js": "^1.9.17",
+    "@babel/runtime": "^8.0.10",
+    "solid-js": "^1.9.18",
     "solid-transition-group": "^0.3.0"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "@rollup/plugin-terser": "^1.0.2",
     "@wasm-tool/rollup-plugin-rust": "^3.1.6",
     "babel-preset-solid": "^1.9.16",
-    "eslint": "^10.13.0",
+    "eslint": "^10.14.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
@@ -63,6 +63,6 @@
     "eslint-plugin-prettier": "^5.5.7",
     "less": "4.9.1",
     "prettier": "3.9.10",
-    "rollup": "^4.65.0"
+    "rollup": "^4.67.4"
   }
 }
